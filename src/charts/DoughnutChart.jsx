@@ -96,7 +96,6 @@ function DoughnutChart({
       }],
     });
     return () => chart.destroy();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

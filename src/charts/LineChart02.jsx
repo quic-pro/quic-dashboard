@@ -126,7 +126,6 @@ function LineChart02({
       }],
     });
     return () => chart.destroy();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /
+Sitemap: http://dashboard.quic.pro/sitemap.xml
+Host: http://dashboard.quic.pro/

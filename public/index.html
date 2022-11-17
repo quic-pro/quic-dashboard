@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Digital technologies unite people.">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@"> -->
+    <meta name="twitter:title" content="QUIC-PRO Inc.">
+    <meta name="twitter:description" content="Digital technologies unite people.">
+    <meta name="twitter:image:alt" content="QUIC-PRO Inc.">
+    <meta name="twitter:image" content="%REACT_APP_DOMAIN%/icon/android-chrome-512x512.png">
+
+
+    <meta property="og:image" content="%PUBLIC_URL%/icon/android-chrome-512x512.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="QUIC-PRO Inc.">
+    <meta property="og:description" content="Digital technologies unite people.">
+    <meta property="og:url" content="%REACT_APP_DOMAIN%">
+    <meta property="og:site_name" content="QUIC-PRO Inc.">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow, nomax-image-preview:large">
+    <meta name="keywords" content="mint phone nomber, metaverse, phone nomber in metaverse, metaverse calls">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+
+    <link rel="icon" href="%PUBLIC_URL%/icon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/icon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="%PUBLIC_URL%/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/icon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="%PUBLIC_URL%/icon/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="%PUBLIC_URL%/icon/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="%PUBLIC_URL%./icons/favicon.ico">
+
+    <link rel="mask-icon" href="%PUBLIC_URL%/icon/safari-pinned-tab.svg" color="#5bbad5">
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-HR06K8D9ZC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HR06K8D9ZC');
+    </script> -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+</body>
+
+</html>

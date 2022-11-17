@@ -1,0 +1,48 @@
+{
+  "name": "quic-dashboard",
+  "version": "0.1.0",
+  "scripts": {
+    "tailwind:build": "tailwind build -i src/tailwind.css -c tailwind.config.js -o src/tailwind.output.css",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "prebuild": "yarn tailwind:build",
+    "serve": "serve build -l 3000",
+    "lint": "yarn eslint .",
+    "lint:fix": "yarn lint -- --fix"
+  },
+  "author": "Sergey Bondarenko <sergey@quic.pro> and Svetlana Apalkova <svetlana@quic.pro> QUIC-PRO Inc. developers",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "buffer": "^6.0.3",
+    "chart.js": "^3.8.0",
+    "chartjs-adapter-moment": "^1.0.0",
+    "moment": "^2.29.4",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
+    "react-dom": "^18.2.0",
+    "react-flatpickr": "^3.10.13",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "react-transition-group": "^4.4.2",
+    "web-vitals": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.3",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-redux": "^7.1.24",
+    "@types/ua-parser-js": "^0.7.36",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "autoprefixer": "^10.4.7",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^8.24.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.4",
+    "typescript": "^4.8.4"
+  }
+}

@@ -1,9 +1,9 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
 
-export const tailwindConfig = () => {
+export const tailwindConfig = () => 
   // Tailwind config
-  return resolveConfig('./src/css/tailwind.config.js')
-}
+   resolveConfig('./src/css/tailwind.config.js');
+
 
 export const hexToRGB = (h) => {
   let r = 0;
@@ -25,5 +25,5 @@ export const formatValue = (value) => Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   maximumSignificantDigits: 3,
-  notation: 'compact',
+  notation: 'compact'
 }).format(value);

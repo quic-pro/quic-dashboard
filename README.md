@@ -12,7 +12,7 @@ Technologies used in the development of the website:
 - Yarn
 
 A free Tailwind template was used to create the website:
-[GitHub] (https://github.com/cruip/tailwind-dashboard-template)
+[GitHub](https://github.com/cruip/tailwind-dashboard-template)
 
 ### Install Node.js
 You need to [install](https://nodejs.org/en/) Node.js to run this website.

@@ -14,7 +14,7 @@ const MAINNET_INFO = {
 };
 
 const SEPOLIA_INFO = {
-    chainId: 4,
+    chainId: 11155111,
     chainName: 'Sepolia',
     rpcUrls: 'https://cloudflare-eth.com/v1/sepolia',
     nativeCurrency: {

@@ -11,9 +11,10 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
-import DashboardPage from './pages/Dashboard';
-import MainPage from './pages/Main';
+import MainPage from './pages/MainPage';
+import SwapPage from './pages/SwapPage';
 import {useWeb3React} from "@web3-react/core";
+import WalletConnect from "./components/WalletConnection";
 
 function App() {
     const {account, ENSName} = useWeb3React();
@@ -27,19 +28,13 @@ function App() {
     }, [location.pathname]); // triggered on route change
 
     if ((!account && !ENSName)) {
-        return (
-            <>
-                <Routes>
-                    <Route exact path="*" element={<MainPage/>}/>
-                </Routes>
-            </>
-        );
+        return <WalletConnect/>;
     } else {
         return (
             <>
                 <Routes>
                     <Route exact path="/" element={<MainPage/>}/>
-                    <Route exact path="/dashboard" element={<DashboardPage/>}/>
+                    <Route exact path="/swap" element={<SwapPage/>}/>
                 </Routes>
             </>
         );

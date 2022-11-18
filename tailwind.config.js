@@ -5,6 +5,12 @@ module.exports = {
         './src/**/*.{jsx,tsx}'
     ],
     darkMode: 'class',
-    theme: {},
+    theme: {
+        extend: {
+            animation: {
+                spinSlow: 'spin 2s linear infinite'
+            }
+        },
+    },
     plugins: []
 };

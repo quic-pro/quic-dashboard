@@ -2,8 +2,9 @@
   "name": "quic-dashboard",
   "version": "0.1.0",
   "scripts": {
-    "tailwind:build": "tailwind build -i src/tailwind.css -c tailwind.config.js -o src/tailwind.output.css",
+    "tailwind:build": "tailwind build -i src/css/style.css -c tailwind.config.js -o src/tailwind.output.css",
     "start": "react-app-rewired start",
+    "prestart": "yarn tailwind:build",
     "build": "react-app-rewired build",
     "prebuild": "yarn tailwind:build",
     "serve": "serve build -l 3000",

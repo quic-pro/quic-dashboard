@@ -10,7 +10,8 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
-import Dashboard from './pages/Dashboard';
+import DashboardPage from './pages/Dashboard';
+import MainPage from './pages/Main';
 
 function App() {
 
@@ -25,7 +26,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
+        <Route exact path="/" element={<MainPage />} />
+        <Route exact path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </>
   );

@@ -19,7 +19,7 @@ import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard13 from '../partials/dashboard/DashboardCard13';
-import Banner from '../partials/Banner';
+
 
 function Dashboard() {
 
@@ -61,7 +61,7 @@ function Dashboard() {
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span className="hidden xs:block ml-2">Add view</span>
-                </button>                
+                </button>
               </div>
 
             </div>
@@ -95,14 +95,11 @@ function Dashboard() {
               <DashboardCard12 />
               {/* Card (Income/Expenses) */}
               <DashboardCard13 />
-              
+
             </div>
 
           </div>
         </main>
-
-        <Banner />
-
       </div>
     </div>
   );

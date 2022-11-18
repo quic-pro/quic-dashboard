@@ -45,7 +45,7 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
         name: 'Open in MetaMask Wallet',
         iconURL: METAMASK_ICON_URL,
         description: 'Open in MetaMask Wallet app.',
-        href: 'https://metamask.app.link/dapp/mvts.io',
+        href: `https://metamask.app.link/dapp/${(new URL(window.origin)).host}`,
         color: '#E8831D',
         mobile: true,
         mobileOnly: true
@@ -63,7 +63,7 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
         name: 'Open in Coinbase Wallet',
         iconURL: COINBASE_ICON_URL,
         description: 'Open in Coinbase Wallet app.',
-        href: 'https://go.cb-w.com/dapp?cb_url=mvts.io',
+        href: `https://go.cb-w.com/dapp?cb_url=${(new URL(window.origin)).host}`,
         color: '#315CF5',
         mobile: true,
         mobileOnly: true

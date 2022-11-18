@@ -3,8 +3,9 @@ import { initializeConnector, Web3ReactHooks } from '@web3-react/core';
 import { MetaMask } from '@web3-react/metamask';
 import { Connector } from '@web3-react/types';
 import { WalletConnect } from '@web3-react/walletconnect';
-import { NETWORK_URL } from 'constants/network';
 import { useMemo } from 'react';
+
+import { CHAIN_INFO } from '../constants/chain';
 
 
 export enum Wallet {
@@ -66,7 +67,7 @@ export const [walletConnect, walletConnectHooks] = initializeConnector<WalletCon
     (actions) => new WalletConnect({
         actions,
         options: {
-            rpc: NETWORK_URL,
+            rpc: CHAIN_INFO.rpcUrls,
             qrcode: true
         },
         onError
@@ -77,7 +78,7 @@ export const [coinbaseWallet, coinbaseWalletHooks] = initializeConnector<Coinbas
     (actions) => new CoinbaseWallet({
         actions,
         options: {
-            url: NETWORK_URL,
+            url: CHAIN_INFO.rpcUrls,
             appName: 'MVTS',
             reloadOnDisconnect: false
         },

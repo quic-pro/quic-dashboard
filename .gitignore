@@ -1,0 +1,17 @@
+# MacOS
+/**/.DS_Store
+
+# Development
+/.vscode
+/.idea
+
+# Dependencies
+/node_modules
+/yarn-error.log
+
+# Builds
+/src/tailwind.output.css
+/build
+
+# Environment
+.env*.local

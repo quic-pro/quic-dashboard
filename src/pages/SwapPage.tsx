@@ -1,7 +1,7 @@
-/*import '@uniswap/widgets/fonts.css';
+import '@uniswap/widgets/fonts.css';
 
 import {SwapWidget} from '@uniswap/widgets';
-import {useWeb3React} from '@web3-react/core';*/
+import {useWeb3React} from '@web3-react/core';
 import React from 'react';
 
 
@@ -20,7 +20,7 @@ const theme = {
 
 
 export default function SwapPage() {
-   /* const {provider} = useWeb3React();
+    const {provider} = useWeb3React();
 
     return (
         <div>
@@ -30,6 +30,5 @@ export default function SwapPage() {
                 </div>
             </div>
         </div>
-    );*/
-    return <div></div>
+    );
 }

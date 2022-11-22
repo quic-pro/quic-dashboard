@@ -14,7 +14,7 @@ const theme = {
     accent: '#FF008A',
     outline: '#FF008A',
     dialog: '#000',
-    fontFamily: 'Josefin Sans',
+    fontFamily: 'Montserrat',
     borderRadius: 0.5
 };
 
@@ -23,12 +23,12 @@ export default function SwapPage() {
     const {provider} = useWeb3React();
 
     return (
-        <div>
-            <div className="mx-[30px] p-[10px] h-max-[300px] w-max-[350px] bg-gradient-to-b from-bGround-100 to-bGround rounded-xl border-[2px] border-borderGray">
-                <div className="flex flex-col items-center justify-center gap-[20px]">
+        <div className='bg-white dark:bg-white w-screen flex items-center justify-center'>
+            {/* <div className="mx-[30px] md:mx-0 p-[10px] max-h-[370px] max-w-[600px] bg-white dark:bg-white rounded-lg shadow-lg shadow-gray-400/30"> */}
+                <div className="flex flex-col items-center justify-center">
                     <SwapWidget width="100%" provider={provider} theme={theme}/>
                 </div>
-            </div>
+            {/* </div> */}
         </div>
     );
 }

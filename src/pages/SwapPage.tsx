@@ -6,14 +6,14 @@ import React from 'react';
 
 
 const theme = {
-    primary: '#FFF',
-    secondary: '#A9A9A9',
-    interactive: '#FF008A',
-    container: '#121212',
-    module: '#181818',
-    accent: '#FF008A',
-    outline: '#FF008A',
-    dialog: '#000',
+    primary: '#09a2ff',
+    secondary: '#6bbff1',
+    interactive: '#f1f7fc',
+    container: '#f1f7fc',
+    module: '#fff',
+    accent: '#3b99e0',
+    outline: '#3b99e0',
+    dialog: '#f1f7fc',
     fontFamily: 'Montserrat',
     borderRadius: 0.5
 };

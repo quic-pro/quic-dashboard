@@ -64,9 +64,9 @@ export default function BuyPage() {
             <>
                 Buy price: {Number(formatEther(buyPrice)).toFixed(3)} {CHAIN_INFO.nativeCurrency.symbol}
                 <div>
-                    Input numbers:
+                    Input number:
                     <input
-                        className='bg-companyL'
+                        className='ml-2 p-1 bg-companyL'
                         type="text"
                         placeholder="Number"
                         value={number}

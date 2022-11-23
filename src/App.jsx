@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {lazy, useEffect} from 'react';
 import {
     Routes,
     Route,
@@ -10,13 +10,17 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
-import MainPage from './pages/MainPage';
-import SwapPage from './pages/SwapPage';
+
 import {useWeb3React} from "@web3-react/core";
 import WalletConnect from "./components/WalletConnection";
 import MasterLayout from "./pages/layouts/MasterLayout";
-import NumberManagementPage from "./pages/NumberManagementPage";
-import {initializeContracts} from "./contracts";
+
+const MainPage = lazy(() => import('./pages/MainPage'));
+const SwapPage = lazy(() => import('./pages/SwapPage'));
+const BuyPage = lazy(() => import('./pages/BuyPage'));
+const NumberManagementPage = lazy(() => import('./pages/NumberManagementPage'));
+
+import {initializeContracts} from './contracts';
 
 
 function App() {
@@ -47,6 +51,7 @@ function App() {
                     <Route element={<MasterLayout/>}>
                         <Route exact path="/" element={<MainPage/>}/>
                         <Route exact path="/swap" element={<SwapPage/>}/>
+                        <Route exact path="/buy" element={<BuyPage/>}/>
                         <Route exact path="/number-management" element={<NumberManagementPage/>}/>
                     </Route>
                 </Routes>

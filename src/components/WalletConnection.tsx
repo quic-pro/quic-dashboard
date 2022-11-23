@@ -14,13 +14,12 @@ import {isMobileOrTable} from '../utils/userAgent';
 
 export default function WalletConnect() {
     return (
-        <div>
-            <div
-                className="mx-[30px] pb-[30px] p-[10px] h-max-[300px] w-max-[350px] bg-gradient-to-b dark:from-bGround-100 dark:to-bGround from-bGroundL-100 to-bGroundL rounded-xl border-[2px] dark:border-borderGray">
+        <div className='bg-companyL dark:bg-companyD h-screen w-screen flex items-center justify-center'>
+            <div className="mx-[30px] md:mx-0 pb-[30px] p-[10px] max-h-[370px] max-w-[600px] bg-white dark:bg-white rounded-lg shadow-lg shadow-gray-400/30">
                 <div className="flex flex-col items-center justify-center gap-[20px]">
                     <div
                         className="dark:text-projectBlue text-colorL-100 text-[27px] my-[10px] leading-none font-Comfort text-center">
-                        choose a wallet
+                        Connect a wallet to work with the dashboard:
                     </div>
                     <Content/>
                 </div>
@@ -163,7 +162,7 @@ function Option({
         <button
             id={id}
             onClick={onClick ?? (() => undefined)}
-            className="flex p-4 w-full dark:hover:border-projectBlue hover:cursor-pointer dark:hover:text-projectBlue dark:border-borderGray border-2 rounded-lg dark:bg-bGround items-center justify-between bg-bGroundL border-colorL hover:border-colW"
+            className="flex p-4 w-full hover:cursor-pointer hover:bg-companyL-200 dark:hover:bg-companyD-200 border-2 rounded-lg items-center justify-between bg-companyL dark:bg-companyD text-companyL-400 dark:text-companyD-400"
         >
             <div className="flex flex-col flex-nowrap justify-center h-full">
                 <div className="flex flex-row flex-nowrap md:text-base text-left text-xs">

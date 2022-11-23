@@ -19,7 +19,7 @@ const SEPOLIA_INFO = {
     rpcUrls: 'https://cloudflare-eth.com/v1/sepolia',
     nativeCurrency: {
         name: 'Sepolia Ether',
-        symbol: 'sETH',
+        symbol: 'SepoliaETH',
         decimals: 18
     },
     explorer: 'https://rinkeby.etherscan.io/'

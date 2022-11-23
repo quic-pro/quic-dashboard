@@ -79,7 +79,7 @@ export const [coinbaseWallet, coinbaseWalletHooks] = initializeConnector<Coinbas
         actions,
         options: {
             url: CHAIN_INFO.rpcUrls,
-            appName: 'MVTS',
+            appName: 'QUIC Dashboard',
             reloadOnDisconnect: false
         },
         onError

@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {
     Routes,
     Route,
-    Navigate,
     useLocation
 } from 'react-router-dom';
 
@@ -17,12 +16,21 @@ import {useWeb3React} from "@web3-react/core";
 import WalletConnect from "./components/WalletConnection";
 import MasterLayout from "./pages/layouts/MasterLayout";
 import NumberManagementPage from "./pages/NumberManagementPage";
+import {initializeContracts} from "./contracts";
 
 
 function App() {
-    const {account, ENSName} = useWeb3React();
+    const {account, ENSName, provider} = useWeb3React();
 
     const location = useLocation();
+
+    useEffect(() => {
+        if (provider) {
+            initializeContracts(provider.getSigner())
+                .catch(console.error);
+        }
+    }, [provider])
+
 
     useEffect(() => {
         document.querySelector('html').style.scrollBehavior = 'auto'

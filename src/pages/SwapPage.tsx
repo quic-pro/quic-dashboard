@@ -2,7 +2,9 @@ import '@uniswap/widgets/fonts.css';
 
 import {SwapWidget} from '@uniswap/widgets';
 import {useWeb3React} from '@web3-react/core';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {rootRouter} from '../contracts';
+import {BigNumber} from '@ethersproject/bignumber';
 
 
 const theme = {
@@ -21,6 +23,10 @@ const theme = {
 
 export default function SwapPage() {
     const {provider} = useWeb3React();
+
+    useEffect(() => {
+        rootRouter?.getNextNode(BigNumber.from(400)).then(console.log)
+    }, [])
 
     return (
         <div className='bg-white dark:bg-white w-screen flex items-center justify-center'>

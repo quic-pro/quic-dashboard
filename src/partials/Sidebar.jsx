@@ -514,27 +514,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                     <li className="mb-1 last:mb-0">
                                                         <NavLink
                                                             end
-                                                            to="/62"
+                                                            to="/number-management"
                                                             className={({ isActive }) =>
                                                                 'block text-companyL dark:text-companyD hover:text-companyL-200 hover:dark:text-companyD-200 transition duration-150 truncate ' + (isActive ? '!text-companyL-400' : '')
                                                             }                                                         >
                                                             <span className="text-sm font-medium 2xl:opacity-100 duration-200">
-                                                                Base settings
+                                                                Number Management
                                                             </span>
                                                         </NavLink>
                                                     </li>
-                                                    <li className="mb-1 last:mb-0">
-                                                        <NavLink
-                                                            end
-                                                            to="/63"
-                                                            className={({ isActive }) =>
-                                                                'block text-companyL dark:text-companyD hover:text-companyL-200 hover:dark:text-companyD-200 transition duration-150 truncate ' + (isActive ? '!text-companyL-400' : '')
-                                                            }                                                         >
-                                                            <span className="text-sm font-medium 2xl:opacity-100 duration-200">
-                                                                Advanced settings
-                                                            </span>
-                                                        </NavLink>
-                                                    </li>
+
                                                 </ul>
                                             </div>
                                         </React.Fragment>

@@ -37,6 +37,7 @@ export default function NumberManagementPage() {
 
     const selectNumber = (num: string | number) => {
         setIsLoadedodeInfo(false);
+        setSelectedCode(+num);
         rootRouter?.pool(BigNumber.from(num))
             .then(setCodeInfo)
             .then(() => setIsLoadedodeInfo(true))
@@ -112,12 +113,14 @@ export default function NumberManagementPage() {
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.changeCustomerNumberMode(BigNumber.from(selectedCode))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>changeMode</button>
                     </p>
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.transferOwnershipOfCustomerNumber(BigNumber.from(selectedCode), newOwner)
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>transferOwnership</button>
                         <InputAddress placeholder='newOwner' state={newOwner} setState={setNewOwner}/>
@@ -125,12 +128,14 @@ export default function NumberManagementPage() {
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.renounceOwnershipOfCustomerNumber(BigNumber.from(selectedCode))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>renounceOwnership</button>
                     </p>
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.setCustomerNumberSipDomain(BigNumber.from(selectedCode), newSipDomain)
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>setSipDomain</button>
                         <InputString placeholder='newSipDomain' state={newSipDomain} setState={setNewSipDomain}/>
@@ -138,6 +143,7 @@ export default function NumberManagementPage() {
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.clearCustomerNumberSipDomain(BigNumber.from(selectedCode))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>clearSipDomain</button>
                     </p>
@@ -167,12 +173,14 @@ export default function NumberManagementPage() {
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.changeCustomerNumberMode(BigNumber.from(selectedCode))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>changeMode</button>
                     </p>
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.transferOwnershipOfCustomerNumber(BigNumber.from(selectedCode), newOwner)
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>transferOwnership</button>
                         <InputAddress placeholder='newOwner' state={newOwner} setState={setNewOwner}/>
@@ -180,12 +188,14 @@ export default function NumberManagementPage() {
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.renounceOwnershipOfCustomerNumber(BigNumber.from(selectedCode))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>renounceOwnership</button>
                     </p>
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.setCustomerNumberRouter(BigNumber.from(selectedCode), BigNumber.from(newChainId), newAddress, BigNumber.from(newPoolCodeLength))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>setRouter</button>
                         <InputNumber placeholder='newChainId' state={newChainId} setState={setNewChainId}/>
@@ -195,6 +205,7 @@ export default function NumberManagementPage() {
                     <p>
                         <button className="border-1 rounded-lg w-[200px] bg-companyL p-1 ml-0 m-2" onClick={() => {
                             rootRouter?.clearCustomerNumberRouter(BigNumber.from(selectedCode))
+                                .then(() => selectNumber(selectedCode))
                                 .catch(console.error);
                         }}>clearRouter</button>
                     </p>

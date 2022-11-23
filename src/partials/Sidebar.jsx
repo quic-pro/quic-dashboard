@@ -334,26 +334,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                     <li className="mb-1 last:mb-0">
                                                         <NavLink
                                                             end
-                                                            to="/31"
+                                                            to="/buy"
                                                             className={({ isActive }) =>
                                                                 'block text-companyL dark:text-companyD hover:text-companyL-200 hover:dark:text-companyD-200 transition duration-150 truncate ' + (isActive ? '!text-companyL-400' : '')
                                                             }
                                                         >
                                                             <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                                                 Buy Number
-                                                            </span>
-                                                        </NavLink>
-                                                    </li>
-                                                    <li className="mb-1 last:mb-0">
-                                                        <NavLink
-                                                            end
-                                                            to="/32"
-                                                            className={({ isActive }) =>
-                                                                'block text-companyL dark:text-companyD hover:text-companyL-200 hover:dark:text-companyD-200 transition duration-150 truncate ' + (isActive ? '!text-companyL-400' : '')
-                                                            }
-                                                        >
-                                                            <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                                                Buy Node
                                                             </span>
                                                         </NavLink>
                                                     </li>

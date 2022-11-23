@@ -11,6 +11,7 @@ export default function MyNumberPage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoadedCodeInfo, setIsLoadedodeInfo] = useState(false);
     const [selectedCode, setSelectedCode] = useState(-1);
+    const [subscriptionPrice, setSubscriptionPrice] = useState(BigNumber.from(0));
     const [myNumbers, setMyNumbers] = useState([] as boolean[]);
     const [codeStatus, setCodeStatus] = useState<any>(null);
     const [codeMode, setCodeMode] = useState(0);
@@ -24,6 +25,9 @@ export default function MyNumberPage() {
                 const firstNum = numbers.findIndex((num) => num);
                 setSelectedCode(firstNum);
                 if (firstNum != -1) {
+                    rootRouter?.subscriptionPrice()
+                        .then(setSubscriptionPrice)
+                        .catch(console.error)
                     rootRouter?.getMode(BigNumber.from(firstNum))
                         .then(setCodeMode)
                         .catch(console.error)
@@ -48,6 +52,15 @@ export default function MyNumberPage() {
             .catch(console.error)
     };
 
+    const onRenewSubscription = () => {
+        rootRouter?.renewSubscription(BigNumber.from(selectedCode), {
+            value: subscriptionPrice,
+            gasLimit: 1000000
+        })
+            .then(() => selectNumber(selectedCode))
+            .catch(() => selectNumber(selectedCode))
+    }
+
     if (!isLoaded) {
         return <Loader/>
     } else {
@@ -71,6 +84,7 @@ export default function MyNumberPage() {
                                 <div>isBlocked: {codeStatus.isBlocked ? 'true' : 'false'}</div>
                                 <div>isHolded: {codeStatus.isHolded ? 'true' : 'false'}</div>
                                 {codeStatus.isHolded ? <div>subscriptionEndTime: {(new Date(codeStatus.holdingEndTime * 1000)).toUTCString()}</div> : null}
+                                <button className='border-1 bg-companyL p-1 m-2' onClick={() => onRenewSubscription()}>Renew subscription</button>
                             </>
                         )
                     )

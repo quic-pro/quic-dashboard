@@ -66,7 +66,7 @@ export default function MyNumberPage() {
     } else {
         return (
             <div className='mx-0 md:mx-[30px] flex flex-row justify-center'>
-                <div className='bg-companyL dark:bg-companyD max-w-[600px] rounded-lg'>
+                <div className='bg-companyL dark:bg-companyD w-[600px] rounded-lg'>
                     <div className='m-[10px] p-[10px] bg-white rounded-lg'>
                         <div className='text-2xl font-medium text-companyL-400 dark:text-companyD-400'>
                             My numbers

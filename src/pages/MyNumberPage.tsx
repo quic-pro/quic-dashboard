@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {rootRouter} from '../contracts';
-import {BigNumber} from '@ethersproject/bignumber';
-import {useWeb3React} from '@web3-react/core';
+import React, { useEffect, useState } from 'react';
+import { rootRouter } from '../contracts';
+import { BigNumber } from '@ethersproject/bignumber';
+import { useWeb3React } from '@web3-react/core';
 import Loader from '../components/Loader';
-import {formatEther} from '@ethersproject/units';
-import {CHAIN_INFO} from '../constants/chain';
+import { formatEther } from '@ethersproject/units';
+import { CHAIN_INFO } from '../constants/chain';
 
 
 export default function MyNumberPage() {
@@ -16,7 +16,7 @@ export default function MyNumberPage() {
     const [codeStatus, setCodeStatus] = useState<any>(null);
     const [codeMode, setCodeMode] = useState(0);
 
-    const {account, ENSName} = useWeb3React();
+    const { account, ENSName } = useWeb3React();
 
     useEffect(() => {
         rootRouter?.getAddressNumbers(account ?? ENSName as string)
@@ -62,34 +62,47 @@ export default function MyNumberPage() {
     }
 
     if (!isLoaded) {
-        return <Loader/>
+        return <Loader />
     } else {
         return (
-            <>
-                My numbers:
-                {myNumbers.length === 0 ? 'You don\' have numbers' : null}
-                {myNumbers.map((code, index) => {
-                    if (code) {
-                        return <button className="border-1 rounded-lg w-[70px] bg-companyL p-1 m-2" key={index} onClick={() => selectNumber(index)}>{index}</button>
-                    } else {
-                        return null;
-                    }
-                })}
-                {
-                    selectedCode === -1 ? null : (
-                        !isLoadedCodeInfo ? <Loader/> : (
-                            <>
-                                <div>Mode: {codeMode == 0 ? 'Number' : 'Pool'}</div>
-                                <div>subscriptionEndTime: {(new Date(codeStatus.subscriptionEndTime * 1000)).toUTCString()}</div>
-                                <div>isBlocked: {codeStatus.isBlocked ? 'true' : 'false'}</div>
-                                <div>isHolded: {codeStatus.isHolded ? 'true' : 'false'}</div>
-                                {codeStatus.isHolded ? <div>subscriptionEndTime: {(new Date(codeStatus.holdingEndTime * 1000)).toUTCString()}</div> : null}
-                                <button className='border-1 rounded-lg bg-companyL p-1 m-4 ml-0' onClick={() => onRenewSubscription()}>Renew subscription</button>
-                            </>
-                        )
-                    )
-                }
-            </>
+            <div className='mx-0 md:mx-[30px] flex flex-row justify-center'>
+                <div className='bg-companyL dark:bg-companyD max-w-[600px] rounded-lg'>
+                    <div className='m-[10px] p-[10px] bg-white rounded-lg'>
+                        <div className='text-2xl font-medium text-companyL-400 dark:text-companyD-400'>
+                            My numbers
+                        </div>
+                        <div className='my-[10px] grid grid-cols-4 md:grid-cols-6 gap-[5px]'>
+                            {myNumbers.length === 0 ? 'You don\'t have numbers' : null}
+                            {myNumbers.map((code, index) => {
+                                if (code) {
+                                    return <button className="border-1 rounded-lg w-[70px] h-[40px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
+                                        key={index} onClick={() => selectNumber(index)}>{index}</button>
+                                } else {
+                                    return null;
+                                }
+                            })}
+                        </div>
+                        <div className='text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]'>
+                            Status of Number:
+                        </div>
+                        {
+                            selectedCode === -1 ? null : (
+                                !isLoadedCodeInfo ? <Loader /> : (
+                                    <div className='flex flex-col gap-[5px]'>
+                                        <div>Mode: {codeMode == 0 ? 'Number' : 'Pool'}</div>
+                                        {/* subscriptionEndTime */}
+                                        <div>End in: {(new Date(codeStatus.subscriptionEndTime * 1000)).toUTCString()}</div>
+                                        <div>Hold status: {codeStatus.isHolded ? 'Holded' : 'Active'}</div>
+                                        <div>Lock status: {codeStatus.isBlocked ? 'Blocked' : 'Active'}</div>
+                                        {codeStatus.isHolded ? <div>subscriptionEndTime: {(new Date(codeStatus.holdingEndTime * 1000)).toUTCString()}</div> : null}
+                                        <button className='border-1 rounded-lg p-1 m-4 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]' onClick={() => onRenewSubscription()}>Renew subscription</button>
+                                    </div>
+                                )
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
         );
     }
 }

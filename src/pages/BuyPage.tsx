@@ -45,9 +45,15 @@ export default function BuyPage() {
                     rootRouter?.getAvailableForBuyNumbers()
                         .then(setAvailableForBuyNumbers)
                         .then(() => setIsLoaded(true))
-                        .catch(console.error)
+                        .catch((err) => {
+                            console.error(err);
+                            setIsLoaded(true);
+                        });
                 })
-                .catch(console.error);
+                .catch((err) => {
+                    console.error(err);
+                    setIsLoaded(true);
+                });
         }
     }
 

@@ -72,13 +72,13 @@ export default function BuyPage() {
                         value={number}
                         onChange={handleChange}
                     />
-                    <button className='border-1 w-[70px] bg-companyL p-1 m-2' onClick={() => onBuy(number)}>Buy</button>
+                    <button className='border-1 rounded-lg w-[70px] bg-companyL p-1 m-4' onClick={() => onBuy(number)}>Buy</button>
                     {numberIsAvailableForBuy ? null : <span className='text-[#ff0000]'>Number is not avaliable for buying</span>}
                 </div>
                 <div>Or selected numbers:</div>
                 {availableForBuyNumbers.map((code, index) => {
                     if (code) {
-                        return <button className="border-1 w-[70px] bg-companyL p-1 m-2" key={index} onClick={() => onBuy(index)}>{index}</button>
+                        return <button className="border-1 rounded-lg w-[70px] bg-companyL p-1 m-4 ml-0" key={index} onClick={() => onBuy(index)}>{index}</button>
                     } else {
                         return null;
                     }

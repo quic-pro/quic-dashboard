@@ -70,7 +70,7 @@ export default function MyNumberPage() {
                 {myNumbers.length === 0 ? 'You don\' have numbers' : null}
                 {myNumbers.map((code, index) => {
                     if (code) {
-                        return <button className="border-1 w-[70px] bg-companyL p-1 m-2" key={index} onClick={() => selectNumber(index)}>{index}</button>
+                        return <button className="border-1 rounded-lg w-[70px] bg-companyL p-1 m-2" key={index} onClick={() => selectNumber(index)}>{index}</button>
                     } else {
                         return null;
                     }
@@ -84,7 +84,7 @@ export default function MyNumberPage() {
                                 <div>isBlocked: {codeStatus.isBlocked ? 'true' : 'false'}</div>
                                 <div>isHolded: {codeStatus.isHolded ? 'true' : 'false'}</div>
                                 {codeStatus.isHolded ? <div>subscriptionEndTime: {(new Date(codeStatus.holdingEndTime * 1000)).toUTCString()}</div> : null}
-                                <button className='border-1 bg-companyL p-1 m-2' onClick={() => onRenewSubscription()}>Renew subscription</button>
+                                <button className='border-1 rounded-lg bg-companyL p-1 m-4 ml-0' onClick={() => onRenewSubscription()}>Renew subscription</button>
                             </>
                         )
                     )

@@ -31,6 +31,8 @@ export default function BuyPage() {
 
         if (!availableForBuyNumbers[+number]) {
             setNumberIsAvailableForBuy(false);
+        } else {
+            setNumberIsAvailableForBuy(true);
         }
     };
 
@@ -64,7 +66,7 @@ export default function BuyPage() {
                         onChange={handleChange}
                     />
                     <button className='border-1 w-[70px] bg-companyL p-1 m-2' onClick={() => onBuy(number)}>Buy</button>
-                    {numberIsAvailableForBuy ? null : <span className='text-red'>Number is not avaliable for buying</span>}
+                    {numberIsAvailableForBuy ? null : <span className='text-[#ff0000]'>Number is not avaliable for buying</span>}
                 </div>
                 <div>Or selected numbers:</div>
                 {availableForBuyNumbers.map((code, index) => {

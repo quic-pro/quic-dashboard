@@ -29,7 +29,7 @@ export default function BuyPage() {
         const result = event.target.value.replace(/\D/g, '');
         setNumber(result);
 
-        if (!availableForBuyNumbers[+number]) {
+        if (!availableForBuyNumbers[+result] || (+result < 0) || (+result >= 1000)) {
             setNumberIsAvailableForBuy(false);
         } else {
             setNumberIsAvailableForBuy(true);
@@ -39,6 +39,7 @@ export default function BuyPage() {
     const onBuy = (num: number | string) => {
         if (availableForBuyNumbers[+num]) {
             setIsLoaded(false);
+            setNumber('');
             rootRouter?.buy(BigNumber.from(num), {value: buyPrice, gasLimit: 1000000})
                 .then(() => {
                     rootRouter?.getAvailableForBuyNumbers()

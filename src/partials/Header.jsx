@@ -5,7 +5,7 @@ import Help from './header/Help';
 import UserMenu from './header/UserMenu';
 import {useWeb3React} from '@web3-react/core';
 import {BigNumber} from '@ethersproject/bignumber';
-import {formatEther, parseEther} from '@ethersproject/units';
+import {formatEther} from '@ethersproject/units';
 import {CHAIN_INFO} from "../constants/chain";
 
 function Header({

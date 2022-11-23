@@ -1,7 +1,7 @@
 import {useWeb3React} from '@web3-react/core';
 import {Connector} from '@web3-react/types';
 import Loader from './Loader';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import MetamaskIcon from '../assets/images/metamask.png';
 import {injected} from '../connectors';
@@ -42,6 +42,7 @@ function Content() {
                 setIsPendingConnect(true);
 
                 await connector.activate(CHAIN_INFO);
+
             } catch (error) {
                 console.debug(`web3-react connection error: ${error}`);
                 setIsPendingConnect(false);

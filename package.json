@@ -16,6 +16,7 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.3.0",
     "@ethersproject/address": "^5.6.1",
+    "@ethersproject/bignumber": "^5.7.0",
     "@ethersproject/contracts": "^5.6.2",
     "@ethersproject/units": "^5.6.1",
     "@metamask/jazzicon": "^2.0.0",

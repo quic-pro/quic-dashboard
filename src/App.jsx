@@ -16,6 +16,7 @@ import WalletConnect from "./components/WalletConnection";
 import MasterLayout from "./pages/layouts/MasterLayout";
 
 const MainPage = lazy(() => import('./pages/MainPage'));
+const MyNumberPage = lazy(() => import('./pages/MyNumberPage'));
 const SwapPage = lazy(() => import('./pages/SwapPage'));
 const BuyPage = lazy(() => import('./pages/BuyPage'));
 const NumberManagementPage = lazy(() => import('./pages/NumberManagementPage'));
@@ -50,6 +51,7 @@ function App() {
                 <Routes>
                     <Route element={<MasterLayout/>}>
                         <Route exact path="/" element={<MainPage/>}/>
+                        <Route exact path="/my-number" element={<MyNumberPage/>}/>
                         <Route exact path="/swap" element={<SwapPage/>}/>
                         <Route exact path="/buy" element={<BuyPage/>}/>
                         <Route exact path="/number-management" element={<NumberManagementPage/>}/>

@@ -11,6 +11,7 @@ export default function BuyPage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [buyPrice, setBuyPrice] = useState(BigNumber.from(0));
     const [number, setNumber] = useState('');
+    const [numberIsAvailableForBuy, setNumberIsAvailableForBuy] = useState(true);
     const [availableForBuyNumbers, setAvailableForBuyNumbers] = useState([] as boolean[]);
 
     useEffect(() => {
@@ -27,11 +28,24 @@ export default function BuyPage() {
     const handleChange = (event: any) => {
         const result = event.target.value.replace(/\D/g, '');
         setNumber(result);
+
+        if (!availableForBuyNumbers[+number]) {
+            setNumberIsAvailableForBuy(false);
+        }
     };
 
     const onBuy = (num: number | string) => {
-        rootRouter?.buy(BigNumber.from(num), {value: buyPrice, gasLimit: 1000000})
-            .catch(console.error);
+        if (availableForBuyNumbers[+num]) {
+            setIsLoaded(false);
+            rootRouter?.buy(BigNumber.from(num), {value: buyPrice, gasLimit: 1000000})
+                .then(() => {
+                    rootRouter?.getAvailableForBuyNumbers()
+                        .then(setAvailableForBuyNumbers)
+                        .then(() => setIsLoaded(true))
+                        .catch(console.error)
+                })
+                .catch(console.error);
+        }
     }
 
     if (!isLoaded) {
@@ -50,6 +64,7 @@ export default function BuyPage() {
                         onChange={handleChange}
                     />
                     <button className='border-1 w-[70px] bg-companyL p-1 m-2' onClick={() => onBuy(number)}>Buy</button>
+                    {numberIsAvailableForBuy ? null : <span className='text-red'>Number is not avaliable for buying</span>}
                 </div>
                 <div>Or selected numbers:</div>
                 {availableForBuyNumbers.map((code, index) => {

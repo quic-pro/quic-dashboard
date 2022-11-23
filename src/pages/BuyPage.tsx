@@ -13,8 +13,6 @@ export default function BuyPage() {
     const [number, setNumber] = useState('');
     const [availableForBuyNumbers, setAvailableForBuyNumbers] = useState([] as boolean[]);
 
-    const {account, ENSName} = useWeb3React();
-
     useEffect(() => {
         rootRouter?.buyPrice()
             .then(setBuyPrice)

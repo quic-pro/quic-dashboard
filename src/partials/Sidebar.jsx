@@ -183,19 +183,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                             </span>
                                                         </NavLink>
                                                     </li>
-                                                    <li className="mb-1 last:mb-0">
-                                                        <NavLink
-                                                            end
-                                                            to="/13"
-                                                            className={({ isActive }) =>
-                                                                'block text-companyL dark:text-companyD hover:text-companyL-200 hover:dark:text-companyD-200 transition duration-150 truncate ' + (isActive ? '!text-companyL-400' : '')
-                                                            }
-                                                        >
-                                                            <span className="text-sm font-medium 2xl:opacity-100 duration-200">
-                                                                My Nodes
-                                                            </span>
-                                                        </NavLink>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </React.Fragment>

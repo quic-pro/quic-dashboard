@@ -29,11 +29,11 @@ function App() {
     const location = useLocation();
 
     useEffect(() => {
-        if (provider) {
+        if (provider && (account || ENSName)) {
             initializeContracts(provider.getSigner())
                 .catch(console.error);
         }
-    }, [provider])
+    }, [provider, account, ENSName])
 
 
     useEffect(() => {

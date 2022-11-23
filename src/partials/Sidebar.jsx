@@ -105,11 +105,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <div className="space-y-8">
                     {/* Pages group */}
                     <div>
-                        <h3 className="text-xs uppercase text-companyL hover:text-companyL-200 dark:text-companyD dark:hover:text-companyD-200 font-semibold pl-3">
-                            <span className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">
-                                •••
-                            </span>
-                            {/* <span className="2xl:block">Pages</span> */}
+                        <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
+                            <span className="2xl:block">Menu</span>
                         </h3>
                         <ul className="mt-3">
                             {/* Dashboard */}
@@ -562,9 +559,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </div>
                     <div>
                         <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
-                            <span className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">
-                                •••
-                            </span>
                             <span className="2xl:block">Account</span>
                         </h3>
                         <ul className="mt-3">

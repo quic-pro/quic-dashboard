@@ -15,6 +15,9 @@ import MainPage from './pages/MainPage';
 import SwapPage from './pages/SwapPage';
 import {useWeb3React} from "@web3-react/core";
 import WalletConnect from "./components/WalletConnection";
+import MasterLayout from "./pages/layouts/MasterLayout";
+import NumberManagementPage from "./pages/NumberManagementPage";
+
 
 function App() {
     const {account, ENSName} = useWeb3React();
@@ -33,8 +36,11 @@ function App() {
         return (
             <>
                 <Routes>
-                    <Route exact path="/" element={<MainPage/>}/>
-                    <Route exact path="/swap" element={<SwapPage/>}/>
+                    <Route element={<MasterLayout/>}>
+                        <Route exact path="/" element={<MainPage/>}/>
+                        <Route exact path="/swap" element={<SwapPage/>}/>
+                        <Route exact path="/number-management" element={<NumberManagementPage/>}/>
+                    </Route>
                 </Routes>
             </>
         );

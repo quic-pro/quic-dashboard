@@ -75,7 +75,7 @@ function UserMenu() {
           <ul>
             <li>
               <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
+                className="font-medium text-sm text-companyL-400 dark:text-companyD-400 opacity-80 hover:opacity-100 flex items-center py-1 px-3"
                 to="/"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
@@ -84,7 +84,7 @@ function UserMenu() {
             </li>
             <li>
               <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
+                className="font-medium text-sm text-companyL-400 dark:text-companyD-400 opacity-80 hover:opacity-100 flex items-center py-1 px-3"
                 to="/"
                 onClick={() => {
                     setDropdownOpen(!dropdownOpen)

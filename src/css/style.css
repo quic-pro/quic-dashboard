@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -11,3 +12,14 @@
 @import 'additional-styles/theme.css';
 
 @import 'tailwindcss/utilities';
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

@@ -62,7 +62,7 @@ export default function BuyPage() {
     } else {
         return (
             <div className='mx-0 md:mx-[30px] flex flex-row justify-center'>
-                <div className='bg-companyL dark:bg-companyD w-[800px] rounded-sm shadow-lg shadow-gray-400/30 border-[1px]'>
+                <div className='w-[800px] rounded-sm shadow-lg shadow-gray-400/30 border-[1px]'>
                     <div className='m-[10px] p-[10px] bg-white rounded-sm'>
                         <div className='text-3xl font-medium text-companyL-400 dark:text-companyD-400 pb-[5px]'>
                             QUIC-PRO Shop

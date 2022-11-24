@@ -62,8 +62,8 @@ export default function BuyPage() {
     } else {
         return (
             <div className='mx-0 md:mx-[30px] flex flex-row justify-center'>
-                <div className='bg-companyL dark:bg-companyD w-[800px] rounded-lg'>
-                    <div className='m-[10px] p-[10px] bg-white rounded-lg'>
+                <div className='bg-companyL dark:bg-companyD w-[800px] rounded-sm shadow-lg shadow-gray-400/30 border-[1px]'>
+                    <div className='m-[10px] p-[10px] bg-white rounded-sm'>
                         <div className='text-3xl font-medium text-companyL-400 dark:text-companyD-400 pb-[5px]'>
                             QUIC-PRO Shop
                         </div>
@@ -72,7 +72,7 @@ export default function BuyPage() {
                         </div>
                         <div className='flex flex-col gap-[10px] my-[10px]'>
                             <div>
-                                Input number:
+                                Input number*:
 
                                 <input
                                     className='ml-2 p-1 pl-[10px] bg-companyL'
@@ -81,6 +81,9 @@ export default function BuyPage() {
                                     value={number}
                                     onChange={handleChange}
                                 />
+                            </div>
+                            <div className='text-xs'>
+                            *The number consists of three digits and cannot start with a zero
                             </div>
                             <div>
                                 <button className='border-1 rounded-lg w-[70px] h-[40px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px] p-1'

@@ -23,9 +23,9 @@ export default function SwapPage() {
     const {provider} = useWeb3React();
 
     return (
-        <div className='bg-white dark:bg-white w-screen flex items-center justify-center'>
+        <div className='bg-white dark:bg-white mx-0 md:mx-[30px] flex items-center justify-center'>
             {/* <div className="mx-[30px] md:mx-0 p-[10px] max-h-[370px] max-w-[600px] bg-white dark:bg-white rounded-lg shadow-lg shadow-gray-400/30"> */}
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center shadow-lg shadow-gray-400/30 border-[1px]">
                     <SwapWidget width="100%" provider={provider} theme={theme}/>
                 </div>
             {/* </div> */}

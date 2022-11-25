@@ -91,6 +91,7 @@ export default function MyNumberPage() {
                             selectedCode === -1 ? null : (
                                 !isLoadedCodeInfo ? <Loader /> : (
                                     <div className='flex flex-col gap-[5px]'>
+                                        <p>Code: {selectedCode}</p>
                                         <div>Mode: {codeMode == 0 ? 'Number' : 'Pool'}</div>
                                         {/* subscriptionEndTime */}
                                         <div>End in: {(new Date(codeStatus.subscriptionEndTime * 1000)).toUTCString()}</div>

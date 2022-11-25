@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {rootRouter} from '../contracts';
-import {BigNumber} from '@ethersproject/bignumber';
-import {useWeb3React} from '@web3-react/core';
+import React, { useEffect, useState } from 'react';
+import { rootRouter } from '../contracts';
+import { BigNumber } from '@ethersproject/bignumber';
+import { useWeb3React } from '@web3-react/core';
 import Loader from '../components/Loader';
+import { FiRefreshCcw } from 'react-icons/fi';
+import { BiCopy } from 'react-icons/bi';
+
 
 
 export default function NumberManagementPage() {
@@ -13,7 +16,7 @@ export default function NumberManagementPage() {
     const [myNumbers, setMyNumbers] = useState([] as boolean[]);
     const [codeInfo, setCodeInfo] = useState<any>(null);
 
-    const {account, ENSName} = useWeb3React();
+    const { account, ENSName } = useWeb3React();
 
     useEffect(() => {
         rootRouter?.getAddressNumbers(account ?? ENSName as string)
@@ -44,7 +47,7 @@ export default function NumberManagementPage() {
             .catch(console.error)
     };
 
-    function InputAddress({placeholder, state, setState}: { placeholder: string, state: string, setState: any }) {
+    function InputAddress({ placeholder, state, setState }: { placeholder: string, state: string, setState: any }) {
         return (
             <input
                 className="mr-[8px] my-[2px] p-1 bg-companyL dark:bg-companyD w-[200px]"
@@ -59,7 +62,7 @@ export default function NumberManagementPage() {
         )
     }
 
-    function InputString({placeholder, state, setState}: { placeholder: string, state: string, setState: any }) {
+    function InputString({ placeholder, state, setState }: { placeholder: string, state: string, setState: any }) {
         return (
             <input
                 className="mr-[8px] my-[2px] p-1 bg-companyL dark:bg-companyD w-[200px]"
@@ -73,7 +76,7 @@ export default function NumberManagementPage() {
         )
     }
 
-    function InputNumber({placeholder, state, setState}: { placeholder: string, state: string, setState: any }) {
+    function InputNumber({ placeholder, state, setState }: { placeholder: string, state: string, setState: any }) {
         return (
             <input
                 className="mr-[8px] my-[2px] p-1 bg-companyL dark:bg-companyD w-[200px]"
@@ -101,10 +104,14 @@ export default function NumberManagementPage() {
                     <p>code: {selectedCode}</p>
                     <p>mode: {codeInfo.mode == 0 ? 'Number' : 'Pool'}</p>
                     <p>sipDomain: {sipDomain}</p>
-                    <p>
-                        sipUri: {sipUri}
-                        <button onClick={() => {navigator.clipboard.writeText(sipUri)}} className='border-1 rounded-lg p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>Copy sip uri</button>
-                    </p>
+                    <div className='flex flex-row gap-[10px] items-center'>
+                        <p>sipUri: </p>
+                        <p className=' w-[100px] truncate'>{sipUri}</p>
+                        <button onClick={() => { navigator.clipboard.writeText(sipUri) }}
+                            className='flex items-center justify-center w-[30px] h-[30px] border-1 rounded-lg p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>
+                            <BiCopy />
+                        </button>
+                    </div>
                 </div>
                 <div className="pt-[10px]">
                     <div className="text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]">
@@ -126,7 +133,7 @@ export default function NumberManagementPage() {
                                         .catch(console.error);
                                 }}>transferOwnership
                             </button>
-                            <InputAddress placeholder="newOwner" state={newOwner} setState={setNewOwner}/>
+                            <InputAddress placeholder="newOwner" state={newOwner} setState={setNewOwner} />
                         </div>
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
@@ -143,7 +150,7 @@ export default function NumberManagementPage() {
                                         .catch(console.error);
                                 }}>setSipDomain
                             </button>
-                            <InputString placeholder="newSipDomain" state={newSipDomain} setState={setNewSipDomain}/>
+                            <InputString placeholder="newSipDomain" state={newSipDomain} setState={setNewSipDomain} />
                         </div>
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
@@ -195,7 +202,7 @@ export default function NumberManagementPage() {
                                         .catch(console.error);
                                 }}>transferOwnership
                             </button>
-                            <InputAddress placeholder="newOwner" state={newOwner} setState={setNewOwner}/>
+                            <InputAddress placeholder="newOwner" state={newOwner} setState={setNewOwner} />
                         </div>
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
@@ -212,10 +219,10 @@ export default function NumberManagementPage() {
                                         .catch(console.error);
                                 }}>setRouter
                             </button>
-                            <InputNumber placeholder="newChainId" state={newChainId} setState={setNewChainId}/>
-                            <InputAddress placeholder="newAddress" state={newAddress} setState={setNewAddress}/>
+                            <InputNumber placeholder="newChainId" state={newChainId} setState={setNewChainId} />
+                            <InputAddress placeholder="newAddress" state={newAddress} setState={setNewAddress} />
                             <InputNumber placeholder="newPoolCodeLength" state={newPoolCodeLength}
-                                         setState={setNewPoolCodeLength}/>
+                                setState={setNewPoolCodeLength} />
                         </div>
 
                         <button
@@ -233,7 +240,7 @@ export default function NumberManagementPage() {
 
 
     if (!isLoaded) {
-        return <Loader/>
+        return <Loader />
     } else {
         return (
             <div className="mx-0 md:mx-[30px] flex flex-row justify-center">
@@ -250,23 +257,27 @@ export default function NumberManagementPage() {
                                         className={'border-1 rounded-lg w-[70px] h-[40px] text-companyL-400 dark:text-companyD-400  hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]' +
                                             (selectedCode === index ? 'bg-companyL-200 dark:bg-companyD-200' : 'bg-companyL dark:bg-companyD')}
                                         key={index} onClick={() => {
-                                        selectNumber(index);
-                                        setSelectedCode(index)
-                                    }}>{index}</button>
+                                            selectNumber(index);
+                                            setSelectedCode(index)
+                                        }}>{index}</button>
                                 } else {
                                     return null;
                                 }
                             })}
                         </div>
-                        <div className="text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]">
-                            <button onClick={() => selectNumber(selectedCode)} className='border-1 rounded-lg p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>R</button>
-                            Information:
+                        <div className='flex flex-row gap-[30px] items-center mt-[30px]'>
+                            <div className='text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]'>
+                                Information
+                            </div>
+                            <button onClick={() => selectNumber(selectedCode)} className='flex items-center justify-center border-1 rounded-lg w-[35px] h-[35px] p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>
+                                <FiRefreshCcw />
+                            </button>
                         </div>
                         {
                             selectedCode === -1
                                 ? null
-                                : !isLoadedCodeInfo ? <Loader/> : (codeInfo.mode == 0 ? <NumberSettings/> :
-                                    <PoolSettings/>)
+                                : !isLoadedCodeInfo ? <Loader /> : (codeInfo.mode == 0 ? <NumberSettings /> :
+                                    <PoolSettings />)
                         }
                     </div>
                 </div>

@@ -84,7 +84,8 @@ export default function MyNumberPage() {
                             })}
                         </div>
                         <div className='text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]'>
-                            {'Status of Number ' + selectedCode + ':'}
+                            <button onClick={() => selectNumber(selectedCode)} className='border-1 rounded-lg p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>R</button>
+                            Status
                         </div>
                         {
                             selectedCode === -1 ? null : (

@@ -127,16 +127,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                     <div className="flex items-center">
                                                         <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                                             <path
-                                                                className={`fill-current text-slate-400 ${(pathname === '/' || pathname.includes('dashboard')) && '!text-indigo-500'
+                                                                className={`fill-current text-companyL-400 ${(pathname === '/1' || pathname.includes('dashboard')) && '!text-indigo-500'
                                                                     }`}
                                                                 d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"
                                                             />
                                                             <path
-                                                                className={`fill-current text-slate-600 ${(pathname === '/' || pathname.includes('dashboard')) && 'text-indigo-600'}`}
+                                                                className={`fill-current text-companyBottomL-200 ${(pathname === '/1' || pathname.includes('dashboard')) && 'text-indigo-600'}`}
                                                                 d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z"
                                                             />
                                                             <path
-                                                                className={`fill-current text-slate-400 ${(pathname === '/' || pathname.includes('dashboard')) && 'text-indigo-200'}`}
+                                                                className={`fill-current text-companyL-400 ${(pathname === '/1' || pathname.includes('dashboard')) && 'text-indigo-200'}`}
                                                                 d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
                                                             />
                                                         </svg>
@@ -167,25 +167,40 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                             </span>
                                                         </NavLink>
                                                     </li>
-                                                    <li className="mb-1 last:mb-0">
-                                                        <NavLink
-                                                            end
-                                                            to="/my-number"
-                                                            className={({ isActive }) =>
-                                                                'block text-companyL dark:text-companyD hover:text-companyL-200 hover:dark:text-companyD-200 transition duration-150 truncate ' + (isActive ? '!text-companyL-400' : '')
-                                                            }
-                                                        >
-                                                            <span className="text-sm font-medium 2xl:opacity-100 duration-200">
-                                                                My Numbers
-                                                            </span>
-                                                        </NavLink>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </React.Fragment>
                                     );
                                 }}
                             </SidebarLinkGroup>
+                            {/* Numbers */}
+                            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('my-number') && 'bg-companyBottomL-200 dark:bg-companyBottomD-200'}`}>
+                                <NavLink
+                                    end
+                                    to="/my-number"
+                                    className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('messages') && 'hover:text-slate-200'
+                                        }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="grow flex items-center">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
+                                                <g fill="#09a2ff" class="nc-icon-wrapper">
+                                                    <path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22a9.965,9.965,0,0,1-7.132-3l1.455-1.222a1,1,0,0,0,.318-1.04l-.7-2.472a1.015,1.015,0,0,0-.231-.409L4.474,12.536l-.187-.319.64-.547,2.487-1.258a1,1,0,0,0,.538-.746l.4-2.74A1,1,0,0,0,8.1,6.1L6.451,4.34a.877.877,0,0,0-.094-.089L6.039,3.99a9.929,9.929,0,0,1,5.54-1.969l.448.745.586,1.713a1.012,1.012,0,0,0,.319.455l2.284,1.837a1,1,0,0,0,.627.221.934.934,0,0,0,.118-.007l3-.356a1.011,1.011,0,0,0,.375-.123l.718-.408A9.981,9.981,0,0,1,12,22Z"
+                                                        fill="#09a2ff">
+                                                    </path>
+                                                    <path data-color="color-2"
+                                                        d="M19.894,12.441l-1.135-2.178a1,1,0,0,0-.655-.511l-2.357-.564a.994.994,0,0,0-.564.03L12.956,10a1,1,0,0,0-.451.319l-1.338,1.973a1.25,1.25,0,0,0-.073.927l.812,2.062L11.406,17a.985.985,0,0,0,.188.844l.657,1.735a1,1,0,0,0,.772.364l.064,0,2.339-.15a1,1,0,0,0,.618-.267l1.762-1.641a1,1,0,0,0,.233-.325l1.882-4.25A1,1,0,0,0,19.894,12.441Z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                            <span className="text-sm font-medium ml-3 2xl:opacity-100 duration-200">
+                                                My Numbers
+                                            </span>
+                                        </div>
+                                    </div>
+                                </NavLink>
+                            </li>
                             {/* Communication */}
                             <SidebarLinkGroup activecondition={pathname.includes('community')}>
                                 {(handleClick, open) => {
@@ -272,7 +287,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 }}
                             </SidebarLinkGroup>
                             {/* Shop */}
-                            <SidebarLinkGroup activecondition={pathname.includes('ecommerce')}>
+                            <SidebarLinkGroup activecondition={pathname.includes('ecommerce') || pathname === '/buy'}>
                                 {(handleClick, open) => {
                                     return (
                                         <React.Fragment>
@@ -335,7 +350,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 }}
                             </SidebarLinkGroup>
                             {/* Finance */}
-                            <SidebarLinkGroup activecondition={pathname.includes('finance')}>
+                            <SidebarLinkGroup activecondition={pathname.includes('finance') || pathname === "/swap"}>
                                 {(handleClick, open) => {
                                     return (
                                         <React.Fragment>
@@ -421,7 +436,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 }}
                             </SidebarLinkGroup>
                             {/* System Messages */}
-                            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('messages') && 'bg-slate-900'}`}>
+                            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('messages') && 'bg-companyBottomL-200 dark:bg-companyBottomD-200'}`}>
                                 <NavLink
                                     end
                                     to="/5"
@@ -452,7 +467,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 </NavLink>
                             </li>
                             {/* Settings */}
-                            <SidebarLinkGroup activecondition={pathname.includes('settings')}>
+                            <SidebarLinkGroup activecondition={pathname.includes('settings') || pathname === "/number-management"}>
                                 {(handleClick, open) => {
                                     return (
                                         <React.Fragment>

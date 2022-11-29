@@ -5,6 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import Loader from '../components/Loader';
 import { formatEther } from '@ethersproject/units';
 import { CHAIN_INFO } from '../constants/chain';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 
 export default function MyNumberPage() {
@@ -76,20 +77,26 @@ export default function MyNumberPage() {
                             {myNumbers.map((code, index) => {
                                 if (code) {
                                     return <button className={"border-1 rounded-lg w-[70px] h-[40px] text-companyL-400 dark:text-companyD-400  hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]" +
-                                        (selectedCode===index?'bg-companyL-200 dark:bg-companyD-200':'bg-companyL dark:bg-companyD')}
-                                        key={index} onClick={() => {selectNumber(index); setSelectedCode(index)}}>{index}</button>
+                                        (selectedCode === index ? 'bg-companyL-200 dark:bg-companyD-200' : 'bg-companyL dark:bg-companyD')}
+                                        key={index} onClick={() => { selectNumber(index); setSelectedCode(index) }}>{index}</button>
                                 } else {
                                     return null;
                                 }
                             })}
                         </div>
-                        <div className='text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]'>
-                            {'Status of Number ' + selectedCode + ':'}
+                        <div className='flex flex-row gap-[30px] items-center mt-[30px]'>
+                            <div className='text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]'>
+                                Status
+                            </div>
+                            <button onClick={() => selectNumber(selectedCode)} className='flex items-center justify-center border-1 rounded-lg w-[35px] h-[35px] p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>
+                                <FiRefreshCcw />
+                            </button>
                         </div>
                         {
                             selectedCode === -1 ? null : (
                                 !isLoadedCodeInfo ? <Loader /> : (
                                     <div className='flex flex-col gap-[5px]'>
+                                        <p>Code: {selectedCode}</p>
                                         <div>Mode: {codeMode == 0 ? 'Number' : 'Pool'}</div>
                                         {/* subscriptionEndTime */}
                                         <div>End in: {(new Date(codeStatus.subscriptionEndTime * 1000)).toUTCString()}</div>

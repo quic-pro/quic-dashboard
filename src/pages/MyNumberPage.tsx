@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { rootRouter } from '../contracts';
+import { getActualRootRouter } from '@mvts/resolver-js';
+import { RootRouter } from '@mvts/contract-interfaces-js';
 import { BigNumber } from '@ethersproject/bignumber';
 import { useWeb3React } from '@web3-react/core';
 import Loader from '../components/Loader';
-import { formatEther } from '@ethersproject/units';
-import { CHAIN_INFO } from '../constants/chain';
 import { FiRefreshCcw } from 'react-icons/fi';
 
 
@@ -16,23 +15,38 @@ export default function MyNumberPage() {
     const [myNumbers, setMyNumbers] = useState([] as boolean[]);
     const [codeStatus, setCodeStatus] = useState<any>(null);
     const [codeMode, setCodeMode] = useState(0);
+    const [rootRouter, setRootRouter] = useState<RootRouter | null>(null);
 
-    const { account, ENSName } = useWeb3React();
+    const { account, ENSName, provider } = useWeb3React();
 
     useEffect(() => {
-        rootRouter?.getAddressNumbers(account ?? ENSName as string)
+        if (!provider) {
+            return;
+        }
+
+        getActualRootRouter(() => provider.getSigner())
+            .then(setRootRouter)
+            .catch();
+    }, [provider]);
+
+    useEffect(() => {
+        if (!rootRouter) {
+            return;
+        }
+
+        rootRouter.getOwnerCodes(account ?? ENSName as string)
             .then((numbers) => {
                 setMyNumbers(numbers);
                 const firstNum = numbers.findIndex((num) => num);
                 setSelectedCode(firstNum);
                 if (firstNum != -1) {
-                    rootRouter?.subscriptionPrice()
+                    rootRouter.subscriptionPrice()
                         .then(setSubscriptionPrice)
                         .catch(console.error)
-                    rootRouter?.getMode(BigNumber.from(firstNum))
+                    rootRouter.getMode(BigNumber.from(firstNum))
                         .then(setCodeMode)
                         .catch(console.error)
-                    rootRouter?.getNumberStatus(BigNumber.from(firstNum))
+                    rootRouter.getCodeStatus(BigNumber.from(firstNum))
                         .then(setCodeStatus)
                         .then(() => setIsLoadedodeInfo(true))
                         .catch(console.error)
@@ -40,14 +54,18 @@ export default function MyNumberPage() {
             })
             .then(() => setIsLoaded(true))
             .catch(console.error)
-    }, [])
+    }, [rootRouter])
 
     const selectNumber = (num: string | number) => {
+        if (!rootRouter) {
+            return;
+        }
+
         setIsLoadedodeInfo(false);
-        rootRouter?.getMode(BigNumber.from(num))
+        rootRouter.getMode(BigNumber.from(num))
             .then(setCodeMode)
             .catch(console.error)
-        rootRouter?.getNumberStatus(BigNumber.from(num))
+        rootRouter.getCodeStatus(BigNumber.from(num))
             .then(setCodeStatus)
             .then(() => setIsLoadedodeInfo(true))
             .catch(console.error)

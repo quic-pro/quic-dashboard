@@ -21,21 +21,11 @@ const SwapPage = lazy(() => import('./pages/SwapPage'));
 const BuyPage = lazy(() => import('./pages/BuyPage'));
 const NumberManagementPage = lazy(() => import('./pages/NumberManagementPage'));
 
-import {initializeContracts} from './contracts';
-
 
 function App() {
-    const {account, ENSName, provider} = useWeb3React();
+    const {account, ENSName} = useWeb3React();
 
     const location = useLocation();
-
-    useEffect(() => {
-        if (provider && (account || ENSName)) {
-            initializeContracts(provider.getSigner())
-                .catch(console.error);
-        }
-    }, [provider, account, ENSName])
-
 
     useEffect(() => {
         document.querySelector('html').style.scrollBehavior = 'auto'

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { rootRouter } from '../contracts';
 import { BigNumber } from '@ethersproject/bignumber';
+import { getActualRootRouter } from '@mvts/resolver-js';
+import { RootRouter } from '@mvts/contract-interfaces-js';
 import { useWeb3React } from '@web3-react/core';
 import Loader from '../components/Loader';
 import { formatEther } from '@ethersproject/units';
@@ -9,21 +10,38 @@ import { CHAIN_INFO } from '../constants/chain';
 
 export default function BuyPage() {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [buyPrice, setBuyPrice] = useState(BigNumber.from(0));
+    const [mintPrice, setMintPrice] = useState(BigNumber.from(0));
     const [number, setNumber] = useState('');
     const [numberIsAvailableForBuy, setNumberIsAvailableForBuy] = useState(true);
     const [availableForBuyNumbers, setAvailableForBuyNumbers] = useState([] as boolean[]);
+    const [rootRouter, setRootRouter] = useState<RootRouter | null>(null);
+
+    const { provider } = useWeb3React();
 
     useEffect(() => {
-        rootRouter?.buyPrice()
-            .then(setBuyPrice)
+        if (!provider) {
+            return;
+        }
+
+        getActualRootRouter(() => provider.getSigner())
+            .then(setRootRouter)
+            .catch();
+    }, [provider]);
+
+    useEffect(() => {
+        if (!rootRouter) {
+            return;
+        }
+
+        rootRouter.mintPrice()
+            .then(setMintPrice)
             .catch(console.error)
 
-        rootRouter?.getAvailableForBuyNumbers()
+        rootRouter.getAvailableForMintCodes()
             .then(setAvailableForBuyNumbers)
             .then(() => setIsLoaded(true))
             .catch(console.error)
-    }, [])
+    }, [rootRouter])
 
     const handleChange = (event: any) => {
         const result = event.target.value.replace(/\D/g, '');
@@ -40,9 +58,9 @@ export default function BuyPage() {
         if (availableForBuyNumbers[+num]) {
             setIsLoaded(false);
             setNumber('');
-            rootRouter?.buy(BigNumber.from(num), { value: buyPrice, gasLimit: 1000000 })
+            rootRouter?.mint(BigNumber.from(num), { value: mintPrice, gasLimit: 1000000 })
                 .then(() => {
-                    rootRouter?.getAvailableForBuyNumbers()
+                    rootRouter?.getAvailableForMintCodes()
                         .then(setAvailableForBuyNumbers)
                         .then(() => setIsLoaded(true))
                         .catch((err) => {
@@ -68,7 +86,7 @@ export default function BuyPage() {
                             QUIC-PRO Shop
                         </div>
                         <div className='text-xl font-medium text-companyBottomL dark:text-companyBottomD py-[5px]'>
-                            Buy price: {Number(formatEther(buyPrice)).toFixed(3)} {CHAIN_INFO.nativeCurrency.symbol}
+                            Buy price: {Number(formatEther(mintPrice)).toFixed(3)} {CHAIN_INFO.nativeCurrency.symbol}
                         </div>
                         <div className='flex flex-col gap-[10px] my-[10px]'>
                             <div>

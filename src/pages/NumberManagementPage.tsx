@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { rootRouter } from '../contracts';
 import { BigNumber } from '@ethersproject/bignumber';
+import { getActualRootRouter } from '@mvts/resolver-js';
+import { RootRouter } from '@mvts/contract-interfaces-js';
 import { useWeb3React } from '@web3-react/core';
 import Loader from '../components/Loader';
 import { FiRefreshCcw } from 'react-icons/fi';
@@ -12,23 +13,43 @@ export default function NumberManagementPage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoadedCodeInfo, setIsLoadedCodeInfo] = useState(false);
     const [selectedCode, setSelectedCode] = useState(-1);
+    const [modeChangePrice, setModeChangePrice] = useState(BigNumber.from(0));
     const [defaultSipDomain, setDefaultSipDomain] = useState('');
     const [myNumbers, setMyNumbers] = useState([] as boolean[]);
     const [codeInfo, setCodeInfo] = useState<any>(null);
+    const [rootRouter, setRootRouter] = useState<RootRouter | null>(null);
 
-    const { account, ENSName } = useWeb3React();
+    const { account, ENSName, provider } = useWeb3React();
 
     useEffect(() => {
-        rootRouter?.getAddressNumbers(account ?? ENSName as string)
+        if (!provider) {
+            return;
+        }
+
+        getActualRootRouter(() => provider.getSigner())
+            .then(setRootRouter)
+            .catch();
+    }, [provider]);
+
+    useEffect(() => {
+        if (!rootRouter) {
+            return;
+        }
+
+        rootRouter.modeChangePrice()
+            .then(setModeChangePrice)
+            .catch(console.error)
+
+        rootRouter.getOwnerCodes(account ?? ENSName as string)
             .then((numbers) => {
                 setMyNumbers(numbers);
                 const firstNum = numbers.findIndex((num) => num);
                 setSelectedCode(firstNum);
                 if (firstNum != -1) {
-                    rootRouter?.defaultSipDomain()
+                    rootRouter.defaultSipDomain()
                         .then(setDefaultSipDomain)
                         .catch(console.error)
-                    rootRouter?.pool(BigNumber.from(firstNum))
+                    rootRouter.getCodeData(BigNumber.from(firstNum))
                         .then(setCodeInfo)
                         .then(() => setIsLoadedCodeInfo(true))
                         .catch(console.error)
@@ -36,12 +57,16 @@ export default function NumberManagementPage() {
             })
             .then(() => setIsLoaded(true))
             .catch(console.error)
-    }, [])
+    }, [rootRouter])
 
     const selectNumber = (num: string | number) => {
+        if (!rootRouter) {
+            return;
+        }
+
         setIsLoadedCodeInfo(false);
         setSelectedCode(+num);
-        rootRouter?.pool(BigNumber.from(num))
+        rootRouter.getCodeData(BigNumber.from(num))
             .then(setCodeInfo)
             .then(() => setIsLoadedCodeInfo(true))
             .catch(console.error)
@@ -121,7 +146,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.changeCustomerNumberMode(BigNumber.from(selectedCode))
+                                rootRouter?.changeCodeMode(BigNumber.from(selectedCode), { value: modeChangePrice, gasLimit: 1000000 })
                                     .catch(console.error);
                             }}>changeMode
                         </button>
@@ -129,7 +154,7 @@ export default function NumberManagementPage() {
                             <button
                                 className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                                 onClick={() => {
-                                    rootRouter?.transferOwnershipOfCustomerNumber(BigNumber.from(selectedCode), newOwner)
+                                    rootRouter?.["safeTransferFrom(address,address,uint256)"](account ?? ENSName as string, newOwner, BigNumber.from(selectedCode))
                                         .catch(console.error);
                                 }}>transferOwnership
                             </button>
@@ -138,7 +163,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.renounceOwnershipOfCustomerNumber(BigNumber.from(selectedCode))
+                                rootRouter?.renounceOwnershipOfCode(BigNumber.from(selectedCode))
                                     .catch(console.error);
                             }}>renounceOwnership
                         </button>
@@ -146,7 +171,7 @@ export default function NumberManagementPage() {
                             <button
                                 className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                                 onClick={() => {
-                                    rootRouter?.setCustomerNumberSipDomain(BigNumber.from(selectedCode), newSipDomain)
+                                    rootRouter?.setCodeSipDomain(BigNumber.from(selectedCode), newSipDomain)
                                         .catch(console.error);
                                 }}>setSipDomain
                             </button>
@@ -155,7 +180,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.clearCustomerNumberSipDomain(BigNumber.from(selectedCode))
+                                rootRouter?.clearCodeSipDomain(BigNumber.from(selectedCode))
                                     .catch(console.error);
                             }}>clearSipDomain
                         </button>
@@ -190,7 +215,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.changeCustomerNumberMode(BigNumber.from(selectedCode))
+                                rootRouter?.changeCodeMode(BigNumber.from(selectedCode), { value: modeChangePrice, gasLimit: 1000000 })
                                     .catch(console.error);
                             }}>changeMode
                         </button>
@@ -198,7 +223,7 @@ export default function NumberManagementPage() {
                             <button
                                 className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                                 onClick={() => {
-                                    rootRouter?.transferOwnershipOfCustomerNumber(BigNumber.from(selectedCode), newOwner)
+                                    rootRouter?.["safeTransferFrom(address,address,uint256)"](account ?? ENSName as string, newOwner, BigNumber.from(selectedCode))
                                         .catch(console.error);
                                 }}>transferOwnership
                             </button>
@@ -207,7 +232,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.renounceOwnershipOfCustomerNumber(BigNumber.from(selectedCode))
+                                rootRouter?.renounceOwnershipOfCode(BigNumber.from(selectedCode))
                                     .catch(console.error);
                             }}>renounceOwnership
                         </button>
@@ -215,7 +240,7 @@ export default function NumberManagementPage() {
                             <button
                                 className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                                 onClick={() => {
-                                    rootRouter?.setCustomerNumberRouter(BigNumber.from(selectedCode), BigNumber.from(newChainId), newAddress, BigNumber.from(newPoolCodeLength))
+                                    rootRouter?.setCodeRouter(BigNumber.from(selectedCode), BigNumber.from(newChainId), newAddress, BigNumber.from(newPoolCodeLength))
                                         .catch(console.error);
                                 }}>setRouter
                             </button>
@@ -228,7 +253,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.clearCustomerNumberRouter(BigNumber.from(selectedCode))
+                                rootRouter?.clearCodeRouter(BigNumber.from(selectedCode))
                                     .catch(console.error);
                             }}>clearRouter
                         </button>

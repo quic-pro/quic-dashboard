@@ -202,10 +202,10 @@ export default function NumberManagementPage() {
                     <p>code: {selectedCode}</p>
                     <p>mode: {codeInfo.mode == 0 ? 'Number' : 'Pool'}</p>
                     <p>router: {codeInfo.hasRouter ? null : '<MISSING>'}</p>
-                    {codeInfo.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;chainId: {codeInfo.router.chainId}</p> : null}
+                    {codeInfo.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;chainId: {codeInfo.router.chainId.toString()}</p> : null}
                     {codeInfo.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;address: {codeInfo.router.adr}</p> : null}
                     {codeInfo.hasRouter ?
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;poolCodeLength: {codeInfo.router.poolCodeLength}</p> : null}
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;poolCodeLength: {codeInfo.router.poolCodeLength.toString()}</p> : null}
                 </div>
                 <div className="pt-[10px]">
                     <div className="text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]">

@@ -1,14 +1,14 @@
 import {useWeb3React} from '@web3-react/core';
 import {Connector} from '@web3-react/types';
 import Loader from './Loader';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 
 import MetamaskIcon from '../assets/images/metamask.png';
 import {injected} from '../connectors';
 import {getWalletForConnector} from '../connectors';
 import {CHAIN_INFO} from '../constants/chain';
 import {SUPPORTED_WALLETS} from '../constants/wallet';
-import {useAppDispatch} from '../state/hooks';
+//import {useAppDispatch} from '../state/hooks';
 import {isMobileOrTable} from '../utils/userAgent';
 
 
@@ -29,7 +29,7 @@ export default function WalletConnect() {
 }
 
 function Content() {
-    const dispatch = useAppDispatch();
+    //const dispatch = useAppDispatch();
     const {connector, account, ENSName} = useWeb3React();
 
     const [isPendingConnect, setIsPendingConnect] = useState(false);
@@ -48,7 +48,7 @@ function Content() {
                 setIsPendingConnect(false);
             }
         },
-        [dispatch]
+        [/*dispatch*/]
     );
 
     function getOptions() {
@@ -117,6 +117,7 @@ function Content() {
                 !option.mobileOnly && (
                     <Option
                         {...optionProps}
+                        key={key}
                         onClick={() => {
                             option.connector === connector && !!ENSName
                                 ? null

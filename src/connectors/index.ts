@@ -1,11 +1,11 @@
-import { CoinbaseWallet } from '@web3-react/coinbase-wallet';
-import { initializeConnector, Web3ReactHooks } from '@web3-react/core';
-import { MetaMask } from '@web3-react/metamask';
-import { Connector } from '@web3-react/types';
-import { WalletConnect } from '@web3-react/walletconnect';
-import { useMemo } from 'react';
+import {CoinbaseWallet} from '@web3-react/coinbase-wallet';
+import {initializeConnector, Web3ReactHooks} from '@web3-react/core';
+import {MetaMask} from '@web3-react/metamask';
+import {Connector} from '@web3-react/types';
+import {WalletConnect} from '@web3-react/walletconnect';
+import {useMemo} from 'react';
 
-import { CHAIN_INFO } from '../constants/chain';
+import {CHAIN_INFO} from '../constants/chain';
 
 
 export enum Wallet {
@@ -19,7 +19,8 @@ export const BACKFILLABLE_WALLETS = [Wallet.COINBASE_WALLET, Wallet.WALLET_CONNE
 
 
 function onError(error: Error) {
-    console.debug(`web3-react error: ${error}`);
+    // TODO: Show notification
+    console.debug(`web3-react error: ${error.message}`);
 }
 
 export function getWalletForConnector(connector: Connector) {
@@ -61,7 +62,7 @@ function getHooksForWallet(wallet: Wallet) {
     }
 }
 
-export const [injected, injectedHooks] = initializeConnector<MetaMask>((actions) => new MetaMask({ actions, onError }));
+export const [injected, injectedHooks] = initializeConnector<MetaMask>((actions) => new MetaMask({actions, onError}));
 
 export const [walletConnect, walletConnectHooks] = initializeConnector<WalletConnect>(
     (actions) => new WalletConnect({
@@ -99,7 +100,7 @@ function getConnectorListItemForWallet(wallet: Wallet) {
 }
 
 export function useConnectors(selectedWallet?: Wallet) {
-    return useMemo(() => {
+    return useMemo((): [Connector, Web3ReactHooks][] => {
         const connectors: ConnectorListItem[] = [];
         if (selectedWallet) {
             connectors.push(getConnectorListItemForWallet(selectedWallet));
@@ -110,9 +111,9 @@ export function useConnectors(selectedWallet?: Wallet) {
                 .map(getConnectorListItemForWallet)
         );
 
-        return connectors.map(({ connector, hooks }) => [
+        return connectors.map(({connector, hooks}) => [
             connector,
             hooks
-        ]) as [Connector, Web3ReactHooks][];
+        ]);
     }, [selectedWallet]);
 }

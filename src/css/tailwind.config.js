@@ -1,4 +1,5 @@
-const plugin = require('tailwindcss/plugin');
+import plugin from 'tailwindcss/plugin';
+
 
 module.exports = {
     content: [
@@ -60,6 +61,7 @@ module.exports = {
         // add custom variant for expanding sidebar
         plugin(({addVariant, e}) => {
             addVariant('sidebar-expanded', ({modifySelectors, separator}) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/restrict-template-expressions
                 modifySelectors(({className}) => `.sidebar-expanded .${e(`sidebar-expanded${separator}${className}`)}`);
             });
         })

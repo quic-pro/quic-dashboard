@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, {useRef, useEffect} from 'react';
 
 import {
   Chart, DoughnutController, ArcElement, TimeScale, Tooltip,
@@ -6,7 +6,7 @@ import {
 import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig } from '../utils/Utils';
+import {tailwindConfig} from '../utils/Utils';
 
 Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip);
 

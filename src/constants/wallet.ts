@@ -1,10 +1,10 @@
-import { Connector } from '@web3-react/types';
+import {Connector} from '@web3-react/types';
 
 import METAMASK_ICON_URL from '../assets/images/metamask.png';
 import INJECTED_ICON_URL from '../assets/svg/arrow-right.svg';
 import COINBASE_ICON_URL from '../assets/svg/coinbaseWalletIcon.svg';
 import WALLETCONNECT_ICON_URL from '../assets/svg/walletConnectIcon.svg';
-import { coinbaseWallet, injected, Wallet, walletConnect } from '../connectors';
+import {coinbaseWallet, injected, Wallet, walletConnect} from '../connectors';
 
 
 type WalletInfo = {
@@ -21,7 +21,7 @@ type WalletInfo = {
 };
 
 
-export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
+export const SUPPORTED_WALLETS: Record<string, WalletInfo> = {
     INJECTED: {
         connector: injected,
         wallet: Wallet.INJECTED,

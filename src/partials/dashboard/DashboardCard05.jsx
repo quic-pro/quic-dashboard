@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Info from '../../utils/Info';
 import RealtimeChart from '../../charts/RealtimeChart';
 
 // Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+import {tailwindConfig, hexToRGB} from '../../utils/Utils';
 
 function DashboardCard05() {
 

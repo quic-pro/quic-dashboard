@@ -1,4 +1,4 @@
-import { isTestNetwork } from './application';
+import {isTestNetwork} from './application';
 
 
 const MAINNET_INFO = {

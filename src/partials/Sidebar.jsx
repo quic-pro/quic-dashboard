@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, {useState, useEffect, useRef} from 'react';
+import {NavLink, useLocation} from 'react-router-dom';
 
 import SidebarLinkGroup from './SidebarLinkGroup';
 

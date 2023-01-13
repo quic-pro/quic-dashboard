@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { BigNumber } from '@ethersproject/bignumber';
-import { getActualRootRouter } from '@mvts/resolver-js';
-import { RootRouter } from '@mvts/contract-interfaces-js';
-import { useWeb3React } from '@web3-react/core';
+import {BigNumber} from '@ethersproject/bignumber';
+import {formatEther} from '@ethersproject/units';
+import {RootRouter} from '@mvts/contract-interfaces-js';
+import {getActualRootRouter} from '@mvts/resolver-js';
+import {useWeb3React} from '@web3-react/core';
+import React, {ChangeEvent, useEffect, useState} from 'react';
+
 import Loader from '../components/Loader';
-import { formatEther } from '@ethersproject/units';
-import { CHAIN_INFO } from '../constants/chain';
+import {CHAIN_INFO} from '../constants/chain';
 
 
 export default function BuyPage() {
@@ -16,14 +17,14 @@ export default function BuyPage() {
     const [availableForBuyNumbers, setAvailableForBuyNumbers] = useState([] as boolean[]);
     const [rootRouter, setRootRouter] = useState<RootRouter | null>(null);
 
-    const { provider } = useWeb3React();
+    const {provider} = useWeb3React();
 
     useEffect(() => {
         if (!provider) {
             return;
         }
 
-        getActualRootRouter(() => provider.getSigner())
+        void getActualRootRouter(() => provider.getSigner())
             .then(setRootRouter)
             .catch();
     }, [provider]);
@@ -35,19 +36,21 @@ export default function BuyPage() {
 
         rootRouter.mintPrice()
             .then(setMintPrice)
-            .catch(console.error)
+            .catch(console.error);
 
         rootRouter.getAvailableForMintCodes()
             .then(setAvailableForBuyNumbers)
             .then(() => setIsLoaded(true))
-            .catch(console.error)
-    }, [rootRouter])
+            .catch(console.error);
+    }, [rootRouter]);
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = event.target.value.replace(/\D/g, '');
         setNumber(result);
 
-        if (!availableForBuyNumbers[+result] || (+result < 0) || (+result >= 1000)) {
+        const code = +result;
+
+        if (!availableForBuyNumbers[code] || (+result < 0) || (+result >= 1000)) {
             setNumberIsAvailableForBuy(false);
         } else {
             setNumberIsAvailableForBuy(true);
@@ -58,9 +61,9 @@ export default function BuyPage() {
         if (availableForBuyNumbers[+num]) {
             setIsLoaded(false);
             setNumber('');
-            rootRouter?.mint(BigNumber.from(num), { value: mintPrice, gasLimit: 1000000 })
+            rootRouter?.mint(BigNumber.from(num), {value: mintPrice, gasLimit: 1000000})
                 .then(() => {
-                    rootRouter?.getAvailableForMintCodes()
+                    rootRouter.getAvailableForMintCodes()
                         .then(setAvailableForBuyNumbers)
                         .then(() => setIsLoaded(true))
                         .catch((err) => {
@@ -73,10 +76,10 @@ export default function BuyPage() {
                     setIsLoaded(true);
                 });
         }
-    }
+    };
 
     if (!isLoaded) {
-        return <Loader />
+        return <Loader />;
     } else {
         return (
             <div className='mx-0 md:mx-[30px] flex flex-row justify-center'>
@@ -113,7 +116,7 @@ export default function BuyPage() {
                         <div className='my-[10px] grid grid-cols-4 md:grid-cols-8 gap-[5px]'>
                             {availableForBuyNumbers.map((code, index) => {
                                 if (code) {
-                                    return <button className="border-1 rounded-lg w-[70px] h-[40px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]" key={index} onClick={() => onBuy(index)}>{index}</button>
+                                    return <button className="border-1 rounded-lg w-[70px] h-[40px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]" key={index} onClick={() => onBuy(index)}>{index}</button>;
                                 } else {
                                     return null;
                                 }

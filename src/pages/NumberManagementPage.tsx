@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { BigNumber } from '@ethersproject/bignumber';
-import { getActualRootRouter } from '@mvts/resolver-js';
-import { RootRouter } from '@mvts/contract-interfaces-js';
-import { useWeb3React } from '@web3-react/core';
-import Loader from '../components/Loader';
-import { FiRefreshCcw } from 'react-icons/fi';
-import { BiCopy } from 'react-icons/bi';
+import {BigNumber} from '@ethersproject/bignumber';
+import {RootRouter} from '@mvts/contract-interfaces-js';
+import {getActualRootRouter} from '@mvts/resolver-js';
+import {useWeb3React} from '@web3-react/core';
+import React, {useEffect, useState} from 'react';
+import {BiCopy} from 'react-icons/bi';
+import {FiRefreshCcw} from 'react-icons/fi';
 
+import Loader from '../components/Loader';
 
 
 export default function NumberManagementPage() {
@@ -16,48 +16,48 @@ export default function NumberManagementPage() {
     const [modeChangePrice, setModeChangePrice] = useState(BigNumber.from(0));
     const [defaultSipDomain, setDefaultSipDomain] = useState('');
     const [myNumbers, setMyNumbers] = useState([] as boolean[]);
-    const [codeInfo, setCodeInfo] = useState<any>(null);
+    const [codeInfo, setCodeInfo] = useState<RootRouter.CodeStructOutput | null>(null);
     const [rootRouter, setRootRouter] = useState<RootRouter | null>(null);
 
-    const { account, ENSName, provider } = useWeb3React();
+    const {account, ENSName, provider} = useWeb3React();
 
     useEffect(() => {
         if (!provider) {
             return;
         }
 
-        getActualRootRouter(() => provider.getSigner())
+        void getActualRootRouter(() => provider.getSigner())
             .then(setRootRouter)
             .catch();
     }, [provider]);
 
     useEffect(() => {
-        if (!rootRouter) {
+        if (!rootRouter || (!account && !ENSName)) {
             return;
         }
 
         rootRouter.modeChangePrice()
             .then(setModeChangePrice)
-            .catch(console.error)
+            .catch(console.error);
 
         rootRouter.getOwnerCodes(account ?? ENSName as string)
             .then((numbers) => {
                 setMyNumbers(numbers);
                 const firstNum = numbers.findIndex((num) => num);
                 setSelectedCode(firstNum);
-                if (firstNum != -1) {
+                if (firstNum !== -1) {
                     rootRouter.defaultSipDomain()
                         .then(setDefaultSipDomain)
-                        .catch(console.error)
+                        .catch(console.error);
                     rootRouter.getCodeData(BigNumber.from(firstNum))
                         .then(setCodeInfo)
                         .then(() => setIsLoadedCodeInfo(true))
-                        .catch(console.error)
+                        .catch(console.error);
                 }
             })
             .then(() => setIsLoaded(true))
-            .catch(console.error)
-    }, [rootRouter])
+            .catch(console.error);
+    }, [rootRouter]);
 
     const selectNumber = (num: string | number) => {
         if (!rootRouter) {
@@ -69,10 +69,10 @@ export default function NumberManagementPage() {
         rootRouter.getCodeData(BigNumber.from(num))
             .then(setCodeInfo)
             .then(() => setIsLoadedCodeInfo(true))
-            .catch(console.error)
+            .catch(console.error);
     };
 
-    function InputAddress({ placeholder, state, setState }: { placeholder: string, state: string, setState: any }) {
+    function InputAddress({placeholder, state, setState}: { placeholder: string, state: string, setState: (newValue: string) => void}) {
         return (
             <input
                 className="mr-[8px] my-[2px] p-1 bg-companyL dark:bg-companyD w-[200px]"
@@ -84,10 +84,10 @@ export default function NumberManagementPage() {
                     setState(result);
                 }}
             />
-        )
+        );
     }
 
-    function InputString({ placeholder, state, setState }: { placeholder: string, state: string, setState: any }) {
+    function InputString({placeholder, state, setState}: {placeholder: string, state: string, setState: (newValue: string) => void}) {
         return (
             <input
                 className="mr-[8px] my-[2px] p-1 bg-companyL dark:bg-companyD w-[200px]"
@@ -98,10 +98,10 @@ export default function NumberManagementPage() {
                     setState(event.target.value);
                 }}
             />
-        )
+        );
     }
 
-    function InputNumber({ placeholder, state, setState }: { placeholder: string, state: string, setState: any }) {
+    function InputNumber({placeholder, state, setState}: {placeholder: string, state: string, setState: (newValue: string) => void}) {
         return (
             <input
                 className="mr-[8px] my-[2px] p-1 bg-companyL dark:bg-companyD w-[200px]"
@@ -113,27 +113,29 @@ export default function NumberManagementPage() {
                     setState(result);
                 }}
             />
-        )
+        );
     }
 
     function NumberSettings() {
         const [newOwner, setNewOwner] = useState('');
         const [newSipDomain, setNewSipDomain] = useState('');
 
-        const sipDomain = codeInfo.hasSipDomain ? codeInfo.sipDomain : defaultSipDomain;
-        const sipUri = (account ?? ENSName) + '@' + sipDomain;
+        const sipDomain = codeInfo?.hasSipDomain ? codeInfo.sipDomain : defaultSipDomain;
+        const sipUri = `${account ?? ENSName ?? ''}@${sipDomain}`;
 
         return (
             <div>
                 <div>
                     <p>code: {selectedCode}</p>
-                    <p>mode: {codeInfo.mode == 0 ? 'Number' : 'Pool'}</p>
+                    <p>mode: {codeInfo?.mode === 0 ? 'Number' : 'Pool'}</p>
                     <p>sipDomain: {sipDomain}</p>
                     <div className='flex flex-row gap-[10px] items-center'>
                         <p>sipUri: </p>
                         <p className=' w-[100px] truncate'>{sipUri}</p>
-                        <button onClick={() => { navigator.clipboard.writeText(sipUri) }}
-                            className='flex items-center justify-center w-[30px] h-[30px] border-1 rounded-lg p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'>
+                        <button
+                            onClick={() => void navigator.clipboard.writeText(sipUri)}
+                            className='flex items-center justify-center w-[30px] h-[30px] border-1 rounded-lg p-1 ml-0 text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]'
+                        >
                             <BiCopy />
                         </button>
                     </div>
@@ -146,7 +148,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.changeCodeMode(BigNumber.from(selectedCode), { value: modeChangePrice, gasLimit: 1000000 })
+                                rootRouter?.changeCodeMode(BigNumber.from(selectedCode), {value: modeChangePrice, gasLimit: 1000000})
                                     .catch(console.error);
                             }}>changeMode
                         </button>
@@ -154,7 +156,7 @@ export default function NumberManagementPage() {
                             <button
                                 className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                                 onClick={() => {
-                                    rootRouter?.["safeTransferFrom(address,address,uint256)"](account ?? ENSName as string, newOwner, BigNumber.from(selectedCode))
+                                    rootRouter?.['safeTransferFrom(address,address,uint256)'](account ?? ENSName as string, newOwner, BigNumber.from(selectedCode))
                                         .catch(console.error);
                                 }}>transferOwnership
                             </button>
@@ -200,12 +202,11 @@ export default function NumberManagementPage() {
             <div>
                 <div>
                     <p>code: {selectedCode}</p>
-                    <p>mode: {codeInfo.mode == 0 ? 'Number' : 'Pool'}</p>
-                    <p>router: {codeInfo.hasRouter ? null : '<MISSING>'}</p>
-                    {codeInfo.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;chainId: {codeInfo.router.chainId.toString()}</p> : null}
-                    {codeInfo.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;address: {codeInfo.router.adr}</p> : null}
-                    {codeInfo.hasRouter ?
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;poolCodeLength: {codeInfo.router.poolCodeLength.toString()}</p> : null}
+                    <p>mode: {codeInfo?.mode === 0 ? 'Number' : 'Pool'}</p>
+                    <p>router: {codeInfo?.hasRouter ? null : '<MISSING>'}</p>
+                    {codeInfo?.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;chainId: {codeInfo?.router.chainId.toString()}</p> : null}
+                    {codeInfo?.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;address: {codeInfo?.router.adr}</p> : null}
+                    {codeInfo?.hasRouter ? <p>&nbsp;&nbsp;&nbsp;&nbsp;poolCodeLength: {codeInfo?.router.poolCodeLength.toString()}</p> : null}
                 </div>
                 <div className="pt-[10px]">
                     <div className="text-xl font-medium text-companyL-400 dark:text-companyD-400 py-[10px]">
@@ -215,7 +216,7 @@ export default function NumberManagementPage() {
                         <button
                             className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                             onClick={() => {
-                                rootRouter?.changeCodeMode(BigNumber.from(selectedCode), { value: modeChangePrice, gasLimit: 1000000 })
+                                rootRouter?.changeCodeMode(BigNumber.from(selectedCode), {value: modeChangePrice, gasLimit: 1000000})
                                     .catch(console.error);
                             }}>changeMode
                         </button>
@@ -223,7 +224,7 @@ export default function NumberManagementPage() {
                             <button
                                 className="border-1 rounded-lg p-1 m-2 ml-0 w-[200px] text-companyL-400 dark:text-companyD-400 bg-companyL dark:bg-companyD hover:bg-companyL-200 dark:hover:bg-companyD-200 border-[1px]"
                                 onClick={() => {
-                                    rootRouter?.["safeTransferFrom(address,address,uint256)"](account ?? ENSName as string, newOwner, BigNumber.from(selectedCode))
+                                    rootRouter?.['safeTransferFrom(address,address,uint256)'](account ?? ENSName as string, newOwner, BigNumber.from(selectedCode))
                                         .catch(console.error);
                                 }}>transferOwnership
                             </button>
@@ -265,7 +266,7 @@ export default function NumberManagementPage() {
 
 
     if (!isLoaded) {
-        return <Loader />
+        return <Loader />;
     } else {
         return (
             <div className="mx-0 md:mx-[30px] flex flex-row justify-center">
@@ -283,8 +284,8 @@ export default function NumberManagementPage() {
                                             (selectedCode === index ? 'bg-companyL-200 dark:bg-companyD-200' : 'bg-companyL dark:bg-companyD')}
                                         key={index} onClick={() => {
                                             selectNumber(index);
-                                            setSelectedCode(index)
-                                        }}>{index}</button>
+                                            setSelectedCode(index);
+                                        }}>{index}</button>;
                                 } else {
                                     return null;
                                 }
@@ -299,10 +300,9 @@ export default function NumberManagementPage() {
                             </button>
                         </div>
                         {
-                            selectedCode === -1
+                            selectedCode !== -1
                                 ? null
-                                : !isLoadedCodeInfo ? <Loader /> : (codeInfo.mode == 0 ? <NumberSettings /> :
-                                    <PoolSettings />)
+                                : !isLoadedCodeInfo ? <Loader /> : (codeInfo?.mode === 0 ? <NumberSettings /> : <PoolSettings />)
                         }
                     </div>
                 </div>

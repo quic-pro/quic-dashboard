@@ -49,8 +49,10 @@ export default function NumberManagementPage() {
                     rootRouter.defaultSipDomain()
                         .then(setDefaultSipDomain)
                         .catch(console.error);
+
                     rootRouter.getCodeData(BigNumber.from(firstNum))
                         .then(setCodeInfo)
+                        .then(console.log)
                         .then(() => setIsLoadedCodeInfo(true))
                         .catch(console.error);
                 }
@@ -284,7 +286,6 @@ export default function NumberManagementPage() {
                                             (selectedCode === index ? 'bg-companyL-200 dark:bg-companyD-200' : 'bg-companyL dark:bg-companyD')}
                                         key={index} onClick={() => {
                                             selectNumber(index);
-                                            setSelectedCode(index);
                                         }}>{index}</button>;
                                 } else {
                                     return null;
@@ -300,7 +301,7 @@ export default function NumberManagementPage() {
                             </button>
                         </div>
                         {
-                            selectedCode !== -1
+                            selectedCode === -1
                                 ? null
                                 : !isLoadedCodeInfo ? <Loader /> : (codeInfo?.mode === 0 ? <NumberSettings /> : <PoolSettings />)
                         }

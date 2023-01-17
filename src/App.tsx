@@ -3,7 +3,7 @@ import './style.css';
 import {StrictMode} from 'react';
 
 import Web3Provider from './components/Web3Provider';
-import Router from './pages';
+import {Router} from './pages';
 
 
 export default function App() {

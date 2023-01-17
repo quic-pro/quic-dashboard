@@ -1,13 +1,13 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import {MasterLayout} from './layouts';
+import MasterLayout from './layouts/MasterLayout';
 
 
 const MainPage = React.lazy(() => import('./MainPage'));
 
 
-export default function Router() {
+export function Router() {
     return (
         <BrowserRouter>
             <Routes>

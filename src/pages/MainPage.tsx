@@ -1,3 +1,5 @@
 export default function MainPage() {
-    return null;
+    return (
+        <div className="flex-1"></div>
+    );
 }

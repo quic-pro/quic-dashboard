@@ -20,6 +20,7 @@ module.exports = {
             },
             colors: {
                 'background': '#f1f7fc',
+                'border': '#09a2ff'
             },
         },
     },

@@ -8,6 +8,7 @@ import metaMaskIcon from '../../assets/wallet/icons/MetaMask.png';
 import walletIcon from '../../assets/wallet/icons/Wallet.png';
 import walletConnectIcon from '../../assets/wallet/icons/WalletConnect.png';
 import {SUPPORTED_CONNECTORS} from '../../constants/connectors';
+import {getStyle} from '../../utils/style';
 import Loader from '../Loader';
 
 
@@ -34,20 +35,26 @@ function getWalletIconSource(id: string): string | undefined {
 }
 
 
-export default function ConnectorButton({connector, ...attributes}: Props) {
+export default function ConnectorButton({connector, className, ...attributes}: Props) {
     const {connector: currentConnector} = useAccount();
     const {connect, pendingConnector, isLoading} = useConnect();
+
+    const style = {
+        container: getStyle('flex flex-row w-full p-1 border-2 rounded-lg items-center justify-between', className),
+        loader: 'h-[40px] w-[40px]',
+    };
 
     return (
         <button
             {...attributes}
             onClick={() => connect({connector})}
-            className="flex flex-row items-center border"
+            className={style.container}
         >
-            <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="150px" width="150px"/>
-            {!connector.ready && <span>!ready</span>}
             {connector.name} {connector === currentConnector && '[connected]'}
-            {isLoading && (connector === pendingConnector) && <Loader/>}
+            <div className="flex flex-row">
+                {isLoading && (connector === pendingConnector) && <Loader className={style.loader}/>}
+                <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="40px" width="40px"/>
+            </div>
         </button>
     );
 }

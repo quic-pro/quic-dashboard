@@ -11,8 +11,15 @@ export default function MasterLayout() {
 }
 
 function Authorization() {
+    const style = {
+        container: 'flex w-screen h-screen justify-center items-center bg-background',
+        connectWallet: 'container max-w-[450px]',
+    };
+
     return (
-        <ConnectWallet/>
+        <div className={style.container}>
+            <ConnectWallet className={style.connectWallet}/>
+        </div>
     );
 }
 
@@ -22,6 +29,7 @@ function Content() {
     return (
         <>
             <Outlet/>
+            <ConnectWallet className="w-[400px]"/>
             <button onClick={() => disconnect()}>Disconnect</button>
         </>
     );

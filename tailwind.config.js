@@ -7,7 +7,7 @@ module.exports = {
     theme: {
         extend: {
             animation: {
-                spinSlow: 'spin 2s linear infinite'
+                spinSlow: 'spin 2s linear infinite',
             },
             container: {
                 center: true,
@@ -15,9 +15,12 @@ module.exports = {
                     DEFAULT: '1rem',
                     'lg': '2rem',
                     'xl': '3rem',
-                    '2xl': '6rem'
-                }
-            }
+                    '2xl': '6rem',
+                },
+            },
+            colors: {
+                'background': '#f1f7fc',
+            },
         },
-    }
+    },
 };

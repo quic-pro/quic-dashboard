@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useEffect} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
 import {useAccount} from 'wagmi';
 
@@ -11,9 +11,11 @@ export default function DashboardLayout() {
     const navigate = useNavigate();
     const {isConnected} = useAccount();
 
-    if (!isConnected) {
-        navigate('/');
-    }
+    useEffect(() => {
+        if (!isConnected) {
+            navigate('/');
+        }
+    }, [isConnected, navigate]);
 
     return (
         <div className="flex-1 flex flex-row">

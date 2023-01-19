@@ -1,20 +1,25 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import MasterLayout from './layouts/MasterLayout';
+import Loader from '../components/Loader';
+import DashboardLayout from './layouts/DashboardLayout';
 
 
 const MainPage = React.lazy(() => import('./MainPage'));
+const DashboardPage = React.lazy(() => import('./DashboardPage'));
 
 
 export function Router() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<MasterLayout/>}>
+        <Suspense fallback={<Loader/>}>
+            <BrowserRouter>
+                <Routes>
                     <Route path="/" element={<MainPage/>}/>
-                </Route>
-            </Routes>
-        </BrowserRouter>
+                    <Route element={<DashboardLayout/>}>
+                        <Route path="/dashboard" element={<DashboardPage/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </Suspense>
     );
 }

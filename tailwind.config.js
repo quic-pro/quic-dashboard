@@ -13,14 +13,7 @@ module.exports = {
                 center: true,
                 padding: {
                     DEFAULT: '1rem',
-                    'lg': '2rem',
-                    'xl': '3rem',
-                    '2xl': '6rem',
                 },
-            },
-            colors: {
-                'background': '#f1f7fc',
-                'border': '#09a2ff'
             },
         },
     },

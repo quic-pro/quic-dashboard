@@ -1,4 +1,6 @@
 import {ButtonHTMLAttributes} from 'react';
+import {AiOutlineRight} from 'react-icons/ai';
+import {useNavigate} from 'react-router-dom';
 import {useAccount, useConnect} from 'wagmi';
 
 import coinbaseWalletIcon from '../../assets/wallet/icons/Coinbase.png';
@@ -8,7 +10,6 @@ import metaMaskIcon from '../../assets/wallet/icons/MetaMask.png';
 import walletIcon from '../../assets/wallet/icons/Wallet.png';
 import walletConnectIcon from '../../assets/wallet/icons/WalletConnect.png';
 import {SUPPORTED_CONNECTORS} from '../../constants/connectors';
-import {getStyle} from '../../utils/style';
 import Loader from '../Loader';
 
 
@@ -35,25 +36,30 @@ function getWalletIconSource(id: string): string | undefined {
 }
 
 
-export default function ConnectorButton({connector, className, ...attributes}: Props) {
+export default function ConnectorButton({connector, className = '', ...attributes}: Props) {
+    const navigate = useNavigate();
     const {connector: currentConnector} = useAccount();
     const {connect, pendingConnector, isLoading} = useConnect();
 
-    const style = {
-        container: getStyle('flex flex-row w-full p-1 border-2 rounded-lg items-center justify-between', className),
-        loader: 'h-[40px] w-[40px]',
+    const onClick = () => {
+        if (connector !== currentConnector) {
+            connect({connector});
+        } else {
+            navigate('/dashboard');
+        }
     };
 
     return (
         <button
             {...attributes}
-            onClick={() => connect({connector})}
-            className={style.container}
+            onClick={onClick}
+            className={'flex flex-row flex-1 p-1 border-2 rounded-lg items-center justify-between ' + className}
         >
-            {connector.name} {connector === currentConnector && '[connected]'}
-            <div className="flex flex-row">
-                {isLoading && (connector === pendingConnector) && <Loader className={style.loader}/>}
-                <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="40px" width="40px"/>
+            <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="40px" width="40px"/>
+            <span>{connector.name}</span>
+            <div className="flex flex-row w-[40px] h-[40px] justify-center items-center">
+                {connector === currentConnector && <AiOutlineRight className="text-2xl"/>}
+                {isLoading && (connector === pendingConnector) && <Loader/>}
             </div>
         </button>
     );

@@ -1,21 +1,10 @@
-import {HTMLAttributes} from 'react';
-
-import {getStyle} from '../utils/style';
-
-
-type Props = HTMLAttributes<HTMLDivElement>;
-
-
-export default function Loader({className, ...attributes}: Props) {
-    const style = {
-        container: getStyle('flex h-full w-full flex-col justify-center items-center', className),
-    };
-
+export default function Loader() {
     return (
-        <div {...attributes} className={style.container}>
+        <div className="flex-1 flex flex-col justify-center items-center stroke-black">
             <svg
-                className="stroke-black animate-spinSlow"
-                viewBox="0 0 24 24" fill="none"
+                className="animate-spinSlow max-h-[50vmin] max-w-[50vmin]"
+                viewBox="0 0 24 24"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path

@@ -1,3 +1,4 @@
+import {AiFillWarning} from 'react-icons/ai';
 import {useAccount, useBalance, useNetwork} from 'wagmi';
 
 import AccountInfo from '../../../../components/AccountInfo';
@@ -7,7 +8,7 @@ import {collapseAddress, roundBalance} from '../../../../utils/wallet';
 
 
 export default function Account() {
-    const {chain} = useNetwork();
+    const {chain: currentChain, chains} = useNetwork();
     const {address} = useAccount();
 
     const {data: balance} = useBalance({
@@ -21,7 +22,9 @@ export default function Account() {
     return (
         <div className="flex flex-row items-center">
             <DropDown>
-                <span>{chain?.name}</span>
+                {chains.find((chain) => chain.id === currentChain?.id)
+                    ? <span>{currentChain?.name}</span>
+                    : <span className="flex flex-row"><AiFillWarning className="text-2xl text-yellow-500"/> Unsupported</span>}
                 <NetworkList/>
             </DropDown>
             <hr className="w-px h-full bg-black mx-3"/>

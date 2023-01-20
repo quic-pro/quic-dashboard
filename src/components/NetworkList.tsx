@@ -12,27 +12,19 @@ export default function NetworkList() {
             return;
         }
 
-        switchNetwork(chainId);
+        if (chainId !== currentChain?.id) {
+            switchNetwork(chainId);
+        }
     };
 
     return (
         <div className="flex flex-col border">
-            {chains.map((chain) => {
-                if (chain.id === currentChain?.id) {
-                    return (
-                        <button key={chain.id} className="flex flex-row text-green-600">
-                            <span>{chain.name}</span>
-                            <RxCheck/>
-                        </button>
-                    );
-                }
-
-                return (
-                    <button key={chain.id} onClick={() => handlerClick(chain.id)}>
-                        <span>{chain.name}</span>
-                    </button>
-                );
-            })}
+            {chains.map((chain) => (
+                <button key={chain.id} onClick={() => handlerClick(chain.id)} className="flex flex-row">
+                    <span>{chain.name}</span>
+                    {chain.id === currentChain?.id && <RxCheck className="text-2xl text-green-600"/>}
+                </button>
+            ))}
         </div>
     );
 }

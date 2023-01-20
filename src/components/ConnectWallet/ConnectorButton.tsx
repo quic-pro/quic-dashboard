@@ -9,7 +9,6 @@ import ledgerIcon from '../../assets/wallet/icons/Ledger.png';
 import metaMaskIcon from '../../assets/wallet/icons/MetaMask.png';
 import walletIcon from '../../assets/wallet/icons/Wallet.png';
 import walletConnectIcon from '../../assets/wallet/icons/WalletConnect.png';
-import {SUPPORTED_CHAINS} from '../../constants/chains';
 import {SUPPORTED_CONNECTORS} from '../../constants/connectors';
 import Loader from '../Loader';
 
@@ -44,7 +43,7 @@ export default function ConnectorButton({connector, className = '', ...attribute
 
     const handleClick = () => {
         if (connector !== currentConnector) {
-            connect({connector, chainId: SUPPORTED_CHAINS[0].id});
+            connect({connector});
         } else {
             navigate('/dashboard');
         }

@@ -32,8 +32,8 @@ export default function Account() {
                 <span>{collapseAddress(address)}</span>
                 <AccountInfo/>
             </DropDown>
-            <hr className="w-px h-full bg-black mx-3"/>
-            <div className="flex flex-row">
+            <hr className="w-px h-full bg-black mx-3 hidden md:block"/>
+            <div className="flex flex-row hidden md:block">
                 {balance ? <span>{roundBalance(balance.value)} {balance.symbol}</span> : <span>Fetching...</span>}
             </div>
         </div>

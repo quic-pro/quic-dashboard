@@ -17,8 +17,8 @@ export default function Web3Provider({children}: Props) {
     const {provider, webSocketProvider} = configureChains(
         [...SUPPORTED_CHAINS],
         [
-            infuraProvider({apiKey: INFURA_API_KEY}),
             publicProvider(),
+            infuraProvider({apiKey: INFURA_API_KEY}),
         ],
         {
             stallTimeout: 5000,

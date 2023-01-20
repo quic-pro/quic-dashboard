@@ -11,6 +11,8 @@
   "author": "Sergey Bondarenko <sergey@quic.pro> and Svetlana Apalkova <svetlana@quic.pro> QUIC-PRO Inc. developers",
   "license": "MIT",
   "dependencies": {
+    "@ethersproject/units": "^5.7.0",
+    "@mvts/resolver-js": "^0.3.2",
     "buffer": "^6.0.3",
     "envalid": "^7.3.1",
     "ethers": "^5.7.2",

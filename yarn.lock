@@ -1417,7 +1417,7 @@
   dependencies:
     "@ethersproject/logger" "^5.7.0"
 
-"@ethersproject/providers@5.7.2":
+"@ethersproject/providers@5.7.2", "@ethersproject/providers@^5.7.2":
   version "5.7.2"
   resolved "https://registry.yarnpkg.com/@ethersproject/providers/-/providers-5.7.2.tgz#f8b1a4f275d7ce58cf0a2eec222269a08beb18cb"
   integrity sha512-g34EWZ1WWAVgr4aptGlVBF8mhl3VWjv+8hoAnzStu8Ah22VHBsuGzP17eb6xDVRzw895G4W7vvx60lFFur/1Rg==
@@ -1516,7 +1516,7 @@
     "@ethersproject/rlp" "^5.7.0"
     "@ethersproject/signing-key" "^5.7.0"
 
-"@ethersproject/units@5.7.0":
+"@ethersproject/units@5.7.0", "@ethersproject/units@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/units/-/units-5.7.0.tgz#637b563d7e14f42deeee39245275d477aae1d8b1"
   integrity sha512-pD3xLMy3SJu9kG5xDGI7+xhTEmGXlEqXU4OfNapmfnxLVY4EMSSRp7j1k7eezutBPH7RBN/7QPnwR7hzNlEFeg==
@@ -1989,6 +1989,24 @@
   dependencies:
     "@motionone/dom" "^10.15.5"
     tslib "^2.3.1"
+
+"@mvts/contract-interfaces-js@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mvts/contract-interfaces-js/-/contract-interfaces-js-1.0.0.tgz#ff27f0c57106232546a88dc671beb21b01b9c871"
+  integrity sha512-hY7hdQlI184hL6hLf+9djSXhWdhTyv2w2DQq2HgBtM54Uhi0JufMKZ3wNxfikEDY/7EzUx0zuMgwYVEb8m5Ahg==
+  dependencies:
+    "@ethersproject/abi" "^5.7.0"
+    "@ethersproject/providers" "^5.7.2"
+    ethers "^5.7.2"
+
+"@mvts/resolver-js@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@mvts/resolver-js/-/resolver-js-0.3.2.tgz#5a74697f272729bc280bf0e03889e0ac1de217fa"
+  integrity sha512-5HKZ/HEviENCCTgKSJZRElyT7D01kNt19ES7ZBPkhZRV+Z0wt0dtpk8WFqruvq3GEtEwKLR1i7CLnEcOu1U8Bw==
+  dependencies:
+    "@ethersproject/bignumber" "^5.7.0"
+    "@ethersproject/providers" "^5.7.2"
+    "@mvts/contract-interfaces-js" "1.0.0"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"

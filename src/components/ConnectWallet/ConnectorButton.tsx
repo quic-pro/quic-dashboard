@@ -9,6 +9,7 @@ import ledgerIcon from '../../assets/wallet/icons/Ledger.png';
 import metaMaskIcon from '../../assets/wallet/icons/MetaMask.png';
 import walletIcon from '../../assets/wallet/icons/Wallet.png';
 import walletConnectIcon from '../../assets/wallet/icons/WalletConnect.png';
+import {SUPPORTED_CHAINS} from '../../constants/chains';
 import {SUPPORTED_CONNECTORS} from '../../constants/connectors';
 import Loader from '../Loader';
 
@@ -41,9 +42,9 @@ export default function ConnectorButton({connector, className = '', ...attribute
     const {connector: currentConnector} = useAccount();
     const {connect, pendingConnector, isLoading} = useConnect();
 
-    const onClick = () => {
+    const handleClick = () => {
         if (connector !== currentConnector) {
-            connect({connector});
+            connect({connector, chainId: SUPPORTED_CHAINS[0].id});
         } else {
             navigate('/dashboard');
         }
@@ -52,7 +53,7 @@ export default function ConnectorButton({connector, className = '', ...attribute
     return (
         <button
             {...attributes}
-            onClick={onClick}
+            onClick={handleClick}
             className={'flex flex-row flex-1 p-1 border-2 rounded-lg items-center justify-between ' + className}
         >
             <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="40px" width="40px"/>

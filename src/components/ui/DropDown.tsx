@@ -35,7 +35,7 @@ export default function DropDown({children: [button, content]}: Props) {
                 {button} {isExpanded ? <RxCaretUp className="text-2xl"/> : <RxCaretDown className="text-2xl"/>}
             </button>
             <div className="relative">
-                <div className="absolute top-2 w-[280px]">
+                <div className="absolute top-2 right-0">
                     {isExpanded && content}
                 </div>
             </div>

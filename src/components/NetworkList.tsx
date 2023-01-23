@@ -21,7 +21,7 @@ function getChainIcon(name: string, size = '25px'): ReactNode {
         case 'Polygon':
             return <PolygonIcon {...attributes}/>;
         case 'Binance Smart Chain Testnet':
-        case 'BNB Chain':
+        case 'BNB Smart Chain':
             return <BnbChainIcon {...attributes}/>;
         default:
             return null;

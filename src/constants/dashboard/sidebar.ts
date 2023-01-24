@@ -28,6 +28,10 @@ export const MENU: Readonly<MenuSectionData[]> = [
         icon: GrPhone,
         pages: [
             {
+                name: 'About',
+                link: '/dashboard/mvts',
+            },
+            {
                 name: 'Shop',
                 link: '/dashboard/mvts/shop',
             },

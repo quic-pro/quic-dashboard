@@ -27,10 +27,10 @@ export default function MenuSection({data}: Props) {
         }
     };
 
-    if (data.link) {
+    if (!data.pages) {
         return (
             <div className="py-1 ">
-                <NavLink to={`${data.link}`} className="flex flex-row items-center">
+                <NavLink to={`${data.link ?? '/404'}`} className="flex flex-row items-center">
                     <data.icon className="text-4xl"/>
                     {(sidebarMode === 'expanded') && <span className="ml-2 text-lg">{data.name}</span>}
                 </NavLink>

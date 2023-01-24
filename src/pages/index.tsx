@@ -5,6 +5,8 @@ import Loader from '../components/Loader';
 import DashboardLayout from './layouts/DashboardLayout';
 
 
+const NotFoundPage = React.lazy(() => import('./NotFoundPage'));
+
 const MainPage = React.lazy(() => import('./MainPage'));
 const DashboardPage = React.lazy(() => import('./DashboardPage'));
 
@@ -34,6 +36,8 @@ export function Router() {
                         <Route path="/dashboard/finance/swap" element={<FinanceSwapPage/>}/>
                         <Route path="/dashboard/finance/transactions" element={<FinanceTransactionsPage/>}/>
                     </Route>
+
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
             </BrowserRouter>
         </Suspense>

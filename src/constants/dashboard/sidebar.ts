@@ -1,7 +1,9 @@
 import {IconType} from 'react-icons';
+import {BsTelephoneFill} from 'react-icons/bs';
 import {GiTwoCoins} from 'react-icons/gi';
-import {GrDocumentText, GrHelp, GrPhone} from 'react-icons/gr';
-import {TbDashboard} from 'react-icons/tb';
+import {HiDocument} from 'react-icons/hi';
+import {MdHelp} from 'react-icons/md';
+import {VscDashboard} from 'react-icons/vsc';
 
 
 export type MenuSectionData = {
@@ -20,12 +22,12 @@ type SectionPageData = {
 export const MENU: Readonly<MenuSectionData[]> = [
     {
         name: 'Dashboard',
-        icon: TbDashboard,
+        icon: VscDashboard,
         link: '/dashboard',
     },
     {
         name: 'MetaVerse Telecom Service',
-        icon: GrPhone,
+        icon: BsTelephoneFill,
         pages: [
             {
                 name: 'About',
@@ -61,10 +63,10 @@ export const MENU: Readonly<MenuSectionData[]> = [
     },
     {
         name: 'Documentation',
-        icon: GrDocumentText,
+        icon: HiDocument,
     },
     {
         name: 'Help',
-        icon: GrHelp,
+        icon: MdHelp,
     },
 ];

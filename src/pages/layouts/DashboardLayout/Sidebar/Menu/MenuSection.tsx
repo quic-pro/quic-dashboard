@@ -29,28 +29,31 @@ export default function MenuSection({data}: Props) {
 
     if (!data.pages) {
         return (
-            <div className="py-1 ">
+            <div className="my-[5px]">
                 <NavLink to={`${data.link ?? '/404'}`} className="flex flex-row items-center">
-                    <data.icon className="text-4xl"/>
-                    {(sidebarMode === 'expanded') && <span className="ml-2 text-lg">{data.name}</span>}
+                    <data.icon className="text-3xl fill-quicBlueL-300 dark:fill-quicBlueD-300"/>
+                    {(sidebarMode === 'expanded') && <span
+                        className="ml-2 text-lg text-quicBlackL-200 dark:text-quicBlackD-200">{data.name}</span>}
                 </NavLink>
             </div>
         );
     }
 
     return (
-        <div className="py-1 flex flex-col">
+        <div className="flex flex-col my-[5px]">
             <button onClick={handleClick} className="flex flex-row items-center justify-between">
                 <div className="flex flex-row">
-                    <data.icon className="text-4xl"/>
-                    {(sidebarMode === 'expanded') && <span className="ml-2 text-lg">{data.name}</span>}
+                    <data.icon className="text-3xl fill-quicBlueL-300 dark:fill-quicBlueD-300
+                        text-quicBlackL-200 dark:text-quicBlackD-200"/>
+                    {(sidebarMode === 'expanded') && <span className="ml-2 text-lg ">{data.name}</span>}
                 </div>
                 {isExpanded ? <RxCaretUp className="text-3xl"/> : <RxCaretDown className="text-3xl"/>}
             </button>
             {(sidebarMode === 'expanded') && isExpanded && <div className="flex flex-col pl-11">
                 {data.pages?.map((sectionPage) => <NavLink key={sectionPage.name}
                     to={`${sectionPage.link}`}
-                    className="text-lg">{sectionPage.name}</NavLink>)}
+                    className="text-ms my-[2px]
+                        text-quicBlackL-100 dark:text-quicBlackD-100">{sectionPage.name}</NavLink>)}
             </div>}
         </div>
     );

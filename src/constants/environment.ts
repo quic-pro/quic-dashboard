@@ -8,5 +8,14 @@ const env = cleanEnv(process.env, {
 });
 
 
-export const NODE_ENV = (window.origin === env.REACT_APP_DOMAIN ? 'production' : process.env.NODE_ENV);
+function defineNodeEnv(): typeof process.env.NODE_ENV {
+    if (env.NODE_ENV === 'production') {
+        return (window.origin === env.REACT_APP_DOMAIN ? 'production' : 'development');
+    }
+
+    return process.env.NODE_ENV;
+}
+
+
+export const NODE_ENV = defineNodeEnv();
 export const INFURA_API_KEY = env.REACT_APP_INFURA_API_KEY;

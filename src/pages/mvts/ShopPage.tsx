@@ -115,7 +115,7 @@ export default function ShopPage() {
             .then(() => {
                 setNotificationList([...notificationList, {
                     type: NotificationType.SUCCESS,
-                    context: `Code ${code} minted`,
+                    context: `The request for minting the code ${code} has been sent.`,
                 }]);
             })
             .catch((error) => {

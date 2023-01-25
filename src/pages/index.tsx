@@ -10,6 +10,7 @@ const NotFoundPage = React.lazy(() => import('./NotFoundPage'));
 const MainPage = React.lazy(() => import('./MainPage'));
 const DashboardPage = React.lazy(() => import('./DashboardPage'));
 
+const MvtsLayout = React.lazy(() => import('./mvts/Layout'));
 const MvtsMainPage = React.lazy(() => import('./mvts/MainPage'));
 const MvtsShopPage = React.lazy(() => import('./mvts/ShopPage'));
 const MvtsAccountPage = React.lazy(() => import('./mvts/AccountPage'));
@@ -28,10 +29,12 @@ export function Router() {
                     <Route element={<DashboardLayout/>}>
                         <Route path="/dashboard" element={<DashboardPage/>}/>
 
-                        <Route path="/dashboard/mvts" element={<MvtsMainPage/>}/>
-                        <Route path="/dashboard/mvts/shop" element={<MvtsShopPage/>}/>
-                        <Route path="/dashboard/mvts/account" element={<MvtsAccountPage/>}/>
-                        <Route path="/dashboard/mvts/settings" element={<MvtsSettingPage/>}/>
+                        <Route element={<MvtsLayout/>}>
+                            <Route path="/dashboard/mvts" element={<MvtsMainPage/>}/>
+                            <Route path="/dashboard/mvts/shop" element={<MvtsShopPage/>}/>
+                            <Route path="/dashboard/mvts/account" element={<MvtsAccountPage/>}/>
+                            <Route path="/dashboard/mvts/settings" element={<MvtsSettingPage/>}/>
+                        </Route>
 
                         <Route path="/dashboard/finance/swap" element={<FinanceSwapPage/>}/>
                         <Route path="/dashboard/finance/transactions" element={<FinanceTransactionsPage/>}/>

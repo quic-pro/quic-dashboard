@@ -1,10 +1,12 @@
 import {ReactNode} from 'react';
 import {RxCheck} from 'react-icons/rx';
+import {useRecoilState} from 'recoil';
 import {Chain, useNetwork, useSwitchNetwork} from 'wagmi';
 
 import {ReactComponent as BnbChainIcon} from '../assets/chain/icons/BnbChain.svg';
 import {ReactComponent as EthereumIcon} from '../assets/chain/icons/Ethereum.svg';
 import {ReactComponent as PolygonIcon} from '../assets/chain/icons/Polygon.svg';
+import {notificationListState, NotificationType} from '../state/app';
 
 
 function getChainIcon(name: string, size = '25px'): ReactNode {
@@ -30,24 +32,40 @@ function getChainIcon(name: string, size = '25px'): ReactNode {
 
 
 export default function NetworkList() {
+    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
     const {chain: currentChain, chains} = useNetwork();
-    const {switchNetwork} = useSwitchNetwork();
+    const {switchNetworkAsync} = useSwitchNetwork();
 
     const handlerClick = (chain: Chain) => {
-        if (!switchNetwork) {
-            // TODO: Show notification
-            return;
-        }
-
         if (chain.id !== currentChain?.id) {
-            switchNetwork(chain.id);
+            switchNetworkAsync?.(chain.id)
+                .then((chain) => {
+                    setNotificationList([...notificationList, {
+                        type: NotificationType.SUCCESS,
+                        context: `The network has changed to ${chain.name}`,
+                    }]);
+                })
+                .catch((error) => {
+                    let message = 'Unknown error';
+                    if (typeof error === 'string') {
+                        message = error;
+                    }else if (error instanceof Error) {
+                        message = error.message;
+                    }
+
+                    setNotificationList([...notificationList, {
+                        type: NotificationType.ERROR,
+                        context: `Failed to change network: ${message}.`,
+                    }]);
+                });
         }
     };
 
     return (
         <div className="flex flex-col bg-white border p-2 w-[280px]">
             {chains.map((chain) => (
-                <button key={chain.id} onClick={() => handlerClick(chain)} className="flex flex-row p-1 justify-between">
+                <button key={chain.id} onClick={() => handlerClick(chain)}
+                    className="flex flex-row p-1 justify-between">
                     {getChainIcon(chain.name)}
                     <span>{chain.name}</span>
                     <div>

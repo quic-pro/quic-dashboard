@@ -17,22 +17,5 @@ export enum NotificationType {
 
 export const notificationListState = atom<NotificationData[]>({
     key: 'notificationList',
-    default: [
-        {
-            type: NotificationType.INFORMATION,
-            context: 'text',
-        },
-        {
-            type: NotificationType.SUCCESS,
-            context: 'text',
-        },
-        {
-            type: NotificationType.ERROR,
-            context: 'text',
-        },
-        {
-            type: NotificationType.WARNING,
-            context: 'text',
-        },
-    ],
+    default: [],
 });

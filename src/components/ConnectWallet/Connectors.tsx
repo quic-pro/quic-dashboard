@@ -1,4 +1,3 @@
-import {useEffect} from 'react';
 import {useConnect} from 'wagmi';
 
 import {injectedConnector} from '../../constants/connectors';
@@ -7,13 +6,7 @@ import ConnectorButton from './ConnectorButton';
 
 
 export default function Connectors() {
-    const {connectors, error} = useConnect();
-
-    useEffect(() => {
-        if (error) {
-            // TODO: Show notification with error.message
-        }
-    }, []);
+    const {connectors} = useConnect();
 
     return (
         <div className="flex flex-col">

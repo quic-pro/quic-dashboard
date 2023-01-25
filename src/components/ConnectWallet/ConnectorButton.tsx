@@ -1,6 +1,7 @@
-import {ButtonHTMLAttributes} from 'react';
+import {ButtonHTMLAttributes, useEffect} from 'react';
 import {AiOutlineRight} from 'react-icons/ai';
 import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
 import {useAccount, useConnect} from 'wagmi';
 
 import coinbaseWalletIcon from '../../assets/wallet/icons/Coinbase.png';
@@ -10,6 +11,7 @@ import metaMaskIcon from '../../assets/wallet/icons/MetaMask.png';
 import walletIcon from '../../assets/wallet/icons/Wallet.png';
 import walletConnectIcon from '../../assets/wallet/icons/WalletConnect.png';
 import {SUPPORTED_CONNECTORS} from '../../constants/connectors';
+import {notificationListState, NotificationType} from '../../state/app';
 import Loader from '../Loader';
 
 
@@ -37,9 +39,10 @@ function getWalletIconSource(id: string): string | undefined {
 
 
 export default function ConnectorButton({connector, className = '', ...attributes}: Props) {
+    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
     const navigate = useNavigate();
     const {connector: currentConnector} = useAccount();
-    const {connect, pendingConnector, isLoading} = useConnect();
+    const {connect, pendingConnector, isLoading, isError, error, isSuccess} = useConnect();
 
     const handleClick = () => {
         if (connector !== currentConnector) {
@@ -48,6 +51,24 @@ export default function ConnectorButton({connector, className = '', ...attribute
             navigate('/dashboard');
         }
     };
+
+    useEffect(() => {
+        if (isError) {
+            setNotificationList([...notificationList, {
+                type: NotificationType.ERROR,
+                context: `Wallet not connected: ${error?.message ?? 'Unknown error'}.`,
+            }]);
+        }
+    }, [isError]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setNotificationList([...notificationList, {
+                type: NotificationType.SUCCESS,
+                context: 'The wallet is connected. Now you can go to the dashboard.',
+            }]);
+        }
+    }, [isSuccess]);
 
     return (
         <button

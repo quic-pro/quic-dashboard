@@ -1,21 +1,26 @@
 import {AiFillWarning} from 'react-icons/ai';
+import {useRecoilState} from 'recoil';
 import {useAccount, useBalance, useNetwork} from 'wagmi';
 
 import AccountInfo from '../../../../components/AccountInfo';
 import NetworkList from '../../../../components/NetworkList';
 import DropDown from '../../../../components/ui/DropDown';
+import {notificationListState, NotificationType} from '../../../../state/app';
 import {collapseAddress, roundBalance} from '../../../../utils/wallet';
 
 
 export default function Account() {
+    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
     const {chain: currentChain, chains} = useNetwork();
     const {address} = useAccount();
 
     const {data: balance} = useBalance({
         address: address!,
         onError(error) {
-            // TODO: Show notification with error.message
-            console.error(error);
+            setNotificationList([...notificationList, {
+                type: NotificationType.ERROR,
+                context: `Failed to get wallet balance: ${error.message}.`,
+            }]);
         },
     });
 

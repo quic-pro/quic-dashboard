@@ -5,8 +5,9 @@ import {MdClose, MdOutlineCheckCircle, MdOutlineError, MdOutlineInfo, MdOutlineW
 import {NotificationData, NotificationType} from '../../state/app';
 
 
-type Props = NotificationData & {
-    close: () => void;
+type Props = {
+    data: NotificationData;
+    close: (data: NotificationData) => void;
 };
 
 
@@ -51,17 +52,17 @@ function getTitle(notificationType: NotificationType): ReactNode {
 }
 
 
-export default function Notification({type, context, close}: Props) {
-    const title = getTitle(type);
+export default function Notification({data, close}: Props) {
+    const title = getTitle(data.type);
 
     return (
         <div className="drop-shadow-2xl m-2 border-2 rounded-md bg-slate-50 w-[300px]">
             <div className="flex p-2 border-b justify-between">
                 {title}
-                <button onClick={() => close()}><MdClose/></button>
+                <button onClick={() => close(data)}><MdClose/></button>
             </div>
             <div className="p-2">
-                {context}
+                {data.context}
             </div>
         </div>
     );

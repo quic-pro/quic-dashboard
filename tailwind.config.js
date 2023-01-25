@@ -76,7 +76,11 @@ module.exports = {
                 },
                 projectBlue: '#378eff', //color big text, button
                 textFooter: '#48668d', //color bottom text
-            }
+            },
+            gridTemplateColumns: {
+                '15': 'repeat(15, minmax(0, 1fr))',
+                '20': 'repeat(20, minmax(0, 1fr))',
+            },
         },
     },
 };

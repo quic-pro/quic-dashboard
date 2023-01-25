@@ -22,9 +22,13 @@ export default function DashboardLayout() {
             <Sidebar/>
             <main className="flex-1 flex flex-col">
                 <Header className="mb-3"/>
-                <Suspense fallback={<Loader/>}>
-                    <Outlet/>
-                </Suspense>
+                <div className="flex-1 flex flex-col overflow-auto">
+                    <div className="container pb-4">
+                        <Suspense fallback={<Loader/>}>
+                            <Outlet/>
+                        </Suspense>
+                    </div>
+                </div>
             </main>
         </div>
     );

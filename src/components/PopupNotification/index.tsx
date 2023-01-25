@@ -18,7 +18,7 @@ export default function PopupNotification() {
             if (timeout) {
                 clearTimeout(timeout);
             }
-            timeout = setTimeout(() => close(notificationList[0]), 3000);
+            timeout = setTimeout(() => close(notificationList[0]), 5000);
         }
 
         return () => {

@@ -47,7 +47,7 @@ export default function MenuSection({data}: Props) {
                         text-quicBlackL-200 dark:text-quicBlackD-200"/>
                     {(sidebarMode === 'expanded') && <span className="ml-2 text-lg ">{data.name}</span>}
                 </div>
-                {isExpanded ? <RxCaretUp className="text-3xl"/> : <RxCaretDown className="text-3xl"/>}
+                {(sidebarMode === 'expanded') && (isExpanded ? <RxCaretUp className="text-3xl"/> : <RxCaretDown className="text-3xl"/>)}
             </button>
             {(sidebarMode === 'expanded') && isExpanded && <div className="flex flex-col pl-11">
                 {data.pages?.map((sectionPage) => <NavLink key={sectionPage.name}

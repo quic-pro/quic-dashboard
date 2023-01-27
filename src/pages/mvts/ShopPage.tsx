@@ -3,6 +3,7 @@ import {ChangeEvent, useLayoutEffect, useState} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 
 import Loader from '../../components/Loader';
+import {POOL_SIZE} from '../../constants/rootRouter';
 import {notificationListState, NotificationType} from '../../state/app';
 import {rootRouterState} from '../../state/dashboard/mvts';
 import {getErrorMessage} from '../../utils/getErrorMessage';
@@ -28,7 +29,7 @@ export default function ShopPage() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [mintPrice, setMintPrice] = useState<BigNumber | null>(null);
-    const [codesStatus, setCodesStatus] = useState(Array.from({length: 1000}, () => ({
+    const [codesStatus, setCodesStatus] = useState(Array.from({length: POOL_SIZE}, () => ({
         isBlocked: false,
         isHeld: false,
         isAvailableForMint: false,
@@ -114,14 +115,14 @@ export default function ShopPage() {
         rootRouter?.mint(code, {value: mintPrice!})
             .then(() => {
                 setNotificationList([...notificationList, {
-                    type: NotificationType.SUCCESS,
-                    context: `The request for minting the code ${code} has been sent.`,
+                    type: NotificationType.INFORMATION,
+                    context: `Code ${code}: Minting transaction sent.`,
                 }]);
             })
             .catch((error) => {
                 setNotificationList([...notificationList, {
                     type: NotificationType.ERROR,
-                    context: `Failed to mint code: ${getErrorMessage(error)}.`,
+                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
                 }]);
             });
     };
@@ -130,7 +131,7 @@ export default function ShopPage() {
         const codeInput = event.target.value.replace(/\D/g, '');
         const code = Number(codeInput);
 
-        if ((codeInput.length !== 3) || (code < 0) || (code >= 1000) || !codesStatus[code].isAvailableForMint) {
+        if ((codeInput.length !== 3) || (code < 0) || (code >= POOL_SIZE) || !codesStatus[code].isAvailableForMint) {
             setEnteredCode(null);
         } else {
             setEnteredCode(code);

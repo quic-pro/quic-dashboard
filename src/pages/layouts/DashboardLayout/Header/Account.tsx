@@ -6,7 +6,8 @@ import AccountInfo from '../../../../components/AccountInfo';
 import NetworkList from '../../../../components/NetworkList';
 import DropDown from '../../../../components/ui/DropDown';
 import {notificationListState, NotificationType} from '../../../../state/app';
-import {collapseAddress, roundBalance} from '../../../../utils/wallet';
+import {roundBigNumber} from '../../../../utils/bigNumber';
+import {collapseAddress} from '../../../../utils/wallet';
 
 
 export default function Account() {
@@ -39,7 +40,7 @@ export default function Account() {
             </DropDown>
             <hr className="w-px h-full bg-black mx-3 hidden md:block"/>
             <div className="flex flex-row hidden md:block">
-                {balance ? <span>{roundBalance(balance.value)} {balance.symbol}</span> : <span>Fetching...</span>}
+                {balance ? <span>{roundBigNumber(balance.value)} {balance.symbol}</span> : <span>Fetching...</span>}
             </div>
         </div>
     );

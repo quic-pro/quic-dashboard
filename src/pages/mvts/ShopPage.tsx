@@ -6,8 +6,8 @@ import Loader from '../../components/Loader';
 import {POOL_SIZE} from '../../constants/rootRouter';
 import {notificationListState, NotificationType} from '../../state/app';
 import {rootRouterState} from '../../state/dashboard/mvts';
+import {roundBigNumber} from '../../utils/bigNumber';
 import {getErrorMessage} from '../../utils/getErrorMessage';
-import {roundBalance} from '../../utils/wallet';
 import BasePage from './BasePage';
 
 
@@ -142,7 +142,7 @@ export default function ShopPage() {
         <BasePage title={TITLE} description={DESCRIPTION}>
             <div>
                 <span>Price: </span>
-                <span>{mintPrice && roundBalance(mintPrice)}</span>
+                <span>{mintPrice && roundBigNumber(mintPrice)}</span>
             </div>
             <div className="flex flex-col">
                 <div>

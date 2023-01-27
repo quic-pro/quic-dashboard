@@ -7,8 +7,8 @@ import {useNetwork} from 'wagmi';
 import Loader from '../../../../components/Loader';
 import {notificationListState, NotificationType} from '../../../../state/app';
 import {rootRouterState} from '../../../../state/dashboard/mvts';
+import {roundBigNumber} from '../../../../utils/bigNumber';
 import {getErrorMessage} from '../../../../utils/getErrorMessage';
-import {roundBalance} from '../../../../utils/wallet';
 
 
 type Props = {
@@ -98,7 +98,7 @@ export default function Status({code}: Props) {
                 <button onClick={handleRenewSubscription} className="border">Renew subscription</button>
                 {subscriptionPrice && (
                     <>
-                        <span>{roundBalance(subscriptionPrice, 4)}</span>
+                        <span>{roundBigNumber(subscriptionPrice, 4)}</span>
                         <span>{chain?.nativeCurrency.symbol}</span>
                     </>
                 )}

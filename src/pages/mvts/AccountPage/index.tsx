@@ -2,7 +2,7 @@ import BasePage from '../BasePage';
 import Codes from './Codes';
 
 
-const TITLE = 'Account';
+const TITLE = 'ACCOUNT';
 const DESCRIPTION = '';
 
 

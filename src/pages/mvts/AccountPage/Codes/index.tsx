@@ -62,7 +62,8 @@ export default function Codes() {
             ))}
             <button
                 onClick={loadData}
-                className="border p-1 m-1"
+                className="border p-1 my-3 rounded
+                    bg-quicBlueL text-quicBlueL-400 hover:bg-quicBlueL-200"
             >
                 Refresh
             </button>

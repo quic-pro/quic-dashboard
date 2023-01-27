@@ -1,4 +1,5 @@
 import {IconType} from 'react-icons';
+import {AiFillMessage} from 'react-icons/ai';
 import {BsTelephoneFill} from 'react-icons/bs';
 import {GiTwoCoins} from 'react-icons/gi';
 import {HiDocument} from 'react-icons/hi';
@@ -26,26 +27,9 @@ export const MENU: Readonly<MenuSectionData[]> = [
         link: '/dashboard',
     },
     {
-        name: 'MetaVerse Telecom Service',
-        icon: BsTelephoneFill,
-        pages: [
-            {
-                name: 'About',
-                link: '/dashboard/mvts',
-            },
-            {
-                name: 'Shop',
-                link: '/dashboard/mvts/shop',
-            },
-            {
-                name: 'Account',
-                link: '/dashboard/mvts/account',
-            },
-            {
-                name: 'Settings',
-                link: '/dashboard/mvts/settings',
-            },
-        ],
+        name: 'Messenger',
+        icon: AiFillMessage,
+        link: '/dashboard/messenger',
     },
     {
         name: 'Finance',
@@ -58,6 +42,32 @@ export const MENU: Readonly<MenuSectionData[]> = [
             {
                 name: 'Transactions',
                 link: '/dashboard/finance/transactions',
+            },
+        ],
+    },
+    {
+        name: 'MetaVerse Telecom Service',
+        icon: BsTelephoneFill,
+        pages: [
+            {
+                name: 'About',
+                link: '/dashboard/mvts',
+            },
+            {
+                name: 'Shop',
+                link: '/dashboard/mvts/shop',
+            },
+            {
+                name: 'Marketplace',
+                link: '/dashboard/mvts/marketplace',
+            },
+            {
+                name: 'Account',
+                link: '/dashboard/mvts/account',
+            },
+            {
+                name: 'Settings',
+                link: '/dashboard/mvts/settings',
             },
         ],
     },

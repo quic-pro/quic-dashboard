@@ -50,7 +50,7 @@ export default function PoolMode({code, data}: Props) {
             .then(() => {
                 setNotificationList([...notificationList, {
                     type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Setr router transaction sent.`,
+                    context: `Code ${code}: Set router transaction sent.`,
                 }]);
             })
             .catch((error) => {
@@ -142,7 +142,7 @@ export default function PoolMode({code, data}: Props) {
 
                 <details className="flex flex-col">
                     <summary>Set Route</summary>
-                    <input type="text" placeholder="newSipDomain" value={newChainId} onChange={(event) => handleChangeInput(event, setNewChainId)}/>
+                    <input type="text" placeholder="newChainId" value={newChainId} onChange={(event) => handleChangeInput(event, setNewChainId)}/>
                     <input type="text" placeholder="newAdr" value={newAdr} onChange={(event) => handleChangeInput(event, setNewAdr)}/>
                     <input type="text" placeholder="newPoolCodeLength" value={newPoolCodeLength} onChange={(event) => handleChangeInput(event, setNewPoolCodeLength)}/>
                     <button onClick={handleSetRouter} className="border">Apply</button>

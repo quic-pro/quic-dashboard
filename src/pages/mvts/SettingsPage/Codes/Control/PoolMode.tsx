@@ -140,19 +140,21 @@ export default function PoolMode({code, data}: Props) {
                     <button onClick={handleChangeMode} className="border">Change Mode</button>
                 </div>
 
-                <div>
-                    <button onClick={handleSetRouter} className="border">Set Router</button>
+                <details className="flex flex-col">
+                    <summary>Set Route</summary>
                     <input type="text" placeholder="newSipDomain" value={newChainId} onChange={(event) => handleChangeInput(event, setNewChainId)}/>
-                    <input type="text" placeholder="newSipDomain" value={newAdr} onChange={(event) => handleChangeInput(event, setNewAdr)}/>
-                    <input type="text" placeholder="newSipDomain" value={newPoolCodeLength} onChange={(event) => handleChangeInput(event, setNewPoolCodeLength)}/>
-                </div>
+                    <input type="text" placeholder="newAdr" value={newAdr} onChange={(event) => handleChangeInput(event, setNewAdr)}/>
+                    <input type="text" placeholder="newPoolCodeLength" value={newPoolCodeLength} onChange={(event) => handleChangeInput(event, setNewPoolCodeLength)}/>
+                    <button onClick={handleSetRouter} className="border">Apply</button>
+                </details>
                 <div>
                     <button onClick={handleClearRouter} className="border">Clear Router</button>
                 </div>
-                <div>
-                    <button onClick={handleTransfer} className="border">Transfer</button>
+                <details className="flex flex-col">
+                    <summary>Transfer</summary>
                     <input type="text" placeholder="to" value={to} onChange={(event) => handleChangeInput(event, setTo)}/>
-                </div>
+                    <button onClick={handleTransfer} className="border">Apply</button>
+                </details>
                 <div>
                     <button onClick={handleRenounceOwnership} className="border">Renounce Ownership</button>
                 </div>

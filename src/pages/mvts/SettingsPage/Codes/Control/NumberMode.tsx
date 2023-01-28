@@ -145,17 +145,19 @@ export default function NumberMode({code, data}: Props) {
                 <div>
                     <button onClick={handleChangeMode} className="border">Change Mode</button>
                 </div>
-                <div>
-                    <button onClick={handleSetSipDomain} className="border">Set SIP Domain</button>
+                <details className="flex flex-col">
+                    <summary>Set SIP Domain</summary>
                     <input type="text" placeholder="newSipDomain" value={newSipDomain} onChange={(event) => handleChangeInput(event, setNewSipDomain)}/>
-                </div>
+                    <button onClick={handleSetSipDomain} className="border">Apply</button>
+                </details>
                 <div>
                     <button onClick={handleClearSipDomain} className="border">Clear SIP Domain</button>
                 </div>
-                <div>
-                    <button onClick={handleTransfer} className="border">Transfer</button>
+                <details className="flex flex-col">
+                    <summary>Transfer</summary>
                     <input type="text" placeholder="to" value={to} onChange={(event) => handleChangeInput(event, setTo)}/>
-                </div>
+                    <button onClick={handleTransfer} className="border">Apply</button>
+                </details>
                 <div>
                     <button onClick={handleRenounceOwnership} className="border">Renounce Ownership</button>
                 </div>

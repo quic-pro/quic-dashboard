@@ -111,6 +111,13 @@ export default function ShopPage() {
             });
     };
 
+    const handleResetFilters = () => {
+        setFilterBlocked(true);
+        setFilterHeld(true);
+        setFilterAvailable(true);
+        setFilterMinted(true);
+    };
+
     const handleClickOnCode = (code: number) => {
         rootRouter?.mint(code, {value: mintPrice!})
             .then(() => {
@@ -202,6 +209,7 @@ export default function ShopPage() {
                     <button onClick={() => setFilterAvailable(!filterAvailable)} className="border p-1 m-1">Available
                     </button>
                     <button onClick={() => setFilterMinted(!filterMinted)} className="border p-1 m-1">Minted</button>
+                    <button onClick={handleResetFilters} className="border p-1 m-1">All</button>
                 </div>
                 {isLoading
                     ? <Loader/>

@@ -165,16 +165,17 @@ export default function ShopPage() {
         const filteredCodes = filterCodes();
 
         const tree: number[][][] = [];
-        for (let i = 0; i < 10; ++i) {
-            tree.push([]);
-            for (let j = 0; j < 10; ++j) {
-                tree[i].push([]);
-            }
-        }
 
         filteredCodes.forEach((code) => {
             const a = +code.toString()[0];
             const b = +code.toString()[1];
+
+            if (!tree[a]) {
+                tree[a] = [];
+            }
+            if (!tree[a][b]) {
+                tree[a][b] = [];
+            }
 
             tree[a][b].push(code);
         });

@@ -138,6 +138,43 @@ export default function ShopPage() {
         }
     };
 
+    const filterCodes = () => {
+        const filteredCodes: number[] = [];
+        for (let code = 100; code < POOL_SIZE; ++code) {
+            if (
+                (codesStatus[code].isBlocked && filterBlocked) ||
+                (codesStatus[code].isHeld && filterHeld) ||
+                (codesStatus[code].isAvailableForMint && filterAvailable) ||
+                (codesStatus[code].isMinted && filterMinted)
+            ) {
+                filteredCodes.push(code);
+            }
+        }
+
+        return filteredCodes;
+    };
+
+    const splitCodes = () => {
+        const filteredCodes = filterCodes();
+
+        const tree: number[][][] = [];
+        for (let i = 0; i < 10; ++i) {
+            tree.push([]);
+            for (let j = 0; j < 10; ++j) {
+                tree[i].push([]);
+            }
+        }
+
+        filteredCodes.forEach((code) => {
+            const a = +code.toString()[0];
+            const b = +code.toString()[1];
+
+            tree[a][b].push(code);
+        });
+
+        return tree;
+    };
+
     return (
         <BasePage title={TITLE} description={DESCRIPTION}>
             <div>
@@ -170,32 +207,45 @@ export default function ShopPage() {
                     ? <Loader/>
                     : (
                         <div
-                            className="grid grid-cols-5 lg:grid-cols-10 xl:grid-cols-15 2xl:grid-cols-20 gap-2 justify-items-stretch">
-                            {codesStatus.map((codeStatus, code) => {
-                                let bgColor = '';
-                                if (codeStatus.isBlocked) {
-                                    bgColor = 'bg-red-300';
-                                } else if (codeStatus.isHeld) {
-                                    bgColor = 'bg-blue-300';
-                                } else if (codeStatus.isAvailableForMint) {
-                                    bgColor = 'bg-green-300';
-                                }
-
-                                if (
-                                    (codeStatus.isBlocked && filterBlocked) ||
-                                    (codeStatus.isHeld && filterHeld) ||
-                                    (codeStatus.isAvailableForMint && filterAvailable) ||
-                                    (codeStatus.isMinted && filterMinted)
-                                ) {
-                                    return <button
-                                        key={code}
-                                        disabled={!codeStatus.isAvailableForMint}
-                                        onClick={() => handleClickOnCode(code)}
-                                        className={`w-full border rounded-lg h-10 ${bgColor}`}
-                                    >{code.toString().padStart(3, '0')}</button>;
-                                } else {
+                            className="flex flex-col">
+                            {splitCodes().map((codesA, indexA) => {
+                                if (codesA.length === 0) {
                                     return null;
                                 }
+
+                                return (
+                                    <details key={indexA}>
+                                        <summary>{indexA}--</summary>
+                                        {codesA.map((codesB, indexB) => {
+                                            if (codesB.length === 0) {
+                                                return null;
+                                            }
+
+                                            return (
+                                                <details key={indexB} className="ml-8">
+                                                    <summary>{indexA}{indexB}-</summary>
+                                                    {codesB.map((code) => {
+                                                        let bgColor = '';
+                                                        if (codesStatus[code].isBlocked) {
+                                                            bgColor = 'bg-red-300';
+                                                        } else if (codesStatus[code].isHeld) {
+                                                            bgColor = 'bg-blue-300';
+                                                        } else if (codesStatus[code].isAvailableForMint) {
+                                                            bgColor = 'bg-green-300';
+                                                        }
+
+                                                        return <button
+                                                            key={code}
+                                                            disabled={!codesStatus[code].isAvailableForMint}
+                                                            onClick={() => handleClickOnCode(code)}
+                                                            className={`w-full border rounded-lg h-10 ${bgColor}`}
+                                                        >{code.toString().padStart(3, '0')}</button>;
+                                                    })}
+                                                </details>
+                                            );
+                                        })}
+                                    </details>
+                                );
                             })}
                         </div>
                     )

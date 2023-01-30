@@ -38,7 +38,7 @@ function useSendTransaction<K extends keyof RootRouter['functions']>(method: K) 
     }, [rootRouter]);
 }
 
-function useGetData<K extends keyof RootRouter['functions']>(method: K, ...args: Parameters<RootRouter[K]>) {
+function useGetData<K extends keyof RootRouter['functions']>(method: K, args: Parameters<RootRouter[K]>) {
     const rootRouter = useRecoilValue(rootRouterState);
     const addNotification = useAddNotification();
 
@@ -65,7 +65,7 @@ function useGetData<K extends keyof RootRouter['functions']>(method: K, ...args:
 
                 addNotification(NotificationType.ERROR, Content);
             });
-    }, [rootRouter]);
+    }, [rootRouter, ...args]);
 
     useEffect(refresh, [refresh]);
 
@@ -74,28 +74,28 @@ function useGetData<K extends keyof RootRouter['functions']>(method: K, ...args:
 
 
 export function useMintPrice() {
-    return useGetData<'mintPrice'>('mintPrice');
+    return useGetData<'mintPrice'>('mintPrice', []);
 }
 
 export function useBlockedCodes() {
-    return useGetData<'getBlockedCodes'>('getBlockedCodes');
+    return useGetData<'getBlockedCodes'>('getBlockedCodes', []);
 }
 
 export function useHeldCodes() {
-    return useGetData<'getHeldCodes'>('getHeldCodes');
+    return useGetData<'getHeldCodes'>('getHeldCodes', []);
 }
 
 export function useAvailableForMintCodes() {
-    return useGetData<'getAvailableForMintCodes'>('getAvailableForMintCodes');
+    return useGetData<'getAvailableForMintCodes'>('getAvailableForMintCodes', []);
 }
 
 export function useOwnerCodes() {
     const {address} = useAccount();
-    return useGetData<'getOwnerCodes'>('getOwnerCodes', address!);
+    return useGetData<'getOwnerCodes'>('getOwnerCodes', [address!]);
 }
 
 export function useCodeData(...args: Parameters<RootRouter['getCodeData']>) {
-    return useGetData<'getCodeData'>('getCodeData', ...args);
+    return useGetData<'getCodeData'>('getCodeData', args);
 }
 
 export function useMint() {

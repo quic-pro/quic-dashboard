@@ -78,27 +78,34 @@ export default function Status({code}: Props) {
     }
 
     return (
-        <div className="flex-1 flex flex-col bg-gray-100 rounded-lg p-2">
+        <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
             <div>
-                <span>Lock status:</span>
+                <span className='mr-2'>Lock status:</span>
                 <span>{status.isBlocked ? 'Is blocked' : 'Not blocked'}</span>
             </div>
             <div>
-                <span>Hold status:</span>
+                <span className='mr-2'>Hold status:</span>
                 <span>{status.isHeld ? 'Is held' : 'Not held'}</span>
                 {status.isHeld && <span>Renew your subscription</span>}
             </div>
             <div>
-                <span>Expired:</span>
+                <span className='mr-2'>Expired:</span>
                 {status.isHeld
                     ? <span>{new Date(status.holdEndTime.toNumber() * 1000).toUTCString()}</span>
                     : <span>{new Date(status.subscriptionEndTime.toNumber() * 1000).toUTCString()}</span>}
             </div>
             <div>
-                <button onClick={handleRenewSubscription} className="border">Renew subscription</button>
+                <button onClick={handleRenewSubscription}
+                    className="border rounded-md mr-5 px-1 mt-10
+                    bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                    dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                    dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                >
+                        Renew subscription
+                </button>
                 {subscriptionPrice && (
                     <>
-                        <span>{roundBigNumber(subscriptionPrice, 4)}</span>
+                        <span className='mr-1'>{roundBigNumber(subscriptionPrice, 4)}</span>
                         <span>{chain?.nativeCurrency.symbol}</span>
                     </>
                 )}

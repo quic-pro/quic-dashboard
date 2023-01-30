@@ -224,7 +224,7 @@ export default function ShopPage() {
 
                                 return (
                                     <details key={indexA}>
-                                        <summary>{indexA}--</summary>
+                                        <summary>{indexA}**</summary>
                                         {codesA.map((codesB, indexB) => {
                                             if (codesB.length === 0) {
                                                 return null;
@@ -232,7 +232,7 @@ export default function ShopPage() {
 
                                             return (
                                                 <details key={indexB} className="ml-8">
-                                                    <summary>{indexA}{indexB}-</summary>
+                                                    <summary>{indexA}{indexB}*</summary>
                                                     {codesB.map((code) => {
                                                         let bgColor = '';
                                                         if (codesStatus[code].isBlocked) {

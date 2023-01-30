@@ -1,5 +1,4 @@
 import {RootRouter} from '@mvts/contract-interfaces-js';
-import {BigNumberish} from 'ethers';
 import {useCallback, useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {useAccount} from 'wagmi';
@@ -39,44 +38,11 @@ function useSendTransaction<K extends keyof RootRouter['functions']>(method: K) 
     }, [rootRouter]);
 }
 
-
-export function useAccountCodes() {
+function useGetData<K extends keyof RootRouter['functions']>(method: K, ...args: Parameters<RootRouter[K]>) {
     const rootRouter = useRecoilValue(rootRouterState);
-
-    const [data, setData] = useState<number[] | null>(null);
-
-    const {address} = useAccount();
     const addNotification = useAddNotification();
 
-    const refresh = useCallback(() => {
-        setData(null);
-
-        if (!rootRouter || !address) {
-            return;
-        }
-
-        rootRouter.getOwnerCodes(address)
-            .then((ownerCodes) => {
-                const accountCodes: number[] = [];
-                ownerCodes.forEach((ownedByAccount, index) => ownedByAccount && accountCodes.push(index));
-                setData(accountCodes);
-            })
-            .catch((error) => {
-                addNotification(NotificationType.ERROR, `Failed to get account codes. DETAILS: ${getErrorMessage(error)}`);
-            });
-    }, [rootRouter, address]);
-
-    useEffect(refresh, [refresh]);
-
-    return {data, refresh};
-}
-
-export function useCodeData(code: BigNumberish) {
-    const rootRouter = useRecoilValue(rootRouterState);
-
-    const [data, setData] = useState<RootRouter.CodeStructOutput | null>(null);
-
-    const addNotification = useAddNotification();
+    const [data, setData] = useState<Awaited<ReturnType<RootRouter[K]>> | null>(null);
 
     const refresh = useCallback(() => {
         setData(null);
@@ -85,16 +51,36 @@ export function useCodeData(code: BigNumberish) {
             return;
         }
 
-        rootRouter.getCodeData(code)
-            .then(setData)
+        // @ts-ignore
+        rootRouter[method](...args)
+            // @ts-ignore
+            .then((data) => setData(data))
             .catch((error) => {
-                addNotification(NotificationType.ERROR, `Failed to get code data. DETAILS: ${getErrorMessage(error)}`);
+                const Content = (
+                    <>
+                        <span>Failed to get data {method}.</span>
+                        <details>{getErrorMessage(error)}</details>
+                    </>
+                );
+
+                addNotification(NotificationType.ERROR, Content);
             });
-    }, [rootRouter, code]);
+    }, [rootRouter]);
 
     useEffect(refresh, [refresh]);
 
     return {data, refresh};
+}
+
+
+export function useOwnerCodes() {
+    const {address} = useAccount();
+    console.log(address);
+    return useGetData<'getOwnerCodes'>('getOwnerCodes', address!);
+}
+
+export function useCodeData(...args: Parameters<RootRouter['getCodeData']>) {
+    return useGetData<'getCodeData'>('getCodeData', ...args);
 }
 
 export function useChangeCodeMode() {

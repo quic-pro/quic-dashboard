@@ -1,33 +1,33 @@
 import {useState} from 'react';
 
 import Loader from '../../../../components/Loader';
-import {useAccountCodes} from '../../../../hooks/mvts/rootRouter';
+import {useOwnerCodes} from '../../../../hooks/mvts/rootRouter';
 import Control from './Control';
 
 
 export default function Codes() {
     const [selectedCode, setSelectedCode] = useState<number | null>(null);
 
-    const accountCodes = useAccountCodes();
+    const ownerCodes = useOwnerCodes();
 
     const loadData = () => {
-        accountCodes.refresh();
+        ownerCodes.refresh();
     };
 
     const handleCodeSelection = (code: number) => {
         setSelectedCode(code === selectedCode ? null : code);
     };
 
-    if (accountCodes.data === null) {
+    if (ownerCodes.data === null) {
         return <Loader/>;
     }
 
     return (
         <div>
-            {accountCodes.data.map((code) => (
+            {ownerCodes.data.map((code, index) => (
                 <button
-                    key={code}
-                    onClick={() => handleCodeSelection(code)}
+                    key={index}
+                    onClick={() => handleCodeSelection(index)}
                     className="border p-1 m-1"
                 >
                     {code}

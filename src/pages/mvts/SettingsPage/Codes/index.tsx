@@ -24,15 +24,21 @@ export default function Codes() {
 
     return (
         <div>
-            {ownerCodes.data.map((code, index) => (
-                <button
-                    key={index}
-                    onClick={() => handleCodeSelection(index)}
-                    className="border p-1 m-1"
-                >
-                    {code}
-                </button>
-            ))}
+            {ownerCodes.data.map((ownedByAccount, code) => {
+                if (ownedByAccount) {
+                    return (
+                        <button
+                            key={code}
+                            onClick={() => handleCodeSelection(code)}
+                            className="border p-1 m-1"
+                        >
+                            {code}
+                        </button>
+                    );
+                } else {
+                    return null;
+                }
+            })}
             <button
                 onClick={loadData}
                 className="border p-1 m-1"

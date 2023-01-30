@@ -73,14 +73,33 @@ function useGetData<K extends keyof RootRouter['functions']>(method: K, ...args:
 }
 
 
+export function useMintPrice() {
+    return useGetData<'mintPrice'>('mintPrice');
+}
+
+export function useBlockedCodes() {
+    return useGetData<'getBlockedCodes'>('getBlockedCodes');
+}
+
+export function useHeldCodes() {
+    return useGetData<'getHeldCodes'>('getHeldCodes');
+}
+
+export function useAvailableForMintCodes() {
+    return useGetData<'getAvailableForMintCodes'>('getAvailableForMintCodes');
+}
+
 export function useOwnerCodes() {
     const {address} = useAccount();
-    console.log(address);
     return useGetData<'getOwnerCodes'>('getOwnerCodes', address!);
 }
 
 export function useCodeData(...args: Parameters<RootRouter['getCodeData']>) {
     return useGetData<'getCodeData'>('getCodeData', ...args);
+}
+
+export function useMint() {
+    return useSendTransaction<'mint'>('mint');
 }
 
 export function useChangeCodeMode() {

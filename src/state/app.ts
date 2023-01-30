@@ -4,14 +4,14 @@ import {atom} from 'recoil';
 
 export type NotificationData = {
     type: NotificationType;
-    context: ReactNode
+    context: ReactNode;
 };
 
 export enum NotificationType {
     INFORMATION,
     SUCCESS,
     WARNING,
-    ERROR
+    ERROR,
 }
 
 

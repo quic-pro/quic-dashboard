@@ -3,6 +3,7 @@ import {ChangeEvent, useState} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {useAccount} from 'wagmi';
 
+import {useChangeCodeMode, useSetCodeRouter} from '../../../../../hooks/mvts/rootRouter';
 import {notificationListState, NotificationType} from '../../../../../state/app';
 import {rootRouterState} from '../../../../../state/dashboard/mvts';
 import {getErrorMessage} from '../../../../../utils/getErrorMessage';
@@ -25,40 +26,11 @@ export default function PoolMode({code, data}: Props) {
 
     const {address} = useAccount();
 
+    const changeCodeMode = useChangeCodeMode();
+    const setCodeRouter = useSetCodeRouter();
+
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>, setState: (newValue: string) => void) => {
         setState(event.target.value);
-    };
-
-    const handleChangeMode = () => {
-        rootRouter?.changeCodeMode(code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Mode change transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleSetRouter = () => {
-        rootRouter?.setCodeRouter(code, newChainId, newAdr, newPoolCodeLength)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Set router transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
     };
 
     const handleClearRouter = () => {
@@ -137,7 +109,7 @@ export default function PoolMode({code, data}: Props) {
             )}
             <div className="mt-4">
                 <div>
-                    <button onClick={handleChangeMode} className="border">Change Mode</button>
+                    <button onClick={() => changeCodeMode(code)} className="border">Change Mode</button>
                 </div>
 
                 <details className="flex flex-col">
@@ -145,7 +117,7 @@ export default function PoolMode({code, data}: Props) {
                     <input type="text" placeholder="newChainId" value={newChainId} onChange={(event) => handleChangeInput(event, setNewChainId)}/>
                     <input type="text" placeholder="newAdr" value={newAdr} onChange={(event) => handleChangeInput(event, setNewAdr)}/>
                     <input type="text" placeholder="newPoolCodeLength" value={newPoolCodeLength} onChange={(event) => handleChangeInput(event, setNewPoolCodeLength)}/>
-                    <button onClick={handleSetRouter} className="border">Apply</button>
+                    <button onClick={() => setCodeRouter(code, newChainId, newAdr, newPoolCodeLength)} className="border">Apply</button>
                 </details>
                 <div>
                     <button onClick={handleClearRouter} className="border">Clear Router</button>

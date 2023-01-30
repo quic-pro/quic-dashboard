@@ -10,7 +10,7 @@ export default function Menu() {
 
     return (
         <nav className="flex flex-col">
-            {sidebarMode === 'expanded' && <span className='font-bold text-quicBlackL-200 dark:text-quicBlackD-200'>MENU</span>}
+            {sidebarMode === 'expanded' && <span className="font-bold text-quicBlackL-200 dark:text-quicBlackD-200">MENU</span>}
             {MENU.map((menuSection) => <MenuSection key={menuSection.name} data={menuSection}/>)}
         </nav>
     );

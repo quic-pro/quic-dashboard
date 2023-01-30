@@ -21,7 +21,7 @@ export default function Codes() {
     if (accountCodes.data === null) {
         return <Loader/>;
     }
-    
+
     return (
         <div>
             {accountCodes.data.map((code) => (

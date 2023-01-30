@@ -20,7 +20,7 @@ export default function Header({className = '', ...attributes}: Props) {
     return (
         <div {...attributes} className={'flex flex-row px-8 py-3 justify-between shadow-lg shadow-gray-400/30 ' + className}>
             <div>
-                <button onClick={collapseOrExpand} className='flex flex-col md:hidden text-4xl'>
+                <button onClick={collapseOrExpand} className="flex flex-col md:hidden text-4xl">
                     {sidebarMode === 'expanded'
                         ? <AiOutlineClose className="text-2xl m-[2px] self-end stroke-quicBlueL-300 dark:stroke-quicBlueD-300"/>
                         : <AiOutlineMenu className="text-2xl m-[2px] self-start stroke-quicBlueL-300 dark:stroke-quicBlueD-300"/>}

@@ -80,16 +80,16 @@ export default function Status({code}: Props) {
     return (
         <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
             <div>
-                <span className='mr-2'>Lock status:</span>
+                <span className="mr-2">Lock status:</span>
                 <span>{status.isBlocked ? 'Is blocked' : 'Not blocked'}</span>
             </div>
             <div>
-                <span className='mr-2'>Hold status:</span>
+                <span className="mr-2">Hold status:</span>
                 <span>{status.isHeld ? 'Is held' : 'Not held'}</span>
                 {status.isHeld && <span>Renew your subscription</span>}
             </div>
             <div>
-                <span className='mr-2'>Expired:</span>
+                <span className="mr-2">Expired:</span>
                 {status.isHeld
                     ? <span>{new Date(status.holdEndTime.toNumber() * 1000).toUTCString()}</span>
                     : <span>{new Date(status.subscriptionEndTime.toNumber() * 1000).toUTCString()}</span>}
@@ -105,7 +105,7 @@ export default function Status({code}: Props) {
                 </button>
                 {subscriptionPrice && (
                     <>
-                        <span className='mr-1'>{roundBigNumber(subscriptionPrice, 4)}</span>
+                        <span className="mr-1">{roundBigNumber(subscriptionPrice, 4)}</span>
                         <span>{chain?.nativeCurrency.symbol}</span>
                     </>
                 )}

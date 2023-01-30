@@ -51,7 +51,7 @@ export default function Codes() {
 
     return (
         <div>
-            <div className='flex flex-wrap'>
+            <div className="flex flex-wrap">
                 {codes.map((code) => (
                     <button
                         key={code}

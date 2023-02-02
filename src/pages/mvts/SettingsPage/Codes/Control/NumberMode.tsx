@@ -137,9 +137,11 @@ export default function NumberMode({code, data}: Props) {
                 <span className="mr-2">SIP domain:</span>
                 <span>{data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}</span>
             </div>
-            <div>
-                <span className="mr-2">SIP URI:</span>
-                <span>{`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}`}</span>
+            <div className="w-[300px] md:w-full">
+                <span className="mr-2 whitespace-nowrap">SIP URI:</span>
+                <span className="break-words">
+                    {`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}`}
+                </span>
             </div>
             <div className="mt-4">
                 <div>
@@ -154,9 +156,14 @@ export default function NumberMode({code, data}: Props) {
                 </div>
                 <details className="flex flex-col">
                     <summary className="my-2">Set SIP Domain</summary>
-                    <input type="text" placeholder="newSipDomain" value={newSipDomain} onChange={(event) => handleChangeInput(event, setNewSipDomain)}/>
+                    <input type="text"
+                        placeholder="newSipDomain"
+                        value={newSipDomain}
+                        onChange={(event) => handleChangeInput(event, setNewSipDomain)}
+                        className="ml-5"
+                    />
                     <button onClick={handleSetSipDomain}
-                        className="border rounded-md my-3 px-1
+                        className="ml-5 border rounded-md my-3 px-1
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
                         dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"

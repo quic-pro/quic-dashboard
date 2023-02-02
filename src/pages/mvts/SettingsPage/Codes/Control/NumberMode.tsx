@@ -130,36 +130,87 @@ export default function NumberMode({code, data}: Props) {
     return (
         <div>
             <div>
-                <span>Mode:</span>
+                <span className="mr-2">Mode:</span>
                 <span>Number</span>
             </div>
             <div>
-                <span>SIP domain:</span>
+                <span className="mr-2">SIP domain:</span>
                 <span>{data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}</span>
             </div>
-            <div>
-                <span>SIP URI:</span>
-                <span>{`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}`}</span>
+            <div className="w-[300px] md:w-full">
+                <span className="mr-2 whitespace-nowrap">SIP URI:</span>
+                <span className="break-words">
+                    {`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}`}
+                </span>
             </div>
             <div className="mt-4">
                 <div>
-                    <button onClick={handleChangeMode} className="border">Change Mode</button>
+                    <button onClick={handleChangeMode}
+                        className="border rounded-md mb-2 px-1 mt-10 h-[34px]
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Change Mode
+                    </button>
                 </div>
-                <details className="flex flex-col">
+                <details className="flex flex-col my-3">
                     <summary>Set SIP Domain</summary>
-                    <input type="text" placeholder="newSipDomain" value={newSipDomain} onChange={(event) => handleChangeInput(event, setNewSipDomain)}/>
-                    <button onClick={handleSetSipDomain} className="border">Apply</button>
+                    <div className="flex flex-row">
+                        <input type="text"
+                            placeholder="newSipDomain"
+                            value={newSipDomain}
+                            onChange={(event) => handleChangeInput(event, setNewSipDomain)}
+                            className="ml-5 my-3 h-[34px] px-2 rounded-md"
+                        />
+                        <button onClick={handleSetSipDomain}
+                            className="ml-5 border rounded-md my-3 px-1 h-[34px]
+                            bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                            dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                            dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                        >
+                            Apply
+                        </button>
+                    </div>
                 </details>
                 <div>
-                    <button onClick={handleClearSipDomain} className="border">Clear SIP Domain</button>
+                    <button onClick={handleClearSipDomain}
+                        className="border rounded-md my-2 px-1 h-[34px]
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Clear SIP Domain
+                    </button>
                 </div>
-                <details className="flex flex-col">
+                <details className="flex flex-col my-3">
                     <summary>Transfer</summary>
-                    <input type="text" placeholder="to" value={to} onChange={(event) => handleChangeInput(event, setTo)}/>
-                    <button onClick={handleTransfer} className="border">Apply</button>
+                    <div className="flex flex-row">
+                        <input type="text"
+                            placeholder="to"
+                            value={to}
+                            onChange={(event) => handleChangeInput(event, setTo)}
+                            className="ml-5 my-3 h-[34px] px-2 rounded-md"
+                        />
+                        <button onClick={handleTransfer}
+                            className="ml-5 border rounded-md my-3 px-1 h-[34px]
+                            bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                            dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                            dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                        >
+                            Apply
+                        </button>
+                    </div>
                 </details>
                 <div>
-                    <button onClick={handleRenounceOwnership} className="border">Renounce Ownership</button>
+                    <button onClick={handleRenounceOwnership}
+                        className="border rounded-md mt-2 mb-5 px-1 h-[34px]
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Renounce Ownership
+                    </button>
                 </div>
             </div>
         </div>

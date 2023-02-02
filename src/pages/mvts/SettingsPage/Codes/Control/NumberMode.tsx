@@ -146,7 +146,7 @@ export default function NumberMode({code, data}: Props) {
             <div className="mt-4">
                 <div>
                     <button onClick={handleChangeMode}
-                        className="border rounded-md mb-2 px-1 mt-10
+                        className="border rounded-md mb-2 px-1 mt-10 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
                         dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
@@ -154,26 +154,28 @@ export default function NumberMode({code, data}: Props) {
                         Change Mode
                     </button>
                 </div>
-                <details className="flex flex-col">
-                    <summary className="my-2">Set SIP Domain</summary>
-                    <input type="text"
-                        placeholder="newSipDomain"
-                        value={newSipDomain}
-                        onChange={(event) => handleChangeInput(event, setNewSipDomain)}
-                        className="ml-5"
-                    />
-                    <button onClick={handleSetSipDomain}
-                        className="ml-5 border rounded-md my-3 px-1
-                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
-                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
-                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
-                    >
-                        Apply
-                    </button>
+                <details className="flex flex-col my-3">
+                    <summary>Set SIP Domain</summary>
+                    <div className="flex flex-row">
+                        <input type="text"
+                            placeholder="New Sip Domain"
+                            value={newSipDomain}
+                            onChange={(event) => handleChangeInput(event, setNewSipDomain)}
+                            className="ml-5 my-3 h-[34px] px-2 rounded-md"
+                        />
+                        <button onClick={handleSetSipDomain}
+                            className="ml-5 border rounded-md my-3 px-1 h-[34px]
+                            bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                            dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                            dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                        >
+                            Apply
+                        </button>
+                    </div>
                 </details>
                 <div>
                     <button onClick={handleClearSipDomain}
-                        className="border rounded-md my-2 px-1
+                        className="border rounded-md my-2 px-1 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
                         dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
@@ -181,21 +183,28 @@ export default function NumberMode({code, data}: Props) {
                         Clear SIP Domain
                     </button>
                 </div>
-                <details className="flex flex-col">
-                    <summary className="my-2">Transfer</summary>
-                    <input type="text" placeholder="to" value={to} onChange={(event) => handleChangeInput(event, setTo)}/>
-                    <button onClick={handleTransfer}
-                        className="border rounded-md my-3 px-1
-                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
-                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
-                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
-                    >
-                        Apply
-                    </button>
+                <details className="flex flex-col my-3">
+                    <summary>Transfer</summary>
+                    <div className="flex flex-row">
+                        <input type="text"
+                            placeholder="to"
+                            value={to}
+                            onChange={(event) => handleChangeInput(event, setTo)}
+                            className="ml-5 my-3 h-[34px] px-2 rounded-md"
+                        />
+                        <button onClick={handleTransfer}
+                            className="ml-5 border rounded-md my-3 px-1 h-[34px]
+                            bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                            dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                            dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                        >
+                            Apply
+                        </button>
+                    </div>
                 </details>
                 <div>
                     <button onClick={handleRenounceOwnership}
-                        className="border rounded-md my-2 px-1
+                        className="border rounded-md mt-2 mb-5 px-1 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
                         dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"

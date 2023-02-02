@@ -158,7 +158,7 @@ export default function NumberMode({code, data}: Props) {
                     <summary>Set SIP Domain</summary>
                     <div className="flex flex-row">
                         <input type="text"
-                            placeholder="New Sip Domain"
+                            placeholder="newSipDomain"
                             value={newSipDomain}
                             onChange={(event) => handleChangeInput(event, setNewSipDomain)}
                             className="ml-5 my-3 h-[34px] px-2 rounded-md"

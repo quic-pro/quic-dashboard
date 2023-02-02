@@ -144,7 +144,7 @@ export default function NumberMode({code, data}: Props) {
             <div className="mt-4">
                 <div>
                     <button onClick={handleChangeMode}
-                        className="border rounded-md mb-3 px-1 mt-10
+                        className="border rounded-md mb-2 px-1 mt-10
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
                         dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
@@ -153,20 +153,48 @@ export default function NumberMode({code, data}: Props) {
                     </button>
                 </div>
                 <details className="flex flex-col">
-                    <summary>Set SIP Domain</summary>
+                    <summary className="my-2">Set SIP Domain</summary>
                     <input type="text" placeholder="newSipDomain" value={newSipDomain} onChange={(event) => handleChangeInput(event, setNewSipDomain)}/>
-                    <button onClick={handleSetSipDomain} className="border">Apply</button>
+                    <button onClick={handleSetSipDomain}
+                        className="border rounded-md my-3 px-1
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Apply
+                    </button>
                 </details>
                 <div>
-                    <button onClick={handleClearSipDomain} className="border">Clear SIP Domain</button>
+                    <button onClick={handleClearSipDomain}
+                        className="border rounded-md my-2 px-1
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Clear SIP Domain
+                    </button>
                 </div>
                 <details className="flex flex-col">
-                    <summary>Transfer</summary>
+                    <summary className="my-2">Transfer</summary>
                     <input type="text" placeholder="to" value={to} onChange={(event) => handleChangeInput(event, setTo)}/>
-                    <button onClick={handleTransfer} className="border">Apply</button>
+                    <button onClick={handleTransfer}
+                        className="border rounded-md my-3 px-1
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Apply
+                    </button>
                 </details>
                 <div>
-                    <button onClick={handleRenounceOwnership} className="border">Renounce Ownership</button>
+                    <button onClick={handleRenounceOwnership}
+                        className="border rounded-md my-2 px-1
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Renounce Ownership
+                    </button>
                 </div>
             </div>
         </div>

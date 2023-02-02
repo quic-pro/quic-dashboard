@@ -1,45 +1,51 @@
 import {useState} from 'react';
 
 import Loader from '../../../../components/Loader';
-import {useAccountCodes} from '../../../../hooks/mvts/rootRouter';
+import {useOwnerCodes} from '../../../../hooks/mvts/rootRouter';
 import Control from './Control';
 
 
 export default function Codes() {
     const [selectedCode, setSelectedCode] = useState<number | null>(null);
 
-    const accountCodes = useAccountCodes();
+    const ownerCodes = useOwnerCodes();
 
     const loadData = () => {
-        accountCodes.refresh();
+        ownerCodes.refresh();
     };
 
     const handleCodeSelection = (code: number) => {
         setSelectedCode(code === selectedCode ? null : code);
     };
 
-    if (accountCodes.data === null) {
+    if (ownerCodes.data === null) {
         return <Loader/>;
     }
 
     return (
         <div>
             <div className="flex flex-wrap">
-                {accountCodes.data.map((code) => (
-                    <button
-                        key={code}
-                        onClick={() => handleCodeSelection(code)}
-                        className="border rounded-md p-1 m-1 w-[42px] h-[34px]
-                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
-                    >
-                        {code}
-                    </button>
-                ))}
+                {ownerCodes.data.map((ownedByAccount, code) => {
+                    if (ownedByAccount) {
+                        return (
+                            <button
+                                key={code}
+                                onClick={() => handleCodeSelection(code)}
+                                className="border rounded-md p-1 m-1 w-[42px] h-[34px]
+                                    bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                                    dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            >
+                                {code}
+                            </button>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
                 <button
-                    onClick={loadData}
-                    className="border rounded-md p-1 m-1 bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                        dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                      onClick={loadData}
+                      className="border rounded-md p-1 m-1 bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                          dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
                 >
                     Refresh
                 </button>

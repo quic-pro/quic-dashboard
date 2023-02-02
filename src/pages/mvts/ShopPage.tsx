@@ -1,13 +1,15 @@
-import {BigNumber} from 'ethers';
-import {ChangeEvent, useLayoutEffect, useState} from 'react';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {ChangeEvent, useEffect, useState} from 'react';
 
 import Loader from '../../components/Loader';
 import {POOL_SIZE} from '../../constants/rootRouter';
-import {notificationListState, NotificationType} from '../../state/app';
-import {rootRouterState} from '../../state/dashboard/mvts';
+import {
+    useAvailableForMintCodes,
+    useBlockedCodes,
+    useHeldCodes,
+    useMint,
+    useMintPrice,
+} from '../../hooks/mvts/rootRouter';
 import {roundBigNumber} from '../../utils/bigNumber';
-import {getErrorMessage} from '../../utils/getErrorMessage';
 import BasePage from './BasePage';
 
 
@@ -24,11 +26,7 @@ type codesStatus = {
 
 
 export default function ShopPage() {
-    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
-    const rootRouter = useRecoilValue(rootRouterState);
-
     const [isLoading, setIsLoading] = useState(true);
-    const [mintPrice, setMintPrice] = useState<BigNumber | null>(null);
     const [codesStatus, setCodesStatus] = useState(Array.from({length: POOL_SIZE}, () => ({
         isBlocked: false,
         isHeld: false,
@@ -41,97 +39,51 @@ export default function ShopPage() {
     const [filterAvailable, setFilterAvailable] = useState(true);
     const [filterMinted, setFilterMinted] = useState(true);
 
-    useLayoutEffect(() => {
-        loadData();
-    }, [rootRouter]);
+    const mintPrice = useMintPrice();
+    const blockedCodes = useBlockedCodes();
+    const heldCodes = useHeldCodes();
+    const availableForMintCodes = useAvailableForMintCodes();
+    const mint = useMint();
 
-    const loadData = () => {
-        if (!rootRouter) {
+    useEffect(() => {
+        if (blockedCodes.data && heldCodes.data && availableForMintCodes.data) {
+            codesStatus.forEach((codesStatus) => {
+                codesStatus.isMinted = ((!codesStatus.isAvailableForMint && !codesStatus.isBlocked) || codesStatus.isHeld);
+            });
+            setCodesStatus(codesStatus);
+            setIsLoading(false);
+        }
+    }, [blockedCodes, heldCodes, availableForMintCodes]);
+
+    useEffect(() => {
+        if (!blockedCodes.data) {
             return;
         }
 
-        Promise.all([
-            new Promise<void>((resolve) => {
-                rootRouter.mintPrice()
-                    .then(setMintPrice)
-                    .catch((error) => {
-                        setNotificationList([...notificationList, {
-                            type: NotificationType.ERROR,
-                            context: `Failed to get mint price: ${getErrorMessage(error)}.`,
-                        }]);
-                    })
-                    .finally(resolve);
-            }),
-            new Promise<void>((resolve) => {
-                rootRouter.getBlockedCodes()
-                    .then((blockedCodes) => {
-                        blockedCodes.forEach((status, index) => codesStatus[index].isBlocked = status);
-                    })
-                    .catch((error) => {
-                        setNotificationList([...notificationList, {
-                            type: NotificationType.ERROR,
-                            context: `Failed to get blocked codes: ${getErrorMessage(error)}.`,
-                        }]);
-                    })
-                    .finally(resolve);
-            }),
-            new Promise<void>((resolve) => {
-                rootRouter.getHeldCodes()
-                    .then((heldCodes) => {
-                        heldCodes.forEach((status, index) => codesStatus[index].isHeld = status);
-                    })
-                    .catch((error) => {
-                        setNotificationList([...notificationList, {
-                            type: NotificationType.ERROR,
-                            context: `Failed to get held codes: ${getErrorMessage(error)}.`,
-                        }]);
-                    })
-                    .finally(resolve);
-            }),
-            new Promise<void>((resolve) => {
-                rootRouter.getAvailableForMintCodes()
-                    .then((availableForMintCodes) => {
-                        availableForMintCodes.forEach((status, index) => codesStatus[index].isAvailableForMint = status);
-                    })
-                    .catch((error) => {
-                        setNotificationList([...notificationList, {
-                            type: NotificationType.ERROR,
-                            context: `Failed to get available for mint codes: ${getErrorMessage(error)}.`,
-                        }]);
-                    })
-                    .finally(resolve);
-            }),
-        ])
-            .finally(() => {
-                codesStatus.forEach((codesStatus) => {
-                    codesStatus.isMinted = ((!codesStatus.isAvailableForMint && !codesStatus.isBlocked) || codesStatus.isHeld);
-                });
-                setCodesStatus(codesStatus);
-                setIsLoading(false);
-            });
-    };
+        blockedCodes.data.forEach((status, index) => codesStatus[index].isBlocked = status);
+    }, [blockedCodes]);
+
+    useEffect(() => {
+        if (!heldCodes.data) {
+            return;
+        }
+
+        heldCodes.data.forEach((status, index) => codesStatus[index].isHeld = status);
+    }, [heldCodes]);
+
+    useEffect(() => {
+        if (!availableForMintCodes.data) {
+            return;
+        }
+
+        availableForMintCodes.data.forEach((status, index) => codesStatus[index].isAvailableForMint = status);
+    }, [availableForMintCodes]);
 
     const handleResetFilters = () => {
         setFilterBlocked(true);
         setFilterHeld(true);
         setFilterAvailable(true);
         setFilterMinted(true);
-    };
-
-    const handleClickOnCode = (code: number) => {
-        rootRouter?.mint(code, {value: mintPrice!})
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Minting transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
     };
 
     const handleInputCode = (event: ChangeEvent<HTMLInputElement>) => {
@@ -187,7 +139,7 @@ export default function ShopPage() {
         <BasePage title={TITLE} description={DESCRIPTION}>
             <div>
                 <span>Price: </span>
-                <span>{mintPrice && roundBigNumber(mintPrice)}</span>
+                <span>{mintPrice.data && roundBigNumber(mintPrice.data)}</span>
             </div>
             <div className="flex flex-col">
                 <div>
@@ -198,7 +150,7 @@ export default function ShopPage() {
                         placeholder="Number"
                         onChange={handleInputCode}
                     />
-                    {enteredCode && <button onClick={() => handleClickOnCode(enteredCode)} className="border">Mint</button>}
+                    {enteredCode && <button onClick={() => mint(enteredCode)} className="border">Mint</button>}
                 </div>
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
             </div>
@@ -246,7 +198,7 @@ export default function ShopPage() {
                                                         return <button
                                                             key={code}
                                                             disabled={!codesStatus[code].isAvailableForMint}
-                                                            onClick={() => handleClickOnCode(code)}
+                                                            onClick={() => mint(code)}
                                                             className={`w-full border rounded-lg h-10 ${bgColor}`}
                                                         >{code.toString().padStart(3, '0')}</button>;
                                                     })}

@@ -130,20 +130,27 @@ export default function NumberMode({code, data}: Props) {
     return (
         <div>
             <div>
-                <span>Mode:</span>
+                <span className="mr-2">Mode:</span>
                 <span>Number</span>
             </div>
             <div>
-                <span>SIP domain:</span>
+                <span className="mr-2">SIP domain:</span>
                 <span>{data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}</span>
             </div>
             <div>
-                <span>SIP URI:</span>
+                <span className="mr-2">SIP URI:</span>
                 <span>{`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}`}</span>
             </div>
             <div className="mt-4">
                 <div>
-                    <button onClick={handleChangeMode} className="border">Change Mode</button>
+                    <button onClick={handleChangeMode}
+                        className="border rounded-md mb-3 px-1 mt-10
+                        bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
+                        dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
+                        dark:hover:text-quicBlueD-400 dark:border-quicBlueD-400"
+                    >
+                        Change Mode
+                    </button>
                 </div>
                 <details className="flex flex-col">
                     <summary>Set SIP Domain</summary>

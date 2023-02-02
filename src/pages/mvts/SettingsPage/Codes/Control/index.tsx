@@ -17,8 +17,9 @@ export default function Control({code}: Props) {
     }
 
     return (
-        <div className="flex-1 flex flex-col bg-gray-100 rounded-lg p-2">
-            {codeData.data.mode === 0 ? <NumberMode code={code} data={codeData.data}/> : <PoolMode code={code} data={codeData.data}/>}
+        <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
+            {codeData.data.mode === 0 ? <NumberMode code={code}
+                data={codeData.data}/> : <PoolMode code={code} data={codeData.data}/>}
         </div>
     );
 }

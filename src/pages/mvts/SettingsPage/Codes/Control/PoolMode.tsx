@@ -84,25 +84,25 @@ export default function PoolMode({code, data}: Props) {
     return (
         <div>
             <div>
-                <span>Mode:</span>
+                <span className="mr-2">Mode:</span>
                 <span>Pool</span>
             </div>
             <div>
-                <span>Router:</span>
+                <span className="mr-2">Router:</span>
                 <span>{data.hasRouter ? '' : 'No router'}</span>
             </div>
             {data.hasRouter && (
                 <div className="ml-8">
                     <div>
-                        <span>Chain ID:</span>
+                        <span className="mr-2">Chain ID:</span>
                         <span>{data.router.chainId.toString()}</span>
                     </div>
                     <div>
-                        <span>Address:</span>
+                        <span className="mr-2">Address:</span>
                         <span>{data.router.adr}</span>
                     </div>
                     <div>
-                        <span>Pool code length:</span>
+                        <span className="mr-2">Pool code length:</span>
                         <span>{data.router.poolCodeLength.toString()}</span>
                     </div>
                 </div>

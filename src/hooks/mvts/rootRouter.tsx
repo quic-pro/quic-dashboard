@@ -77,6 +77,10 @@ export function useMintPrice() {
     return useGetData<'mintPrice'>('mintPrice', []);
 }
 
+export function useSubscriptionPrice() {
+    return useGetData<'subscriptionPrice'>('subscriptionPrice', []);
+}
+
 export function useBlockedCodes() {
     return useGetData<'getBlockedCodes'>('getBlockedCodes', []);
 }
@@ -98,8 +102,16 @@ export function useCodeData(...args: Parameters<RootRouter['getCodeData']>) {
     return useGetData<'getCodeData'>('getCodeData', args);
 }
 
+export function useCodeStatus(...args: Parameters<RootRouter['getCodeStatus']>) {
+    return useGetData<'getCodeStatus'>('getCodeStatus', args);
+}
+
 export function useMint() {
     return useSendTransaction<'mint'>('mint');
+}
+
+export function useRenewSubscription() {
+    return useSendTransaction<'renewSubscription'>('renewSubscription');
 }
 
 export function useChangeCodeMode() {

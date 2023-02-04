@@ -1,12 +1,14 @@
 import {RootRouter} from '@mvts/contract-interfaces-js';
 import {ChangeEvent, useState} from 'react';
-import {useRecoilState, useRecoilValue} from 'recoil';
 import {useAccount} from 'wagmi';
 
-import {useChangeCodeMode, useSetCodeRouter} from '../../../../../hooks/mvts/rootRouter';
-import {notificationListState, NotificationType} from '../../../../../state/app';
-import {rootRouterState} from '../../../../../state/dashboard/mvts';
-import {getErrorMessage} from '../../../../../utils/getErrorMessage';
+import {
+    useChangeCodeMode,
+    useClearCodeRouter,
+    useRenounceOwnershipOfCode,
+    useSafeTransferFrom,
+    useSetCodeRouter,
+} from '../../../../../hooks/mvts/rootRouter';
 
 
 type Props = {
@@ -16,9 +18,6 @@ type Props = {
 
 
 export default function PoolMode({code, data}: Props) {
-    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
-    const rootRouter = useRecoilValue(rootRouterState);
-
     const [newChainId, setNewChainId] = useState('');
     const [newAdr, setNewAdr] = useState('');
     const [newPoolCodeLength, setNewPoolCodeLength] = useState('');
@@ -33,53 +32,9 @@ export default function PoolMode({code, data}: Props) {
         setState(event.target.value);
     };
 
-    const handleClearRouter = () => {
-        rootRouter?.clearCodeSipDomain(code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Clear router transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleTransfer = () => {
-        rootRouter?.['safeTransferFrom(address,address,uint256)'](address!, to, code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Transfer transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleRenounceOwnership = () => {
-        rootRouter?.renounceOwnershipOfCode(code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Renounce ownership transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
+    const clearCodeRouter = useClearCodeRouter();
+    const renounceOwnershipOfCode = useRenounceOwnershipOfCode();
+    const safeTransferFrom = useSafeTransferFrom();
 
     return (
         <div>
@@ -151,7 +106,7 @@ export default function PoolMode({code, data}: Props) {
                     </div>
                 </details>
                 <div>
-                    <button onClick={handleClearRouter}
+                    <button onClick={() => clearCodeRouter(code)}
                         className="border rounded-md my-2 px-1 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
@@ -169,7 +124,7 @@ export default function PoolMode({code, data}: Props) {
                             onChange={(event) => handleChangeInput(event, setTo)}
                             className="ml-5 my-3 h-[34px] px-2 rounded-md"
                         />
-                        <button onClick={handleTransfer}
+                        <button onClick={() => safeTransferFrom(address!, to, code)}
                             className="ml-5 border rounded-md my-3 px-1 h-[34px]
                             bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                             dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
@@ -180,7 +135,7 @@ export default function PoolMode({code, data}: Props) {
                     </div>
                 </details>
                 <div>
-                    <button onClick={handleRenounceOwnership}
+                    <button onClick={() => renounceOwnershipOfCode(code)}
                         className="border rounded-md my-2 px-1 h-[34px] mb-5
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white

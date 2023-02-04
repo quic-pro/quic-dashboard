@@ -81,6 +81,10 @@ export function useSubscriptionPrice() {
     return useGetData<'subscriptionPrice'>('subscriptionPrice', []);
 }
 
+export function useDefaultSipDomain() {
+    return useGetData<'defaultSipDomain'>('defaultSipDomain', []);
+}
+
 export function useBlockedCodes() {
     return useGetData<'getBlockedCodes'>('getBlockedCodes', []);
 }
@@ -118,6 +122,26 @@ export function useChangeCodeMode() {
     return useSendTransaction<'changeCodeMode'>('changeCodeMode');
 }
 
+export function useSetCodeSipDomain() {
+    return useSendTransaction<'setCodeSipDomain'>('setCodeSipDomain');
+}
+
+export function useClearCodeSipDomain() {
+    return useSendTransaction<'clearCodeSipDomain'>('clearCodeSipDomain');
+}
+
 export function useSetCodeRouter() {
     return useSendTransaction<'setCodeRouter'>('setCodeRouter');
+}
+
+export function useClearCodeRouter() {
+    return useSendTransaction<'clearCodeRouter'>('clearCodeRouter');
+}
+
+export function useRenounceOwnershipOfCode() {
+    return useSendTransaction<'renounceOwnershipOfCode'>('renounceOwnershipOfCode');
+}
+
+export function useSafeTransferFrom() {
+    return useSendTransaction<'safeTransferFrom(address,address,uint256)'>('safeTransferFrom(address,address,uint256)');
 }

@@ -1,11 +1,15 @@
 import {RootRouter} from '@mvts/contract-interfaces-js';
-import {ChangeEvent, useLayoutEffect, useState} from 'react';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {ChangeEvent, useState} from 'react';
 import {useAccount} from 'wagmi';
 
-import {notificationListState, NotificationType} from '../../../../../state/app';
-import {rootRouterState} from '../../../../../state/dashboard/mvts';
-import {getErrorMessage} from '../../../../../utils/getErrorMessage';
+import {
+    useChangeCodeMode,
+    useClearCodeSipDomain,
+    useDefaultSipDomain,
+    useRenounceOwnershipOfCode,
+    useSafeTransferFrom,
+    useSetCodeSipDomain,
+} from '../../../../../hooks/mvts/rootRouter';
 
 
 type Props = {
@@ -15,116 +19,21 @@ type Props = {
 
 
 export default function NumberMode({code, data}: Props) {
-    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
-    const rootRouter = useRecoilValue(rootRouterState);
-
-    const [defaultSipDomain, setDefaultSipDomain] = useState<string | null>(null);
     const [newSipDomain, setNewSipDomain] = useState('');
     const [to, setTo] = useState('');
 
     const {address} = useAccount();
 
-    useLayoutEffect(() => loadData(), [rootRouter]);
+    const defaultSipDomain = useDefaultSipDomain();
 
-    const loadData = () => {
-        if (!rootRouter || !address) {
-            return;
-        }
-
-        setDefaultSipDomain(null);
-
-        rootRouter.defaultSipDomain()
-            .then(setDefaultSipDomain)
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to get default SIP domain: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
+    const setCodeSipDomain = useSetCodeSipDomain();
+    const clearCodeSipDomain = useClearCodeSipDomain();
+    const changeCodeMode = useChangeCodeMode();
+    const renounceOwnershipOfCode = useRenounceOwnershipOfCode();
+    const safeTransferFrom = useSafeTransferFrom();
 
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>, setState: (newValue: string) => void) => {
         setState(event.target.value);
-    };
-
-    const handleChangeMode = () => {
-        rootRouter?.changeCodeMode(code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Mode change transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleSetSipDomain = () => {
-        rootRouter?.setCodeSipDomain(code, newSipDomain)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Set SIP domain transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleClearSipDomain = () => {
-        rootRouter?.clearCodeSipDomain(code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Clear SIP domain transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleTransfer = () => {
-        rootRouter?.['safeTransferFrom(address,address,uint256)'](address!, to, code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Transfer transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
-    };
-
-    const handleRenounceOwnership = () => {
-        rootRouter?.renounceOwnershipOfCode(code)
-            .then(() => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.INFORMATION,
-                    context: `Code ${code}: Renounce ownership transaction sent.`,
-                }]);
-            })
-            .catch((error) => {
-                setNotificationList([...notificationList, {
-                    type: NotificationType.ERROR,
-                    context: `Failed to send transaction: ${getErrorMessage(error)}.`,
-                }]);
-            });
     };
 
     return (
@@ -135,17 +44,17 @@ export default function NumberMode({code, data}: Props) {
             </div>
             <div>
                 <span className="mr-2">SIP domain:</span>
-                <span>{data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}</span>
+                <span>{data.hasSipDomain ? data.sipDomain : defaultSipDomain.data ?? ''}</span>
             </div>
             <div className="w-[300px] md:w-full">
                 <span className="mr-2 whitespace-nowrap">SIP URI:</span>
                 <span className="break-words">
-                    {`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain ?? ''}`}
+                    {`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain.data ?? ''}`}
                 </span>
             </div>
             <div className="mt-4">
                 <div>
-                    <button onClick={handleChangeMode}
+                    <button onClick={() => changeCodeMode(code)}
                         className="border rounded-md mb-2 px-1 mt-10 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
@@ -163,7 +72,7 @@ export default function NumberMode({code, data}: Props) {
                             onChange={(event) => handleChangeInput(event, setNewSipDomain)}
                             className="ml-5 my-3 h-[34px] px-2 rounded-md"
                         />
-                        <button onClick={handleSetSipDomain}
+                        <button onClick={() => setCodeSipDomain(code, newSipDomain)}
                             className="ml-5 border rounded-md my-3 px-1 h-[34px]
                             bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                             dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
@@ -174,7 +83,7 @@ export default function NumberMode({code, data}: Props) {
                     </div>
                 </details>
                 <div>
-                    <button onClick={handleClearSipDomain}
+                    <button onClick={() => clearCodeSipDomain(code)}
                         className="border rounded-md my-2 px-1 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
@@ -192,7 +101,7 @@ export default function NumberMode({code, data}: Props) {
                             onChange={(event) => handleChangeInput(event, setTo)}
                             className="ml-5 my-3 h-[34px] px-2 rounded-md"
                         />
-                        <button onClick={handleTransfer}
+                        <button onClick={() => safeTransferFrom(address!, to, code)}
                             className="ml-5 border rounded-md my-3 px-1 h-[34px]
                             bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                             dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white
@@ -203,7 +112,7 @@ export default function NumberMode({code, data}: Props) {
                     </div>
                 </details>
                 <div>
-                    <button onClick={handleRenounceOwnership}
+                    <button onClick={() => renounceOwnershipOfCode(code)}
                         className="border rounded-md mt-2 mb-5 px-1 h-[34px]
                         bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400
                         dark:bg-quicBlueD-400 dark:hover:bg-white dark:text-white

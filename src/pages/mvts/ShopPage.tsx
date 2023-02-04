@@ -150,7 +150,7 @@ export default function ShopPage() {
                         placeholder="Number"
                         onChange={handleInputCode}
                     />
-                    {enteredCode && <button onClick={() => mint(enteredCode)} className="border">Mint</button>}
+                    {enteredCode && <button onClick={() => mintPrice.data && mint(enteredCode, {value: mintPrice.data})} className="border">Mint</button>}
                 </div>
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
             </div>
@@ -198,7 +198,7 @@ export default function ShopPage() {
                                                         return <button
                                                             key={code}
                                                             disabled={!codesStatus[code].isAvailableForMint}
-                                                            onClick={() => mint(code)}
+                                                            onClick={() => mintPrice.data && mint(code, {value: mintPrice.data})}
                                                             className={`w-full border rounded-lg h-10 ${bgColor}`}
                                                         >{code.toString().padStart(3, '0')}</button>;
                                                     })}

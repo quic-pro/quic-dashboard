@@ -150,25 +150,71 @@ export default function ShopPage() {
                         placeholder="Number"
                         onChange={handleInputCode}
                     />
-                    {enteredCode && <button onClick={() => mintPrice.data && mint(enteredCode, {value: mintPrice.data})} className="border">Mint</button>}
+                    {enteredCode &&
+                        <button
+                            onClick={() => mintPrice.data && mint(enteredCode, {value: mintPrice.data})}
+                            className="border">
+                                Mint
+                        </button>}
                 </div>
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
             </div>
             <div>
-                <div>
+                <div className="flex flex-row items-start my-3 gap-3">
                     Filters:
-                    <button onClick={() => setFilterBlocked(!filterBlocked)} className="border p-1 m-1">Blocked</button>
-                    <button onClick={() => setFilterHeld(!filterHeld)} className="border p-1 m-1">Held</button>
-                    <button onClick={() => setFilterAvailable(!filterAvailable)} className="border p-1 m-1">Available
-                    </button>
-                    <button onClick={() => setFilterMinted(!filterMinted)} className="border p-1 m-1">Minted</button>
-                    <button onClick={handleResetFilters} className="border p-1 m-1">All</button>
+                    <div className="flex flex-row gap-3 items-center flex-wrap">
+                        <button
+                            onClick={handleResetFilters}
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (filterBlocked && filterHeld && filterAvailable && filterMinted
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                        >
+                                All
+                        </button>
+                        <button
+                            onClick={() => setFilterBlocked(!filterBlocked)}
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterBlocked
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                        >
+                                Blocked
+                        </button>
+                        <button
+                            onClick={() => setFilterHeld(!filterHeld)}
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterHeld
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                        >
+                                Held
+                        </button>
+                        <button
+                            onClick={() => setFilterAvailable(!filterAvailable)}
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterAvailable
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                        >
+                                Available
+                        </button>
+                        <button
+                            onClick={() => setFilterMinted(!filterMinted)}
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterMinted
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                        >
+                                Minted
+                        </button>
+                    </div>
                 </div>
                 {isLoading
                     ? <Loader/>
                     : (
                         <div
-                            className="flex flex-col">
+                            className="flex flex-col gap-3 mt-5">
                             {splitCodes().map((codesA, indexA) => {
                                 if (codesA.length === 0) {
                                     return null;
@@ -183,7 +229,7 @@ export default function ShopPage() {
                                             }
 
                                             return (
-                                                <details key={indexB} className="ml-8">
+                                                <details key={indexB} className="ml-8 my-3">
                                                     <summary>{indexA}{indexB}*</summary>
                                                     {codesB.map((code) => {
                                                         let bgColor = '';
@@ -199,7 +245,7 @@ export default function ShopPage() {
                                                             key={code}
                                                             disabled={!codesStatus[code].isAvailableForMint}
                                                             onClick={() => mintPrice.data && mint(code, {value: mintPrice.data})}
-                                                            className={`w-full border rounded-lg h-10 ${bgColor}`}
+                                                            className={`w-[200px] border rounded-lg h-10 my-2 ml-8 text-quicBlackL-200 dark:quicBlackD-200 ${bgColor}`}
                                                         >{code.toString().padStart(3, '0')}</button>;
                                                     })}
                                                 </details>

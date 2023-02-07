@@ -150,7 +150,12 @@ export default function ShopPage() {
                         placeholder="Number"
                         onChange={handleInputCode}
                     />
-                    {enteredCode && <button onClick={() => mintPrice.data && mint(enteredCode, {value: mintPrice.data})} className="border">Mint</button>}
+                    {enteredCode &&
+                        <button
+                            onClick={() => mintPrice.data && mint(enteredCode, {value: mintPrice.data})}
+                            className="border">
+                                Mint
+                        </button>}
                 </div>
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
             </div>
@@ -160,41 +165,46 @@ export default function ShopPage() {
                     <div className="flex flex-row gap-3 items-center flex-wrap">
                         <button
                             onClick={handleResetFilters}
-                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
-                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (filterBlocked && filterHeld && filterAvailable && filterMinted
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
                                 All
                         </button>
                         <button
                             onClick={() => setFilterBlocked(!filterBlocked)}
-                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
-                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterBlocked
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
                                 Blocked
                         </button>
                         <button
                             onClick={() => setFilterHeld(!filterHeld)}
-                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
-                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterHeld
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
                                 Held
                         </button>
                         <button
                             onClick={() => setFilterAvailable(!filterAvailable)}
-                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
-                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterAvailable
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
                                 Available
                         </button>
                         <button
                             onClick={() => setFilterMinted(!filterMinted)}
-                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
-                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
+                            (!filterMinted
+                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
                                 Minted
                         </button>
@@ -204,7 +214,7 @@ export default function ShopPage() {
                     ? <Loader/>
                     : (
                         <div
-                            className="flex flex-col">
+                            className="flex flex-col gap-2">
                             {splitCodes().map((codesA, indexA) => {
                                 if (codesA.length === 0) {
                                     return null;

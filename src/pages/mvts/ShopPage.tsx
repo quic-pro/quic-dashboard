@@ -155,14 +155,50 @@ export default function ShopPage() {
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
             </div>
             <div>
-                <div>
+                <div className="flex flex-row items-start my-3 gap-3">
                     Filters:
-                    <button onClick={() => setFilterBlocked(!filterBlocked)} className="border p-1 m-1">Blocked</button>
-                    <button onClick={() => setFilterHeld(!filterHeld)} className="border p-1 m-1">Held</button>
-                    <button onClick={() => setFilterAvailable(!filterAvailable)} className="border p-1 m-1">Available
-                    </button>
-                    <button onClick={() => setFilterMinted(!filterMinted)} className="border p-1 m-1">Minted</button>
-                    <button onClick={handleResetFilters} className="border p-1 m-1">All</button>
+                    <div className="flex flex-row gap-3 items-center flex-wrap">
+                        <button
+                            onClick={handleResetFilters}
+                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
+                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                        >
+                                All
+                        </button>
+                        <button
+                            onClick={() => setFilterBlocked(!filterBlocked)}
+                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
+                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                        >
+                                Blocked
+                        </button>
+                        <button
+                            onClick={() => setFilterHeld(!filterHeld)}
+                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
+                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                        >
+                                Held
+                        </button>
+                        <button
+                            onClick={() => setFilterAvailable(!filterAvailable)}
+                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
+                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                        >
+                                Available
+                        </button>
+                        <button
+                            onClick={() => setFilterMinted(!filterMinted)}
+                            className="border rounded-md px-1 h-[30px] w-[75px] text-xs
+                            bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                            dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                        >
+                                Minted
+                        </button>
+                    </div>
                 </div>
                 {isLoading
                     ? <Loader/>

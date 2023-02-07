@@ -214,7 +214,7 @@ export default function ShopPage() {
                     ? <Loader/>
                     : (
                         <div
-                            className="flex flex-col gap-2">
+                            className="flex flex-col gap-3 mt-5">
                             {splitCodes().map((codesA, indexA) => {
                                 if (codesA.length === 0) {
                                     return null;
@@ -229,7 +229,7 @@ export default function ShopPage() {
                                             }
 
                                             return (
-                                                <details key={indexB} className="ml-8">
+                                                <details key={indexB} className="ml-8 my-3">
                                                     <summary>{indexA}{indexB}*</summary>
                                                     {codesB.map((code) => {
                                                         let bgColor = '';
@@ -245,7 +245,7 @@ export default function ShopPage() {
                                                             key={code}
                                                             disabled={!codesStatus[code].isAvailableForMint}
                                                             onClick={() => mintPrice.data && mint(code, {value: mintPrice.data})}
-                                                            className={`w-full border rounded-lg h-10 ${bgColor}`}
+                                                            className={`w-[200px] border rounded-lg h-10 my-2 ml-8 text-quicBlackL-200 dark:quicBlackD-200 ${bgColor}`}
                                                         >{code.toString().padStart(3, '0')}</button>;
                                                     })}
                                                 </details>

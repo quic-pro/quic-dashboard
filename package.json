@@ -11,8 +11,11 @@
   "author": "Sergey Bondarenko <sergey@quic.pro> and Svetlana Apalkova <svetlana@quic.pro> QUIC-PRO Inc. developers",
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@ethersproject/bignumber": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
+    "@mui/material": "^5.11.8",
     "@mvts/contract-interfaces-js": "^2.1.1",
     "@mvts/resolver-js": "^0.3.3",
     "buffer": "^6.0.3",

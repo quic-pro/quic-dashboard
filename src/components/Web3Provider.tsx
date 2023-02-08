@@ -1,22 +1,40 @@
-import {Web3ReactProvider} from '@web3-react/core';
-import React, {useEffect} from 'react';
+import {ReactNode} from 'react';
+import {configureChains, createClient, WagmiConfig} from 'wagmi';
+import {infuraProvider} from 'wagmi/providers/infura';
+import {publicProvider} from 'wagmi/providers/public';
 
-import {injected, useConnectors} from '../connectors';
-import {isMobileOrTable} from '../utils/userAgent';
+import {SUPPORTED_CHAINS} from '../constants/chains';
+import {SUPPORTED_CONNECTORS} from '../constants/connectors';
+import {INFURA_API_KEY} from '../constants/environment';
 
 
 type Props = {
-    children: React.ReactNode;
+    children?: ReactNode;
 };
 
 
 export default function Web3Provider({children}: Props) {
-    useEffect(() => {
-        const isMetaMask = !!window.ethereum?.isMetaMask;
-        if (isMobileOrTable && isMetaMask) {
-            void injected.activate();
-        }
-    }, []);
+    const {provider, webSocketProvider} = configureChains(
+        [...SUPPORTED_CHAINS],
+        [
+            publicProvider(),
+            infuraProvider({apiKey: INFURA_API_KEY}),
+        ],
+        {
+            stallTimeout: 5000,
+        },
+    );
 
-    return <Web3ReactProvider connectors={useConnectors()}>{children}</Web3ReactProvider>;
+    const client = createClient({
+        autoConnect: true,
+        connectors: [...SUPPORTED_CONNECTORS],
+        provider,
+        webSocketProvider,
+    });
+
+    return (
+        <WagmiConfig client={client}>
+            {children}
+        </WagmiConfig>
+    );
 }

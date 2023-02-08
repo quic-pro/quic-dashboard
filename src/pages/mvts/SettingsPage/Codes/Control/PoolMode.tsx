@@ -91,7 +91,7 @@ export default function PoolMode({code, data}: Props) {
                         onChange={(event) => handleChangeInput(event, setNewPoolCodeLength)}
                         className="ml-5 my-3 h-[34px] px-2 rounded-md"
                     />
-                    <div className="flex flex-row-reverse w-[200px]">
+                    <div className="flex flex-row-reverse w-[214px]">
                         <button onClick={() => setCodeRouter(code, newChainId, newAdr, newPoolCodeLength)}
                             className="border rounded-md my-3 px-1 h-[34px]
                             bg-quicBlueL-400 hover:bg-white text-white border-quicBlueL-400 hover:text-quicBlueL-400

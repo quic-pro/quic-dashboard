@@ -5,7 +5,6 @@ import {useAccount} from 'wagmi';
 import {
     useChangeCodeMode,
     useClearCodeSipDomain,
-    useDefaultSipDomain,
     useRenounceOwnershipOfCode,
     useSafeTransferFrom,
     useSetCodeSipDomain,
@@ -14,7 +13,7 @@ import {
 
 type Props = {
     code: number;
-    data: RootRouter.CodeStructOutput;
+    data: RootRouter.CodeDataStructOutput;
 };
 
 
@@ -23,8 +22,6 @@ export default function NumberMode({code, data}: Props) {
     const [to, setTo] = useState('');
 
     const {address} = useAccount();
-
-    const defaultSipDomain = useDefaultSipDomain();
 
     const setCodeSipDomain = useSetCodeSipDomain();
     const clearCodeSipDomain = useClearCodeSipDomain();
@@ -44,12 +41,12 @@ export default function NumberMode({code, data}: Props) {
             </div>
             <div>
                 <span className="mr-2">SIP domain:</span>
-                <span>{data.hasSipDomain ? data.sipDomain : defaultSipDomain.data ?? ''}</span>
+                <span>{data.sipDomain}</span>
             </div>
             <div className="w-[300px] md:w-full">
                 <span className="mr-2 whitespace-nowrap">SIP URI:</span>
                 <span className="break-words">
-                    {`${address!}@${data.hasSipDomain ? data.sipDomain : defaultSipDomain.data ?? ''}`}
+                    {address}@{data.sipDomain}
                 </span>
             </div>
             <div className="mt-4">

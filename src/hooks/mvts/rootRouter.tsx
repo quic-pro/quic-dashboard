@@ -85,16 +85,8 @@ export function useDefaultSipDomain() {
     return useGetData<'defaultSipDomain'>('defaultSipDomain', []);
 }
 
-export function useBlockedCodes() {
-    return useGetData<'getBlockedCodes'>('getBlockedCodes', []);
-}
-
-export function useHeldCodes() {
-    return useGetData<'getHeldCodes'>('getHeldCodes', []);
-}
-
-export function useAvailableForMintCodes() {
-    return useGetData<'getAvailableForMintCodes'>('getAvailableForMintCodes', []);
+export function useCodeStatuses() {
+    return useGetData<'getCodeStatuses'>('getCodeStatuses', []);
 }
 
 export function useOwnerCodes() {

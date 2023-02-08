@@ -1,14 +1,9 @@
-import {ChangeEvent, useEffect, useState} from 'react';
+import {CodeStatus} from '@mvts/contract-interfaces-js';
+import {ChangeEvent, useState} from 'react';
 
 import Loader from '../../components/Loader';
 import {POOL_SIZE} from '../../constants/rootRouter';
-import {
-    useAvailableForMintCodes,
-    useBlockedCodes,
-    useHeldCodes,
-    useMint,
-    useMintPrice,
-} from '../../hooks/mvts/rootRouter';
+import {useCodeStatuses, useMint, useMintPrice} from '../../hooks/mvts/rootRouter';
 import {roundBigNumber} from '../../utils/bigNumber';
 import BasePage from './BasePage';
 
@@ -17,22 +12,7 @@ const TITLE = 'Shop';
 const DESCRIPTION = 'On this page, you can buy a code in the root router and then on the Settings page configure it.';
 
 
-type codesStatus = {
-    isBlocked: boolean;
-    isHeld: boolean;
-    isAvailableForMint: boolean;
-    isMinted: boolean;
-};
-
-
 export default function ShopPage() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [codesStatus, setCodesStatus] = useState(Array.from({length: POOL_SIZE}, () => ({
-        isBlocked: false,
-        isHeld: false,
-        isAvailableForMint: false,
-        isMinted: false,
-    } as codesStatus)));
     const [enteredCode, setEnteredCode] = useState<number | null>(null);
     const [filterBlocked, setFilterBlocked] = useState(true);
     const [filterHeld, setFilterHeld] = useState(true);
@@ -40,44 +20,8 @@ export default function ShopPage() {
     const [filterMinted, setFilterMinted] = useState(true);
 
     const mintPrice = useMintPrice();
-    const blockedCodes = useBlockedCodes();
-    const heldCodes = useHeldCodes();
-    const availableForMintCodes = useAvailableForMintCodes();
+    const codeStatuses = useCodeStatuses();
     const mint = useMint();
-
-    useEffect(() => {
-        if (blockedCodes.data && heldCodes.data && availableForMintCodes.data) {
-            codesStatus.forEach((codesStatus) => {
-                codesStatus.isMinted = ((!codesStatus.isAvailableForMint && !codesStatus.isBlocked) || codesStatus.isHeld);
-            });
-            setCodesStatus(codesStatus);
-            setIsLoading(false);
-        }
-    }, [blockedCodes, heldCodes, availableForMintCodes]);
-
-    useEffect(() => {
-        if (!blockedCodes.data) {
-            return;
-        }
-
-        blockedCodes.data.forEach((status, index) => codesStatus[index].isBlocked = status);
-    }, [blockedCodes]);
-
-    useEffect(() => {
-        if (!heldCodes.data) {
-            return;
-        }
-
-        heldCodes.data.forEach((status, index) => codesStatus[index].isHeld = status);
-    }, [heldCodes]);
-
-    useEffect(() => {
-        if (!availableForMintCodes.data) {
-            return;
-        }
-
-        availableForMintCodes.data.forEach((status, index) => codesStatus[index].isAvailableForMint = status);
-    }, [availableForMintCodes]);
 
     const handleResetFilters = () => {
         setFilterBlocked(true);
@@ -87,10 +31,14 @@ export default function ShopPage() {
     };
 
     const handleInputCode = (event: ChangeEvent<HTMLInputElement>) => {
+        if (codeStatuses.data === null) {
+            return;
+        }
+
         const codeInput = event.target.value.replace(/\D/g, '');
         const code = Number(codeInput);
 
-        if ((codeInput.length !== 3) || (code < 0) || (code >= POOL_SIZE) || !codesStatus[code].isAvailableForMint) {
+        if ((codeInput.length !== 3) || (code < 0) || (code >= POOL_SIZE) || (codeStatuses.data[code] !== CodeStatus.AvailableForMinting)) {
             setEnteredCode(null);
         } else {
             setEnteredCode(code);
@@ -98,13 +46,17 @@ export default function ShopPage() {
     };
 
     const filterCodes = () => {
+        if (codeStatuses.data === null) {
+            return [];
+        }
+
         const filteredCodes: number[] = [];
         for (let code = 100; code < POOL_SIZE; ++code) {
             if (
-                (codesStatus[code].isBlocked && filterBlocked) ||
-                (codesStatus[code].isHeld && filterHeld) ||
-                (codesStatus[code].isAvailableForMint && filterAvailable) ||
-                (codesStatus[code].isMinted && filterMinted)
+                ((codeStatuses.data[code] === CodeStatus.Blocked) && filterBlocked) ||
+                ((codeStatuses.data[code] === CodeStatus.Held) && filterHeld) ||
+                ((codeStatuses.data[code] === CodeStatus.AvailableForMinting) && filterAvailable) ||
+                ((codeStatuses.data[code] === CodeStatus.Active) && filterMinted)
             ) {
                 filteredCodes.push(code);
             }
@@ -154,7 +106,7 @@ export default function ShopPage() {
                         <button
                             onClick={() => mintPrice.data && mint(enteredCode, {value: mintPrice.data})}
                             className="border">
-                                Mint
+                            Mint
                         </button>}
                 </div>
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
@@ -166,51 +118,51 @@ export default function ShopPage() {
                         <button
                             onClick={handleResetFilters}
                             className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                            (filterBlocked && filterHeld && filterAvailable && filterMinted
-                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                                (filterBlocked && filterHeld && filterAvailable && filterMinted
+                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
-                                All
+                            All
                         </button>
                         <button
                             onClick={() => setFilterBlocked(!filterBlocked)}
                             className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                            (!filterBlocked
-                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                                (!filterBlocked
+                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
-                                Blocked
+                            Blocked
                         </button>
                         <button
                             onClick={() => setFilterHeld(!filterHeld)}
                             className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                            (!filterHeld
-                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                                (!filterHeld
+                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
-                                Held
+                            Held
                         </button>
                         <button
                             onClick={() => setFilterAvailable(!filterAvailable)}
                             className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                            (!filterAvailable
-                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                                (!filterAvailable
+                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
-                                Available
+                            Available
                         </button>
                         <button
                             onClick={() => setFilterMinted(!filterMinted)}
                             className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                            (!filterMinted
-                                ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
+                                (!filterMinted
+                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
+                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
                         >
-                                Minted
+                            Minted
                         </button>
                     </div>
                 </div>
-                {isLoading
+                {codeStatuses.data === null
                     ? <Loader/>
                     : (
                         <div
@@ -233,17 +185,17 @@ export default function ShopPage() {
                                                     <summary>{indexA}{indexB}*</summary>
                                                     {codesB.map((code) => {
                                                         let bgColor = '';
-                                                        if (codesStatus[code].isBlocked) {
+                                                        if (codeStatuses.data?.[code] === CodeStatus.Blocked) {
                                                             bgColor = 'bg-red-300';
-                                                        } else if (codesStatus[code].isHeld) {
+                                                        } else if (codeStatuses.data?.[code] === CodeStatus.Held) {
                                                             bgColor = 'bg-blue-300';
-                                                        } else if (codesStatus[code].isAvailableForMint) {
+                                                        } else if (codeStatuses.data?.[code] === CodeStatus.AvailableForMinting) {
                                                             bgColor = 'bg-green-300';
                                                         }
 
                                                         return <button
                                                             key={code}
-                                                            disabled={!codesStatus[code].isAvailableForMint}
+                                                            disabled={codeStatuses.data?.[code] !== CodeStatus.AvailableForMinting}
                                                             onClick={() => mintPrice.data && mint(code, {value: mintPrice.data})}
                                                             className={`w-[200px] border rounded-lg h-10 my-2 ml-8 text-quicBlackL-200 dark:quicBlackD-200 ${bgColor}`}
                                                         >{code.toString().padStart(3, '0')}</button>;

@@ -1,7 +1,8 @@
+import {CodeStatus} from '@mvts/contract-interfaces-js';
 import {useNetwork} from 'wagmi';
 
 import Loader from '../../../../components/Loader';
-import {useCodeStatus, useRenewSubscription, useSubscriptionPrice} from '../../../../hooks/mvts/rootRouter';
+import {useCodeData, useRenewSubscription, useSubscriptionPrice} from '../../../../hooks/mvts/rootRouter';
 import {roundBigNumber} from '../../../../utils/bigNumber';
 
 
@@ -11,7 +12,7 @@ type Props = {
 
 
 export default function Status({code}: Props) {
-    const codeStatus = useCodeStatus(code);
+    const codeData = useCodeData(code);
     const subscriptionPrice = useSubscriptionPrice();
 
     const renewSubscription = useRenewSubscription();
@@ -26,26 +27,22 @@ export default function Status({code}: Props) {
         renewSubscription(code, {value: subscriptionPrice.data});
     };
 
-    if (codeStatus.data == null) {
+    if (codeData.data == null) {
         return <Loader/>;
     }
 
     return (
         <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
             <div>
-                <span className="mr-2">Lock status:</span>
-                <span>{codeStatus.data.isBlocked ? 'Is blocked' : 'Not blocked'}</span>
-            </div>
-            <div>
-                <span className="mr-2">Hold status:</span>
-                <span>{codeStatus.data.isHeld ? 'Is held' : 'Not held'}</span>
-                {codeStatus.data.isHeld && <span>Renew your subscription</span>}
+                <span className="mr-2">Status:</span>
+                <span>{codeData.data.status}</span>
+                {codeData.data.status === CodeStatus.Held && <span>Renew your subscription</span>}
             </div>
             <div>
                 <span className="mr-2">Expired:</span>
-                {codeStatus.data.isHeld
-                    ? <span>{new Date(codeStatus.data.holdEndTime.toNumber() * 1000).toUTCString()}</span>
-                    : <span>{new Date(codeStatus.data.subscriptionEndTime.toNumber() * 1000).toUTCString()}</span>}
+                {codeData.data.status === CodeStatus.Held
+                    ? <span>{new Date(codeData.data.holdEndTime.toNumber() * 1000).toUTCString()}</span>
+                    : <span>{new Date(codeData.data.subscriptionEndTime.toNumber() * 1000).toUTCString()}</span>}
             </div>
             <div>
                 <button onClick={handleRenewSubscription}

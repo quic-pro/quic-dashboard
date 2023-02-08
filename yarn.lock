@@ -1990,23 +1990,32 @@
     "@motionone/dom" "^10.15.5"
     tslib "^2.3.1"
 
-"@mvts/contract-interfaces-js@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@mvts/contract-interfaces-js/-/contract-interfaces-js-1.0.0.tgz#ff27f0c57106232546a88dc671beb21b01b9c871"
-  integrity sha512-hY7hdQlI184hL6hLf+9djSXhWdhTyv2w2DQq2HgBtM54Uhi0JufMKZ3wNxfikEDY/7EzUx0zuMgwYVEb8m5Ahg==
+"@mvts/contract-interfaces-js@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@mvts/contract-interfaces-js/-/contract-interfaces-js-2.1.0.tgz#a9017f93c7953e35ec76bb8934703030dba6d75d"
+  integrity sha512-5tsue2XX1TSdDwHm7PP5U9Nj/+iVUOizgCU1P0spQMMGKqHgIsWwaauz1j1MX0KAZ7d1mhBu2ZufMTyBT+y15Q==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
     ethers "^5.7.2"
 
-"@mvts/resolver-js@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@mvts/resolver-js/-/resolver-js-0.3.2.tgz#5a74697f272729bc280bf0e03889e0ac1de217fa"
-  integrity sha512-5HKZ/HEviENCCTgKSJZRElyT7D01kNt19ES7ZBPkhZRV+Z0wt0dtpk8WFqruvq3GEtEwKLR1i7CLnEcOu1U8Bw==
+"@mvts/contract-interfaces-js@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@mvts/contract-interfaces-js/-/contract-interfaces-js-2.1.1.tgz#4f98aa54d5708007399e7b0cd2f6d696e1d2e360"
+  integrity sha512-5Ptyr3cOi/q7SdqatXE7F7mQc5Z+7Tk36lkuVlqYyqanyzYNiHKSevfqe/eczFFOKBA7shRxI7U+b+ivHZG+3g==
+  dependencies:
+    "@ethersproject/abi" "^5.7.0"
+    "@ethersproject/providers" "^5.7.2"
+    ethers "^5.7.2"
+
+"@mvts/resolver-js@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@mvts/resolver-js/-/resolver-js-0.3.3.tgz#2f75b9aab14af2065e05a1286951fa4001a63448"
+  integrity sha512-E628YcmeZ7E/9xXpNqfWAJmsxhtkP3jeRFE21zkr3RS8OvSh2421FrKvINReksMaTbkLDZM/SXGfUY422V1/lA==
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
-    "@mvts/contract-interfaces-js" "1.0.0"
+    "@mvts/contract-interfaces-js" "2.1.0"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"

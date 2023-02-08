@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "@quic-pro/eslint-config/recommended",
+    "@quic-pro/eslint-config/typescript",
+    "@quic-pro/eslint-config/react"
+  ]
+}

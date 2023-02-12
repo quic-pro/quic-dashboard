@@ -1,11 +1,12 @@
 import Switch from '@mui/material/Switch';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent} from 'react';
+import {useRecoilState} from 'recoil';
 
-import {getTheme} from '../utils/theme';
+import {themeState} from '../state/app';
 
 
 export default function SwitchTheme() {
-    const [theme, setTheme] = useState(getTheme());
+    const [theme, setTheme] = useRecoilState(themeState);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newTheme = event.target.checked ? 'light' : 'dark';

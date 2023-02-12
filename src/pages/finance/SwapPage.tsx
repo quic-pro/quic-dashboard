@@ -1,3 +1,10 @@
+import SwapWidget from '../../components/SwapWidget';
+
+
 export default function SwapPage() {
-    return null;
+    return (
+        <div className="flex-1 flex flex-col justify-center items-center">
+            <SwapWidget/>
+        </div>
+    );
 }

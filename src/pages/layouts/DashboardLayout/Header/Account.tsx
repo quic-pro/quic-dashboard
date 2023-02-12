@@ -28,20 +28,32 @@ export default function Account() {
     return (
         <div className="flex flex-row items-center">
             <DropDown>
-                {chains.find((chain) => chain.id === currentChain?.id)
-                    ? <span>{currentChain?.name}</span>
-                    : <span className="flex flex-row"><AiFillWarning className="text-2xl text-yellow-500"/> Unsupported</span>}
-                <NetworkList/>
-            </DropDown>
-            <hr className="w-px h-full bg-black mx-3"/>
-            <DropDown>
                 <span>{collapseAddress(address)}</span>
                 <AccountInfo/>
             </DropDown>
-            <hr className="w-px h-full bg-black mx-3 hidden md:block"/>
-            <div className="flex flex-row hidden md:block">
-                {balance ? <span>{roundBigNumber(balance.value)} {balance.symbol}</span> : <span>Fetching...</span>}
-            </div>
+            <hr className="w-px h-full bg-black mx-3"/>
+            {chains.find((chain) => chain.id === currentChain?.id)
+                ? (
+                    <>
+                        <DropDown>
+                            <span>{currentChain?.name}</span>
+                            <NetworkList/>
+                        </DropDown>
+                        <hr className="w-px h-full bg-black mx-3 hidden md:block"/>
+                        <div className="flex flex-row hidden md:block">
+                            {balance ? <span>{roundBigNumber(balance.value)} {balance.symbol}</span> : <span>Fetching...</span>}
+                        </div>
+                    </>
+                )
+                : (
+                    <DropDown>
+                        <span className="flex flex-row">
+                            <AiFillWarning className="text-2xl text-yellow-500"/>
+                            Unsupported chain
+                        </span>
+                        <NetworkList/>
+                    </DropDown>
+                )}
         </div>
     );
 }

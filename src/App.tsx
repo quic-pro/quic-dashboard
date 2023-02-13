@@ -3,9 +3,9 @@ import './style.css';
 import {StrictMode} from 'react';
 import {RecoilRoot} from 'recoil';
 
-import PopupNotification from './components/PopupNotification';
-import Web3Provider from './components/Web3Provider';
-import {Router} from './pages';
+import PopupNotificationManager from './components/PopupNotificationManager';
+import Web3Provider from './features/web3/components/Web3Provider';
+import Router from './Router';
 
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
             <RecoilRoot>
                 <Web3Provider>
                     <Router/>
-                    <PopupNotification/>
+                    <PopupNotificationManager/>
                 </Web3Provider>
             </RecoilRoot>
         </StrictMode>

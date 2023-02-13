@@ -1,5 +1,5 @@
 import logo from '../assets/logo.png';
-import ConnectWallet from '../components/ConnectWallet';
+import ConnectWallet from '../features/web3/components/ConnectWallet';
 
 
 export default function MainPage() {

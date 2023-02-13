@@ -1,6 +1,5 @@
 import {atom} from 'recoil';
-
-import {isMobileOrTable} from '../../utils/userAgent';
+import {isMobileOrTable} from 'utils/userAgent';
 
 
 export const sidebarModeState = atom<'expanded' | 'collapsed'>({

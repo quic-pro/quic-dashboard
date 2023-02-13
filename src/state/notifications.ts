@@ -1,7 +1,6 @@
+import {localStorageEffect} from 'lib/recoil/effects';
 import {ReactNode} from 'react';
 import {atom} from 'recoil';
-
-import {localStorageEffect} from '../lib/recoil/effects';
 
 
 export type NotificationData = {

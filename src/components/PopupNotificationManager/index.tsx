@@ -1,6 +1,6 @@
 import {useRecoilValue} from 'recoil';
+import {notificationsState} from 'state/notifications';
 
-import {notificationsState} from '../../state/notifications';
 import PopupNotification from './PopupNotification';
 
 

@@ -1,8 +1,8 @@
+import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useNotifications';
 import {ReactNode} from 'react';
 import {RxCheck} from 'react-icons/rx';
 import {Chain, useNetwork, useSwitchNetwork} from 'wagmi';
 
-import {useAddErrorNotification, useAddSuccessNotification} from '../../../hooks/useNotifications';
 import {ReactComponent as BnbChainIcon} from '../assets/chain/icons/BnbChain.svg';
 import {ReactComponent as EthereumIcon} from '../assets/chain/icons/Ethereum.svg';
 import {ReactComponent as PolygonIcon} from '../assets/chain/icons/Polygon.svg';

@@ -1,12 +1,11 @@
+import AccountInfo from 'components/AccountInfo';
+import DropDown from 'components/ui/DropDown';
+import NetworkList from 'features/web3/components/NetworkList';
+import {useAddErrorNotification} from 'hooks/useNotifications';
 import {AiFillWarning} from 'react-icons/ai';
+import {roundBigNumber} from 'utils/bigNumber';
+import {collapseAddress} from 'utils/wallet';
 import {useAccount, useBalance, useNetwork} from 'wagmi';
-
-import AccountInfo from '../../../../components/AccountInfo';
-import DropDown from '../../../../components/ui/DropDown';
-import NetworkList from '../../../../features/web3/components/NetworkList';
-import {useAddErrorNotification} from '../../../../hooks/useNotifications';
-import {roundBigNumber} from '../../../../utils/bigNumber';
-import {collapseAddress} from '../../../../utils/wallet';
 
 
 export default function Account() {

@@ -1,6 +1,6 @@
+import {isMobileOrTable} from 'utils/userAgent';
 import {useConnect} from 'wagmi';
 
-import {isMobileOrTable} from '../../../../utils/userAgent';
 import {injectedConnector} from '../../constants/connectors';
 import ConnectorButton from './ConnectorButton';
 

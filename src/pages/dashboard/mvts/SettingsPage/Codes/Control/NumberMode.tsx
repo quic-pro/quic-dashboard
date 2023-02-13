@@ -1,14 +1,13 @@
 import {RootRouter} from '@mvts/contract-interfaces-js';
-import {ChangeEvent, useState} from 'react';
-import {useAccount} from 'wagmi';
-
 import {
     useChangeCodeMode,
     useClearCodeSipDomain,
     useRenounceOwnershipOfCode,
     useSafeTransferFrom,
     useSetCodeSipDomain,
-} from '../../../../../../features/mvts/hooks/useRootRouter';
+} from 'features/mvts/hooks/useRootRouter';
+import {ChangeEvent, useState} from 'react';
+import {useAccount} from 'wagmi';
 
 
 type Props = {

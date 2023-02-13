@@ -1,9 +1,8 @@
+import {useRemoveNotification} from 'hooks/useNotifications';
 import {ReactNode} from 'react';
 import {IconType} from 'react-icons';
 import {MdClose, MdOutlineCheckCircle, MdOutlineError, MdOutlineInfo, MdOutlineWarning} from 'react-icons/md';
-
-import {useRemoveNotification} from '../../hooks/useNotifications';
-import {NotificationData, NotificationType} from '../../state/notifications';
+import {NotificationData, NotificationType} from 'state/notifications';
 
 
 type Props = {

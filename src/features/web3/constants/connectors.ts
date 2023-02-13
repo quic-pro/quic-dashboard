@@ -1,10 +1,10 @@
+import {MetaMaskConnector} from 'lib/wagmi/connectors/metaMaskConnector';
 import {Connector} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 import {InjectedConnector} from 'wagmi/connectors/injected';
 import {LedgerConnector} from 'wagmi/connectors/ledger';
 import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
-import {MetaMaskConnector} from '../../../lib/wagmi/connectors/metaMaskConnector';
 import {SUPPORTED_CHAINS} from './chains';
 
 

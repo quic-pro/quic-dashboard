@@ -1,9 +1,8 @@
 import {CodeStatus} from '@mvts/contract-interfaces-js';
+import Loader from 'components/ui/Loader';
+import {useCodeData, useRenewSubscription, useSubscriptionPrice} from 'features/mvts/hooks/useRootRouter';
+import {roundBigNumber} from 'utils/bigNumber';
 import {useNetwork} from 'wagmi';
-
-import Loader from '../../../../../components/ui/Loader';
-import {useCodeData, useRenewSubscription, useSubscriptionPrice} from '../../../../../features/mvts/hooks/useRootRouter';
-import {roundBigNumber} from '../../../../../utils/bigNumber';
 
 
 type Props = {

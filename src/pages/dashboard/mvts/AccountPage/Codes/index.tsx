@@ -1,7 +1,7 @@
+import Loader from 'components/ui/Loader';
+import {useOwnerCodes} from 'features/mvts/hooks/useRootRouter';
 import {useState} from 'react';
 
-import Loader from '../../../../../components/ui/Loader';
-import {useOwnerCodes} from '../../../../../features/mvts/hooks/useRootRouter';
 import Status from './Status';
 
 

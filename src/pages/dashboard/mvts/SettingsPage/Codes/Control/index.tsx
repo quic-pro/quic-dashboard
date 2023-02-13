@@ -1,5 +1,6 @@
-import Loader from '../../../../../../components/ui/Loader';
-import {useCodeData} from '../../../../../../features/mvts/hooks/useRootRouter';
+import Loader from 'components/ui/Loader';
+import {useCodeData} from 'features/mvts/hooks/useRootRouter';
+
 import NumberMode from './NumberMode';
 import PoolMode from './PoolMode';
 

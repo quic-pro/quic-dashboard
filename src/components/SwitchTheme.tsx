@@ -1,8 +1,7 @@
 import Switch from '@mui/material/Switch';
 import {ChangeEvent} from 'react';
 import {useRecoilState} from 'recoil';
-
-import {themeState} from '../state/app';
+import {themeState} from 'state/app';
 
 
 export default function SwitchTheme() {

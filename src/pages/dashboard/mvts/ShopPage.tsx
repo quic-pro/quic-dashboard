@@ -1,9 +1,9 @@
 import {CodeStatus, ROOT_ROUTER_POOL_SIZE as POOL_SIZE} from '@mvts/contract-interfaces-js';
+import Loader from 'components/ui/Loader';
+import {useCodeStatuses, useMint, useMintPrice} from 'features/mvts/hooks/useRootRouter';
 import {ChangeEvent, useState} from 'react';
+import {roundBigNumber} from 'utils/bigNumber';
 
-import Loader from '../../../components/ui/Loader';
-import {useCodeStatuses, useMint, useMintPrice} from '../../../features/mvts/hooks/useRootRouter';
-import {roundBigNumber} from '../../../utils/bigNumber';
 import BasePage from './BasePage';
 
 

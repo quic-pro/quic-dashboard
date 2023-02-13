@@ -1,12 +1,12 @@
 import {getActualRootRouter} from '@mvts/resolver-js';
+import {rootRouterState} from 'features/mvts/state/rootRouter';
+import {useAddErrorNotification} from 'hooks/useNotifications';
 import {useEffect, useState} from 'react';
 import {Outlet} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
+import {getErrorMessage} from 'utils/getErrorMessage';
 import {useNetwork, useSigner, useSwitchNetwork} from 'wagmi';
 
-import {rootRouterState} from '../../../../features/mvts/state/rootRouter';
-import {useAddErrorNotification} from '../../../../hooks/useNotifications';
-import {getErrorMessage} from '../../../../utils/getErrorMessage';
 import MessageAboutSectionPreparation from './MessageAboutSectionPreparation';
 
 

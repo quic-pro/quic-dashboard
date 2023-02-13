@@ -1,7 +1,6 @@
+import {NODE_ENV} from 'constants/environment';
 import {Chain} from 'wagmi';
 import {bsc, bscTestnet, mainnet, polygon, polygonMumbai, sepolia} from 'wagmi/chains';
-
-import {NODE_ENV} from '../../../constants/environment';
 
 
 const MAINNET_CHAINS: Readonly<Chain[]> = [

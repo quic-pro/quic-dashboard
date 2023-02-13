@@ -1,10 +1,10 @@
+import Loader from 'components/ui/Loader';
+import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useNotifications';
 import {ButtonHTMLAttributes, useEffect} from 'react';
 import {AiOutlineRight} from 'react-icons/ai';
 import {useNavigate} from 'react-router-dom';
 import {useAccount, useConnect} from 'wagmi';
 
-import Loader from '../../../../components/ui/Loader';
-import {useAddErrorNotification, useAddSuccessNotification} from '../../../../hooks/useNotifications';
 import coinbaseWalletIcon from '../../assets/wallet/icons/Coinbase.png';
 import injectedIcon from '../../assets/wallet/icons/Injected.png';
 import ledgerIcon from '../../assets/wallet/icons/Ledger.png';

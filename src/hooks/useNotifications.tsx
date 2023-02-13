@@ -1,7 +1,6 @@
 import {ReactNode, useCallback} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
-
-import {notificationsState, NotificationType, popupNotificationCloseTimeoutState} from '../state/notifications';
+import {notificationsState, NotificationType, popupNotificationCloseTimeoutState} from 'state/notifications';
 
 
 export function useAddNotifications() {

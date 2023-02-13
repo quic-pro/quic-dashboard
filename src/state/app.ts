@@ -1,6 +1,5 @@
 import {atom} from 'recoil';
-
-import {getTheme} from '../utils/theme';
+import {getTheme} from 'utils/theme';
 
 
 export const themeState = atom<'light' | 'dark'>({

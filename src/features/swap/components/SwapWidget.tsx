@@ -1,11 +1,10 @@
 import '@uniswap/widgets/fonts.css';
 
 import {SwapWidget as UniswapSwapWidget, Theme} from '@uniswap/widgets';
+import {useAddErrorNotification} from 'hooks/useNotifications';
 import {useRecoilValue} from 'recoil';
+import {themeState} from 'state/app';
 import {useSigner} from 'wagmi';
-
-import {useAddErrorNotification} from '../../../hooks/useNotifications';
-import {themeState} from '../../../state/app';
 
 
 const DARK_THEME: Theme = {

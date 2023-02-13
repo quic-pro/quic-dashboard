@@ -1,10 +1,9 @@
+import {MenuSectionData} from 'constants/dashboard/sidebar';
 import {useState} from 'react';
 import {RxCaretDown, RxCaretUp} from 'react-icons/rx';
 import {NavLink} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
-
-import {MenuSectionData} from '../../../../../constants/dashboard/sidebar';
-import {sidebarModeState} from '../../../../../state/dashboard/layout';
+import {sidebarModeState} from 'state/dashboard/layout';
 
 
 type Props = {

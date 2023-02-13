@@ -1,10 +1,10 @@
 import {RootRouter} from '@mvts/contract-interfaces-js';
+import {useAddErrorNotification, useAddInformationNotification} from 'hooks/useNotifications';
 import {useCallback, useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
+import {getErrorMessage} from 'utils/getErrorMessage';
 import {useAccount} from 'wagmi';
 
-import {useAddErrorNotification, useAddInformationNotification} from '../../../hooks/useNotifications';
-import {getErrorMessage} from '../../../utils/getErrorMessage';
 import {rootRouterState} from '../state/rootRouter';
 
 

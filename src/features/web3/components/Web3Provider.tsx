@@ -1,9 +1,9 @@
+import {INFURA_API_KEY} from 'constants/environment';
 import {ReactNode} from 'react';
 import {configureChains, createClient, WagmiConfig} from 'wagmi';
 import {infuraProvider} from 'wagmi/providers/infura';
 import {publicProvider} from 'wagmi/providers/public';
 
-import {INFURA_API_KEY} from '../../../constants/environment';
 import {SUPPORTED_CHAINS} from '../constants/chains';
 import {SUPPORTED_CONNECTORS} from '../constants/connectors';
 

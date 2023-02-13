@@ -1,8 +1,8 @@
 import {HTMLAttributes} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {useRecoilState} from 'recoil';
+import {sidebarModeState} from 'state/dashboard/layout';
 
-import {sidebarModeState} from '../../../../state/dashboard/layout';
 import Sidebar from '../Sidebar';
 import Account from './Account';
 

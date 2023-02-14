@@ -1,12 +1,9 @@
-import {getActualRootRouter} from '@mvts/resolver-js';
-import {rootRouterState} from 'features/mvts/state/rootRouter';
-import {useAddErrorNotification} from 'hooks/useNotifications';
+import {useResetRootRouter, useUpdateRootRouter} from 'features/mvts';
 import {useEffect, useState} from 'react';
 import {Outlet} from 'react-router-dom';
-import {useSetRecoilState} from 'recoil';
-import {getErrorMessage} from 'utils/getErrorMessage';
-import {useNetwork, useSigner, useSwitchNetwork} from 'wagmi';
 
+import {useAddErrorNotification} from '../../../../hooks/useAddNotification';
+import {getErrorMessage} from '../../../../utils/error';
 import MessageAboutSectionPreparation from './MessageAboutSectionPreparation';
 
 
@@ -15,34 +12,19 @@ export default function Layout() {
 
     const addErrorNotification = useAddErrorNotification();
 
-    const setRootRouter = useSetRecoilState(rootRouterState);
-    const {data: signer} = useSigner();
-    const {chain: currentChain} = useNetwork();
-    const {switchNetwork} = useSwitchNetwork({
-        onSuccess: () => setIsPrepared(true),
+    const resetRootRouter = useResetRootRouter();
+    const updateRootRouter = useUpdateRootRouter({
+        onError: (error) => addErrorNotification(`Failed to get root router: ${getErrorMessage(error)}`),
+        onSuccess: () => {
+            console.log('!');
+            setIsPrepared(true);
+        },
     });
 
     useEffect(() => {
-        if (signer && currentChain && switchNetwork) {
-            getActualRootRouter((chainId) => {
-                if (currentChain.id !== chainId) {
-                    switchNetwork(chainId);
-                } else {
-                    setIsPrepared(true);
-                }
-
-                return signer;
-            })
-                .then((rootRouter) => {
-                    setRootRouter(rootRouter);
-                })
-                .catch((error) => {
-                    addErrorNotification(`Failed to get root router: ${getErrorMessage(error)}`);
-                });
-        }
-
-        return () => setRootRouter(null);
-    }, [signer, currentChain, switchNetwork]);
+        updateRootRouter(true);
+        return resetRootRouter;
+    }, [updateRootRouter, resetRootRouter]);
 
     return isPrepared ? <Outlet/> : <MessageAboutSectionPreparation/>;
 }

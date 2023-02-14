@@ -1,4 +1,4 @@
-import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useNotifications';
+import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useAddNotification';
 import {ReactNode} from 'react';
 import {RxCheck} from 'react-icons/rx';
 import {Chain, useNetwork, useSwitchNetwork} from 'wagmi';

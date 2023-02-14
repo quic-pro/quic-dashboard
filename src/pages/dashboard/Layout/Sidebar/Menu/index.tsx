@@ -1,6 +1,6 @@
 import {MENU} from 'constants/dashboard/sidebar';
 import {useRecoilValue} from 'recoil';
-import {sidebarModeState} from 'state/dashboard/layout';
+import {sidebarModeState} from 'state/dashboard';
 
 import MenuSection from './MenuSection';
 

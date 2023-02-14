@@ -1,7 +1,7 @@
 import {HTMLAttributes} from 'react';
 import {TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse} from 'react-icons/tb';
 import {useRecoilState} from 'recoil';
-import {sidebarModeState} from 'state/dashboard/layout';
+import {sidebarModeState} from 'state/dashboard';
 
 import Menu from './Menu';
 

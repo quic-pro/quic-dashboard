@@ -1,6 +1,6 @@
 import {CodeStatus} from '@mvts/contract-interfaces-js';
 import Loader from 'components/ui/Loader';
-import {useCodeData, useRenewSubscription, useSubscriptionPrice} from 'features/mvts/hooks/useRootRouter';
+import {useCodeData, useRenewSubscription, useSubscriptionPrice} from 'features/mvts';
 import {roundBigNumber} from 'utils/bigNumber';
 import {useNetwork} from 'wagmi';
 

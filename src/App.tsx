@@ -1,6 +1,6 @@
 import './style.css';
 
-import Web3Provider from 'features/web3/components/Web3Provider';
+import {Web3Provider} from 'features/web3';
 import {StrictMode} from 'react';
 import {RecoilRoot} from 'recoil';
 

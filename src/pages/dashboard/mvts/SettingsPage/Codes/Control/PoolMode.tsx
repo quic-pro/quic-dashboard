@@ -5,7 +5,7 @@ import {
     useRenounceOwnershipOfCode,
     useSafeTransferFrom,
     useSetCodeRouter,
-} from 'features/mvts/hooks/useRootRouter';
+} from 'features/mvts';
 import {ChangeEvent, useState} from 'react';
 import {useAccount} from 'wagmi';
 

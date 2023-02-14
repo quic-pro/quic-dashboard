@@ -1,4 +1,4 @@
-import {collapseAddress} from 'utils/wallet';
+import {collapseAddress} from 'utils/address';
 import {useAccount, useDisconnect} from 'wagmi';
 
 import SwitchTheme from './SwitchTheme';

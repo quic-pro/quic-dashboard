@@ -1,4 +1,4 @@
-import SwapWidget from 'features/swap/components/SwapWidget';
+import {SwapWidget} from 'features/swap';
 
 
 export default function SwapPage() {

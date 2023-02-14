@@ -1,5 +1,5 @@
 import Loader from 'components/ui/Loader';
-import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useNotifications';
+import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useAddNotification';
 import {ButtonHTMLAttributes, useEffect} from 'react';
 import {AiOutlineRight} from 'react-icons/ai';
 import {useNavigate} from 'react-router-dom';

@@ -2,8 +2,10 @@ import {ReactNode, useCallback} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {notificationsState, NotificationType, popupNotificationCloseTimeoutState} from 'state/notifications';
 
+import {useRemoveNotification} from './useRemoveNotification';
 
-export function useAddNotifications() {
+
+export function useAddNotification() {
     const [notifications, setNotifications] = useRecoilState(notificationsState);
     const popupNotificationClose = useRecoilValue(popupNotificationCloseTimeoutState);
 
@@ -18,7 +20,7 @@ export function useAddNotifications() {
 }
 
 export function useAddInformationNotification() {
-    const addNotification = useAddNotifications();
+    const addNotification = useAddNotification();
 
     return useCallback((context: ReactNode) => {
         addNotification(NotificationType.INFORMATION, context);
@@ -26,7 +28,7 @@ export function useAddInformationNotification() {
 }
 
 export function useAddSuccessNotification() {
-    const addNotification = useAddNotifications();
+    const addNotification = useAddNotification();
 
     return useCallback((context: ReactNode) => {
         addNotification(NotificationType.SUCCESS, context);
@@ -34,7 +36,7 @@ export function useAddSuccessNotification() {
 }
 
 export function useAddWarningNotification() {
-    const addNotification = useAddNotifications();
+    const addNotification = useAddNotification();
 
     return useCallback((context: ReactNode) => {
         addNotification(NotificationType.WARNING, context);
@@ -42,17 +44,9 @@ export function useAddWarningNotification() {
 }
 
 export function useAddErrorNotification() {
-    const addNotification = useAddNotifications();
+    const addNotification = useAddNotification();
 
     return useCallback((context: ReactNode) => {
         addNotification(NotificationType.ERROR, context);
     }, [addNotification]);
-}
-
-export function useRemoveNotification() {
-    const [notifications, setNotifications] = useRecoilState(notificationsState);
-
-    return useCallback((id: number) => {
-        setNotifications(notifications.filter((notificationData) => notificationData.id !== id));
-    }, [notifications, setNotifications]);
 }

@@ -1,5 +1,5 @@
 import Loader from 'components/ui/Loader';
-import {useOwnerCodes} from 'features/mvts/hooks/useRootRouter';
+import {useOwnerCodes} from 'features/mvts';
 import {useState} from 'react';
 
 import Control from './Control';

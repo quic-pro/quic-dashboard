@@ -5,48 +5,33 @@ import {notificationsState, NotificationType, popupNotificationCloseTimeoutState
 import {useRemoveNotification} from './useRemoveNotification';
 
 
-export function useAddNotification() {
+function useAddNotification(type: NotificationType) {
     const [notifications, setNotifications] = useRecoilState(notificationsState);
-    const popupNotificationClose = useRecoilValue(popupNotificationCloseTimeoutState);
+    const popupNotificationCloseTimeout = useRecoilValue(popupNotificationCloseTimeoutState);
 
     const removeNotification = useRemoveNotification();
 
-    return useCallback((type: NotificationType, context: ReactNode) => {
+    return useCallback((context: ReactNode) => {
         const id = Date.now();
 
         setNotifications(notifications.concat({id, type, context}));
-        setTimeout(() => removeNotification(id), popupNotificationClose);
-    }, [notifications, setNotifications]);
+        setTimeout(() => removeNotification(id), popupNotificationCloseTimeout);
+    }, [notifications, setNotifications, popupNotificationCloseTimeout]);
 }
 
-export function useAddInformationNotification() {
-    const addNotification = useAddNotification();
 
-    return useCallback((context: ReactNode) => {
-        addNotification(NotificationType.INFORMATION, context);
-    }, [addNotification]);
+export function useAddInformationNotification() {
+    return useAddNotification(NotificationType.INFORMATION);
 }
 
 export function useAddSuccessNotification() {
-    const addNotification = useAddNotification();
-
-    return useCallback((context: ReactNode) => {
-        addNotification(NotificationType.SUCCESS, context);
-    }, [addNotification]);
+    return useAddNotification(NotificationType.SUCCESS);
 }
 
 export function useAddWarningNotification() {
-    const addNotification = useAddNotification();
-
-    return useCallback((context: ReactNode) => {
-        addNotification(NotificationType.WARNING, context);
-    }, [addNotification]);
+    return useAddNotification(NotificationType.WARNING);
 }
 
 export function useAddErrorNotification() {
-    const addNotification = useAddNotification();
-
-    return useCallback((context: ReactNode) => {
-        addNotification(NotificationType.ERROR, context);
-    }, [addNotification]);
+    return useAddNotification(NotificationType.ERROR);
 }

@@ -15,10 +15,7 @@ export default function Layout() {
     const resetRootRouter = useResetRootRouter();
     const updateRootRouter = useUpdateRootRouter({
         onError: (error) => addErrorNotification(`Failed to get root router: ${getErrorMessage(error)}`),
-        onSuccess: () => {
-            console.log('!');
-            setIsPrepared(true);
-        },
+        onSuccess: () => setIsPrepared(true),
     });
 
     useEffect(() => {

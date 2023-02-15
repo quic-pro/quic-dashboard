@@ -1,5 +1,6 @@
-import BasePage from '../BasePage';
-import Codes from './Codes';
+import {AccountCodes, CodeSettings} from 'features/mvts';
+
+import BasePage from './BasePage';
 
 
 const TITLE = 'Settings';
@@ -11,7 +12,7 @@ export default function SettingsPage() {
         <BasePage title={TITLE} description={DESCRIPTION}>
             <div className="my-2">
                 <h2 className="text-xl mb-2">Codes:</h2>
-                <Codes/>
+                <AccountCodes details={CodeSettings}/>
             </div>
         </BasePage>
     );

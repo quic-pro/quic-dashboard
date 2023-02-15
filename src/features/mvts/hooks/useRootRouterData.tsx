@@ -3,7 +3,6 @@ import {useAddErrorNotification} from 'hooks/useAddNotification';
 import {useCallback, useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {getErrorMessage} from 'utils/error';
-import {useAccount} from 'wagmi';
 
 import {rootRouterState} from '../state/rootRouter';
 
@@ -60,9 +59,8 @@ export function useCodeStatuses() {
     return useGetData<'getCodeStatuses'>('getCodeStatuses', []);
 }
 
-export function useOwnerCodes() {
-    const {address} = useAccount();
-    return useGetData<'getOwnerCodes'>('getOwnerCodes', [address!]);
+export function useOwnerCodes(...args: Parameters<RootRouter['getOwnerCodes']>) {
+    return useGetData<'getOwnerCodes'>('getOwnerCodes', args);
 }
 
 export function useCodeData(...args: Parameters<RootRouter['getCodeData']>) {

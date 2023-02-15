@@ -4,7 +4,7 @@ import {HiOutlineRefresh} from 'react-icons/hi';
 
 import {useCodeData, useMintPrice} from '../hooks/useRootRouterData';
 import {useMint} from '../hooks/useRootRouterTransaction';
-import {getCodeStatus} from '../utils/getCodeStatus';
+import {getCodeStatus} from '../utils/сodeStatus';
 
 
 type Props = {

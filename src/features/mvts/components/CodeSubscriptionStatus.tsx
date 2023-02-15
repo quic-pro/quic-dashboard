@@ -6,7 +6,7 @@ import {useNetwork} from 'wagmi';
 
 import {useCodeData, useSubscriptionPrice} from '../hooks/useRootRouterData';
 import {useRenewSubscription} from '../hooks/useRootRouterTransaction';
-import {getCodeStatus} from '../utils/getCodeStatus';
+import {getCodeStatus} from '../utils/сodeStatus';
 
 
 type Props = {

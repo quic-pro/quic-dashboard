@@ -1,4 +1,4 @@
-import {InputString} from 'components/ui/inputs';
+import {InputNumber, InputString} from 'components/ui/inputs';
 import {useRef, useState} from 'react';
 
 import {useSetCodeRouter} from '../../hooks/useRootRouterTransaction';
@@ -37,9 +37,9 @@ export default function SetCodeRouter({code}: Props) {
 
     return (
         <Base name="Set Router" disabled={isDisabled} handleCall={handleCall}>
-            <InputString ref={inputNewChainId} placeholder="newChainId" onChange={handleChange}/>
+            <InputNumber ref={inputNewChainId} placeholder="newChainId" onChange={handleChange}/>
             <InputString ref={inputNewAdr} placeholder="newAdr" onChange={handleChange}/>
-            <InputString ref={inputNewPoolCodeLength} placeholder="newPoolCodeLength" onChange={handleChange}/>
+            <InputNumber ref={inputNewPoolCodeLength} placeholder="newPoolCodeLength" onChange={handleChange}/>
         </Base>
     );
 }

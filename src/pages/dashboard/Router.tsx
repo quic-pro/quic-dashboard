@@ -2,10 +2,10 @@ import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 import FinanceRouter from './finance/Router';
+import Layout from './Layout';
 import MvtsRouter from './mvts/Router';
 
 
-const Layout = React.lazy(() => import('./Layout'));
 const MainPage = React.lazy(() => import('./MainPage'));
 const MessengerPage = React.lazy(() => import('./MessengerPage'));
 const NotFoundPage = React.lazy(() => import('./NotFoundPage'));

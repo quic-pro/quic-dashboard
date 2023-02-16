@@ -12,7 +12,7 @@ type Props = {
 };
 
 
-export default function CodeInfo({code}: Props) {
+export default function CodeCard({code}: Props) {
     const mint = useMint();
 
     const codeData = useCodeData(code);

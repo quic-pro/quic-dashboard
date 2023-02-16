@@ -1,4 +1,4 @@
-import {CodeInfo, PoolCodes} from 'features/mvts';
+import {CodeCard, PoolCodes} from 'features/mvts';
 
 import BasePage from './BasePage';
 
@@ -10,7 +10,7 @@ const DESCRIPTION = 'On this page, you can buy a code in the root router and the
 export default function ShopPage() {
     return (
         <BasePage title={TITLE} description={DESCRIPTION}>
-            <PoolCodes details={CodeInfo}/>
+            <PoolCodes details={CodeCard}/>
         </BasePage>
     );
 }

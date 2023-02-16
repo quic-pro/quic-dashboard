@@ -51,6 +51,10 @@ export function useSubscriptionPrice() {
     return useGetData<'subscriptionPrice'>('subscriptionPrice', []);
 }
 
+export function useModeChangePrice() {
+    return useGetData<'modeChangePrice'>('modeChangePrice', []);
+}
+
 export function useDefaultSipDomain() {
     return useGetData<'defaultSipDomain'>('defaultSipDomain', []);
 }

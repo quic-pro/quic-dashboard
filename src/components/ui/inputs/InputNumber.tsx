@@ -1,9 +1,7 @@
-import Base, {Props as BaseProps} from './Base';
+import Base from './Base';
+import {InputProps} from './types';
 
 
-type Props = Omit<BaseProps, 'type'>;
-
-
-export default function InputNumber({...attributes}: Props) {
-    return <Base type="number" {...attributes}/>;
+export default function InputNumber(props: InputProps) {
+    return <Base type="number" {...props}/>;
 }

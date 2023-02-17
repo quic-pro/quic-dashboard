@@ -1,9 +1,6 @@
-import {DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import {BaseProps} from './types';
 
 
-export type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-
-
-export default function Base({className = '', ...attributes}: Props) {
+export default function Base({className = '', ...attributes}: BaseProps) {
     return <input {...attributes} className={'rounded-md h-8 px-2 ' + className}/>;
 }

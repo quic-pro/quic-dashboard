@@ -1,45 +1,37 @@
-import {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useState} from 'react';
+import {InputProps} from 'components/ui/inputs';
+import {ChangeEvent, ReactNode, useState} from 'react';
 
 
 type Props = {
-    children?: ReactNode;
     name: string;
-    inputs?: {
-        Input: (props: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'>) => JSX.Element;
-        placeholder: string;
-    }[];
+    inputFields?: InputField[];
     code: number;
     method: (...args: any[]) => void;
+    disabled?: boolean;
+    children?: ReactNode;
+};
+
+export type InputField = Omit<InputProps, 'key' | 'className' | 'onChange'> & {
+    InputElement: (props: InputProps) => JSX.Element;
 };
 
 
-export default function Base({children, name, inputs, code, method}: Props) {
-    const [isDisabled, setIsDisabled] = useState(!!inputs?.length);
-    const [values, setValues] = useState<string[]>(Array(inputs?.length ?? 0).fill(''));
+export default function Base({name, inputFields, code, method, disabled, children}: Props) {
+    const [values, setValues] = useState<string[]>(Array(inputFields?.length ?? 0).fill(''));
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
-        values[index] = event.target.value;
+    const handleChange = (event: ChangeEvent<HTMLInputElement>, inputIndex: number) => {
+        values[inputIndex] = event.target.value;
         setValues(values);
-
-        let newSetIsDisabled = false;
-        for (let i = 0; i < values.length; ++i) {
-            if (values[i].length === 0) {
-                newSetIsDisabled = true;
-                break;
-            }
-        }
-        setIsDisabled(newSetIsDisabled);
     };
 
     const handleCall = () => {
         method.apply(null, [code, ...values]);
     };
 
-
     return (
         <div className="flex flex-col w-[250px]">
             <button
-                disabled={isDisabled}
+                disabled={values.includes('') || disabled}
                 onClick={handleCall}
                 className={
                     'border rounded-md h-8 my-1 disabled:opacity-50 ' +
@@ -52,10 +44,10 @@ export default function Base({children, name, inputs, code, method}: Props) {
                 {name}
             </button>
             {
-                inputs?.map(({Input, placeholder}, index) => (
-                    <Input
-                        key={placeholder}
-                        placeholder={placeholder}
+                inputFields?.map(({InputElement, ...props}, index) => (
+                    <InputElement
+                        key={index}
+                        {...props}
                         onChange={(event) => handleChange(event, index)}
                         className="my-1"
                     />

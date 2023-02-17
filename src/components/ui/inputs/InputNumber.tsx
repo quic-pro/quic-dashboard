@@ -1,14 +1,9 @@
-import {forwardRef} from 'react';
-
 import Base, {Props as BaseProps} from './Base';
 
 
 type Props = Omit<BaseProps, 'type'>;
 
 
-export default forwardRef<HTMLInputElement, Props>(function InputNumber({...attributes}, ref) {
-    attributes.ref = ref;
-
-    // @ts-ignore
+export default function InputNumber({...attributes}: Props) {
     return <Base type="number" {...attributes}/>;
-});
+}

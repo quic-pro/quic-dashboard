@@ -10,9 +10,5 @@ type Props = {
 export default function ClearCodeSipDomain({code}: Props) {
     const clearCodeSipDomain = useClearCodeSipDomain();
 
-    const handleCall = () => {
-        clearCodeSipDomain(code);
-    };
-
-    return <Base name="Clear SIP Domain" handleCall={handleCall}/>;
+    return <Base name="Clear SIP Domain" code={code} method={clearCodeSipDomain}/>;
 }

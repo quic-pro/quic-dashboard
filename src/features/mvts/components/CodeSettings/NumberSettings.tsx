@@ -24,6 +24,7 @@ export default function NumberSettings({code, data}: Props) {
         <div>
             <CodeInfo data={data}/>
             <div className="mt-4">
+                <hr className="my-6"/>
                 {METHODS.map((Method) => (
                     <div key={Method.name}>
                         <Method code={code}/>

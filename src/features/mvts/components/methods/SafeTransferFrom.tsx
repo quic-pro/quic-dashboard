@@ -1,5 +1,4 @@
 import {InputString} from 'components/ui/inputs';
-import {useRef, useState} from 'react';
 import {useAccount} from 'wagmi';
 
 import {useSafeTransferFrom} from '../../hooks/useRootRouterTransaction';
@@ -14,22 +13,20 @@ type Props = {
 export default function SafeTransferFrom({code}: Props) {
     const safeTransferFrom = useSafeTransferFrom();
 
-    const [isDisabled, setIsDisabled] = useState(true);
-    const inputTo = useRef<HTMLInputElement>(null);
-
     const {address} = useAccount();
 
-    const handleChange = () => {
-        setIsDisabled(!inputTo.current?.value.length);
-    };
-
-    const handleCall = () => {
-        safeTransferFrom(address!, inputTo.current!.value, code);
-    };
-
     return (
-        <Base name="Transfer" disabled={isDisabled} handleCall={handleCall}>
-            <InputString ref={inputTo} placeholder="to" onChange={handleChange}/>
+        <Base
+            name="Transfer"
+            inputs={[
+                {
+                    Input: InputString,
+                    placeholder: 'to',
+                },
+            ]}
+            code={code}
+            method={(code: number, to: string) => safeTransferFrom(address!, to, code)}
+        >
         </Base>
     );
 }

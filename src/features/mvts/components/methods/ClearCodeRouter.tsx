@@ -10,9 +10,5 @@ type Props = {
 export default function ClearCodeRouter({code}: Props) {
     const clearCodeRouter = useClearCodeRouter();
 
-    const handleCall = () => {
-        clearCodeRouter(code);
-    };
-
-    return <Base name="Clear Router" handleCall={handleCall}/>;
+    return <Base name="Clear Router" code={code} method={clearCodeRouter}/>;
 }

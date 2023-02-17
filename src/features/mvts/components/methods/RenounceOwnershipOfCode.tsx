@@ -10,9 +10,5 @@ type Props = {
 export default function RenounceOwnershipOfCode({code}: Props) {
     const renounceOwnershipOfCode = useRenounceOwnershipOfCode();
 
-    const handleCall = () => {
-        renounceOwnershipOfCode(code);
-    };
-
-    return <Base name="Renounce Ownership" handleCall={handleCall}/>;
+    return <Base name="Renounce Ownership" code={code} method={renounceOwnershipOfCode}/>;
 }

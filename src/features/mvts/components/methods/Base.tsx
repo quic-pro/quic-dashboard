@@ -1,20 +1,45 @@
-import {ReactNode} from 'react';
+import {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useState} from 'react';
 
 
 type Props = {
     children?: ReactNode;
     name: string;
-    disabled?: boolean;
-    handleCall: () => void;
+    inputs?: {
+        Input: (props: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'>) => JSX.Element;
+        placeholder: string;
+    }[];
+    code: number;
+    method: (...args: any[]) => void;
 };
 
 
-export default function Base({children, name, disabled, handleCall}: Props) {
+export default function Base({children, name, inputs, code, method}: Props) {
+    const [isDisabled, setIsDisabled] = useState(!!inputs?.length);
+    const [values, setValues] = useState<string[]>(Array(inputs?.length ?? 0).fill(''));
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
+        values[index] = event.target.value;
+        setValues(values);
+
+        let newSetIsDisabled = false;
+        for (let i = 0; i < values.length; ++i) {
+            if (values[i].length === 0) {
+                newSetIsDisabled = true;
+                break;
+            }
+        }
+        setIsDisabled(newSetIsDisabled);
+    };
+
+    const handleCall = () => {
+        method.apply(null, [code, ...values]);
+    };
+
+
     return (
         <div className="flex flex-col w-[250px]">
-            {children}
             <button
-                disabled={disabled}
+                disabled={isDisabled}
                 onClick={handleCall}
                 className={
                     'border rounded-md h-8 my-1 disabled:opacity-50 ' +
@@ -26,6 +51,17 @@ export default function Base({children, name, disabled, handleCall}: Props) {
             >
                 {name}
             </button>
+            {
+                inputs?.map(({Input, placeholder}, index) => (
+                    <Input
+                        key={placeholder}
+                        placeholder={placeholder}
+                        onChange={(event) => handleChange(event, index)}
+                        className="my-1"
+                    />
+                ))
+            }
+            {children}
         </div>
     );
 }

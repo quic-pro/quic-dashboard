@@ -1,9 +1,9 @@
 import {useResetRootRouter, useUpdateRootRouter} from 'features/mvts';
+import {useAddErrorNotification} from 'hooks/useAddNotification';
 import {useEffect, useState} from 'react';
 import {Outlet} from 'react-router-dom';
+import {getErrorMessage} from 'utils/error';
 
-import {useAddErrorNotification} from '../../../../hooks/useAddNotification';
-import {getErrorMessage} from '../../../../utils/error';
 import MessageAboutSectionPreparation from './MessageAboutSectionPreparation';
 
 

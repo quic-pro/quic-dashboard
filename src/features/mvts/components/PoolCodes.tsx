@@ -1,9 +1,9 @@
 import {CodeStatus} from '@mvts/contract-interfaces-js';
 import {ROOT_ROUTER_POOL_SIZE as POOL_SIZE} from '@mvts/contract-interfaces-js/dist/constants';
+import Loader from 'components/ui/Loader';
 import {ChangeEvent, useState} from 'react';
 import {HiOutlineRefresh} from 'react-icons/hi';
 
-import Loader from '../../../components/ui/Loader';
 import {useCodeStatuses} from '../hooks/useRootRouterData';
 
 

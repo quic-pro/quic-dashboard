@@ -9,13 +9,13 @@ import Sidebar from './Sidebar';
 
 export default function Layout() {
     const navigate = useNavigate();
-    const {connector} = useAccount();
+    const {isConnected} = useAccount();
 
     useEffect(() => {
-        if (!connector) {
+        if (!isConnected) {
             navigate('/');
         }
-    }, [connector, navigate]);
+    }, [isConnected, navigate]);
 
     return (
         <div className="flex-1 flex flex-row">

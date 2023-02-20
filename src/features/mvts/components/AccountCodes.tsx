@@ -32,12 +32,20 @@ export default function AccountCodes({details: Details}: Props) {
     };
 
     const handleCodeSelection = (code: number) => {
-        setSelectedCode(code);
+        setSelectedCode(selectedCode !== code ? code : null);
     };
 
     return (
         <div>
             <div className="flex flex-wrap">
+                <button
+                    onClick={handleRefresh}
+                    className="border rounded-md px-2 py-1 m-1
+                        bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                        dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                >
+                    <HiOutlineRefresh/>
+                </button>
                 {ownerCodes.data.map((ownedByAccount, code) => {
                     if (!ownedByAccount) {
                         return null;
@@ -48,22 +56,16 @@ export default function AccountCodes({details: Details}: Props) {
                             key={code}
                             disabled={!Details}
                             onClick={() => handleCodeSelection(code)}
-                            className="border rounded-md p-1 m-1 w-[42px] h-[34px]
-                                bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                                dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                            className={'border rounded-md p-1 m-1 w-[42px] h-[34px] ' +
+                                'bg-quicBlueL text-quicBlueL-400 hover:bg-quicBlueL-200 ' +
+                                'dark:bg-quicBlueD dark:text-quicBlueD-400 dark:hover:bg-quicBlueD-200 ' +
+                                (code === selectedCode ? 'border-quicBlueL-300 dark:border-quicBlueD-300' : '')
+                            }
                         >
                             {code}
                         </button>
                     );
                 })}
-                <button
-                    onClick={handleRefresh}
-                    className="border rounded-md p-1 m-1
-                        bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                        dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
-                >
-                    <HiOutlineRefresh/>
-                </button>
             </div>
             {Details && (selectedCode !== null) && <Details code={selectedCode}/>}
         </div>

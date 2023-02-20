@@ -7,7 +7,7 @@ export default function MainPage() {
         <div className="flex-1 flex flex-row">
             <div className="absolute left-4 top-4 flex">
                 <img src={logo} alt="Company `s logo" width="48px" height="48px"/>
-                <span className="ml-2 text-white font-bold text-5xl drop-shadow-lg">QUIC-PRO</span>
+                <span className="ml-2 text-white font-bold text-5xl drop-shadow-lg hidden sm:block">QUIC-PRO</span>
             </div>
             <div className="container flex-1 lg:flex flex-col bg-[url('assets/backgrounds/main.png')] hidden"></div>
             <div className="container flex-1 flex flex-col bg-white justify-center items-center">

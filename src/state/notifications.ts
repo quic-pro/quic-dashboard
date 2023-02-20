@@ -5,6 +5,7 @@ import {atom} from 'recoil';
 
 export type NotificationData = {
     id: number;
+    timestamp: number;
     type: NotificationType;
     context: ReactNode;
 };

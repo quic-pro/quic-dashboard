@@ -1,22 +1,21 @@
 import {ReactNode, useCallback} from 'react';
-import {useRecoilState, useRecoilValue} from 'recoil';
-import {notificationsState, NotificationType, popupNotificationCloseTimeoutState} from 'state/notifications';
-
-import {useRemoveNotification} from './useRemoveNotification';
+import {useRecoilState} from 'recoil';
+import {notificationsState, NotificationType} from 'state/notifications';
 
 
 function useAddNotification(type: NotificationType) {
     const [notifications, setNotifications] = useRecoilState(notificationsState);
-    const popupNotificationCloseTimeout = useRecoilValue(popupNotificationCloseTimeoutState);
-
-    const removeNotification = useRemoveNotification();
 
     return useCallback((context: ReactNode) => {
-        const id = Date.now();
+        const latestNotification = notifications.at(-1);
 
-        setNotifications(notifications.concat({id, type, context}));
-        setTimeout(() => removeNotification(id), popupNotificationCloseTimeout);
-    }, [notifications, setNotifications, popupNotificationCloseTimeout]);
+        setNotifications(notifications.concat({
+            id: latestNotification ? latestNotification.id + 1 : 0,
+            type,
+            timestamp: Date.now(),
+            context,
+        }));
+    }, [notifications, setNotifications]);
 }
 
 

@@ -16,22 +16,22 @@ export type InputField = Omit<InputProps, 'key' | 'className' | 'onChange'> & {
 };
 
 
-export default function Base({name, inputFields, code, method, disabled, children}: Props) {
-    const [values, setValues] = useState<string[]>(Array(inputFields?.length ?? 0).fill(''));
+export default function Base({name, inputFields = [], code, method, disabled, children}: Props) {
+    const [inputValues, setInputValues] = useState<string[]>(Array(inputFields.length).fill(''));
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>, inputIndex: number) => {
-        values[inputIndex] = event.target.value;
-        setValues(values);
+        inputValues[inputIndex] = event.target.value;
+        setInputValues([...inputValues]);
     };
 
     const handleCall = () => {
-        method.apply(null, [code, ...values]);
+        method.apply(null, [code, ...inputValues]);
     };
 
     return (
-        <div className="flex flex-col w-[250px]">
+        <div className="flex flex-col w-60">
             <button
-                disabled={values.includes('') || disabled}
+                disabled={inputValues.includes('') || disabled}
                 onClick={handleCall}
                 className={
                     'border rounded-md h-8 my-1 disabled:opacity-50 ' +
@@ -44,7 +44,7 @@ export default function Base({name, inputFields, code, method, disabled, childre
                 {name}
             </button>
             {
-                inputFields?.map(({InputElement, ...props}, index) => (
+                inputFields.map(({InputElement, ...props}, index) => (
                     <InputElement
                         key={index}
                         {...props}

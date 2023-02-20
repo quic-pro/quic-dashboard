@@ -106,11 +106,12 @@ export default function PoolCodes({details: Details}: Props) {
         <div>
             <button
                 onClick={handleRefresh}
-                className="border rounded-md p-1 m-1
-                        bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
-                        dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
+                className="flex border rounded-md px-2 py-1 h-8 items-center
+                    bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
+                    dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
             >
-                <HiOutlineRefresh/>
+                <HiOutlineRefresh className="mr-1"/>
+                Refresh
             </button>
             <div className="flex flex-col">
                 <div>
@@ -121,9 +122,9 @@ export default function PoolCodes({details: Details}: Props) {
                         placeholder="Number"
                         onChange={handleInputCode}
                     />
-                    {Details && (enteredCode !== null) && <Details code={enteredCode}/>}
                 </div>
                 <span className="text-xs">*The code consists of three digits and cannot start with a zero</span>
+                {Details && (enteredCode !== null) && <Details code={enteredCode}/>}
             </div>
             <div>
                 <div className="flex flex-row items-start my-3 gap-3">
@@ -214,7 +215,7 @@ export default function PoolCodes({details: Details}: Props) {
                                                     className={`w-[200px] border rounded-lg h-10 my-2 ml-8 text-quicBlackL-200 dark:quicBlackD-200 ${bgColor}`}
                                                 >{code.toString().padStart(3, '0')}</button>;
                                             })}
-                                            {Details && (selectedCode !== null) && <Details code={selectedCode}/>}
+                                            {Details && (selectedCode !== null) && codesB.includes(selectedCode) && <Details code={selectedCode}/>}
                                         </details>
                                     );
                                 })}

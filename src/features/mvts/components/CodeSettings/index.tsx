@@ -24,14 +24,17 @@ export default function CodeSettings({code}: Props) {
 
     return (
         <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
-            <button
-                onClick={handleRefresh}
-                className="border rounded-md p-1 m-1
+            <div className="mb-2">
+                <button
+                    onClick={handleRefresh}
+                    className="flex border rounded-md px-2 py-1 h-8 items-center
                         bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
                         dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
-            >
-                <HiOutlineRefresh/>
-            </button>
+                >
+                    <HiOutlineRefresh className="mr-1"/>
+                    Refresh
+                </button>
+            </div>
             {
                 codeData.data.mode === CodeMode.Number
                     ? <NumberSettings code={code} data={codeData.data}/>

@@ -27,8 +27,11 @@ export default function AccountCodes({details: Details}: Props) {
     }
 
     const handleRefresh = () => {
-        setSelectedCode(null);
-        ownerCodes.refresh();
+        ownerCodes.refresh((ownerCodes) => {
+            if ((selectedCode !== null) && !ownerCodes[selectedCode]) {
+                setSelectedCode(null);
+            }
+        });
     };
 
     const handleCodeSelection = (code: number) => {
@@ -56,7 +59,7 @@ export default function AccountCodes({details: Details}: Props) {
                             key={code}
                             disabled={!Details}
                             onClick={() => handleCodeSelection(code)}
-                            className={'border rounded-md p-1 m-1 w-[42px] h-[34px] ' +
+                            className={'border rounded-md p-1 m-1 w-11 h-8 ' +
                                 'bg-quicBlueL text-quicBlueL-400 hover:bg-quicBlueL-200 ' +
                                 'dark:bg-quicBlueD dark:text-quicBlueD-400 dark:hover:bg-quicBlueD-200 ' +
                                 (code === selectedCode ? 'border-quicBlueL-300 dark:border-quicBlueD-300' : '')

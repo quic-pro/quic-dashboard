@@ -14,7 +14,7 @@ function useGetData<K extends keyof RootRouter['functions']>(method: K, args: Pa
 
     const [data, setData] = useState<Awaited<ReturnType<RootRouter[K]>> | null>(null);
 
-    const refresh = useCallback(() => {
+    const refresh = useCallback((callback?: (data: Awaited<ReturnType<RootRouter[K]>>) => void) => {
         setData(null);
 
         if (!rootRouter) {
@@ -23,8 +23,12 @@ function useGetData<K extends keyof RootRouter['functions']>(method: K, args: Pa
 
         // @ts-ignore
         rootRouter[method](...args)
-            // @ts-ignore
-            .then((data) => setData(data))
+            .then((data) => {
+                // @ts-ignore
+                setData(data);
+                // @ts-ignore
+                callback?.(data);
+            })
             .catch((error) => {
                 const Content = (
                     <>

@@ -3,8 +3,8 @@ import Loader from 'components/ui/Loader';
 import {HiOutlineRefresh} from 'react-icons/hi';
 
 import {useCodeData, useMintPrice} from '../hooks/useRootRouterData';
-import {useMint} from '../hooks/useRootRouterTransaction';
 import {getCodeStatus} from '../utils/сodeStatus';
+import {Mint} from './methods';
 
 
 type Props = {
@@ -13,8 +13,6 @@ type Props = {
 
 
 export default function CodeCard({code}: Props) {
-    const mint = useMint();
-
     const codeData = useCodeData(code);
     const mintPrice = useMintPrice();
     if ((codeData.data == null) || (mintPrice.data == null)) {
@@ -26,28 +24,23 @@ export default function CodeCard({code}: Props) {
     };
 
     return (
-        <div className="border flex flex-col">
-            <button
-                onClick={handleRefresh}
-                className="border rounded-md p-1 m-1
+        <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
+            <div className="mb-2">
+                <button
+                    onClick={handleRefresh}
+                    className="flex border rounded-md px-2 py-1 h-8 items-center
                         bg-quicBlueL hover:bg-quicBlueL-200 text-quicBlueL-400
                         dark:bg-quicBlueD dark:hover:bg-quicBlueD-200 dark:text-quicBlueD-400"
-            >
-                <HiOutlineRefresh/>
-            </button>
+                >
+                    <HiOutlineRefresh className="mr-1"/>
+                    Refresh
+                </button>
+            </div>
+            <span>Code: {code}</span>
             <span>Status: {getCodeStatus(codeData.data.status)}</span>
             {
                 codeData.data.status === CodeStatus.AvailableForMinting
-                    ? (
-                        <div>
-                            <span>This code is available for minting:</span>
-                            <button
-                                onClick={() => mintPrice.data && mint(code, {value: mintPrice.data})}
-                                className="border">
-                                Mint
-                            </button>
-                        </div>
-                    )
+                    ? <Mint code={code}/>
                     : <span>This code is not available for minting.</span>
             }
         </div>

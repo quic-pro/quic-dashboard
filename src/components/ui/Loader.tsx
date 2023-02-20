@@ -1,10 +1,15 @@
-import {CircularProgress} from '@mui/material';
+import {CircularProgress, CircularProgressProps} from '@mui/material';
 
 
-export default function Loader() {
+type Props = CircularProgressProps & {
+    className?: string;
+};
+
+
+export default function Loader({className = '', ...attributes}: Props) {
     return (
-        <div className="flex-1 flex flex-col justify-center items-center stroke-quicBlueL-300">
-            <CircularProgress/>
+        <div className={'flex-1 flex flex-col justify-center items-center stroke-quicBlueL-300 ' + className}>
+            <CircularProgress {...attributes}/>
         </div>
     );
 }

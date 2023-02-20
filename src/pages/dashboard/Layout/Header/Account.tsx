@@ -1,5 +1,6 @@
 import Settings from 'components/Settings';
 import DropDown from 'components/ui/DropDown';
+import Loader from 'components/ui/Loader';
 import {AccountInfo, NetworkList} from 'features/web3';
 import {useAddErrorNotification} from 'hooks/useAddNotification';
 import {AiFillWarning} from 'react-icons/ai';
@@ -15,7 +16,7 @@ export default function Account() {
 
     const addErrorNotification = useAddErrorNotification();
 
-    const {data: balance} = useBalance({
+    const {data: balance, isLoading} = useBalance({
         address: address!,
         onError(error) {
             addErrorNotification(`Failed to get wallet balance: ${error.message}.`);
@@ -39,7 +40,11 @@ export default function Account() {
                             </DropDown>
                             <hr className="w-px h-full bg-black mx-3 hidden md:block"/>
                             <div className="flex flex-row hidden md:block">
-                                {balance ? <span>{roundBigNumber(balance.value)} {balance.symbol}</span> : <span>Fetching...</span>}
+                                {
+                                    isLoading || !balance
+                                        ? <Loader size="20px"/>
+                                        : <span>{roundBigNumber(balance.value)} {balance.symbol}</span>
+                                }
                             </div>
                         </>
                     )

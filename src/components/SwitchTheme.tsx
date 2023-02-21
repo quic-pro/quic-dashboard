@@ -1,61 +1,25 @@
 import Switch from '@mui/material/Switch';
-import React from 'react';
+import {ChangeEvent} from 'react';
+import {useRecoilState} from 'recoil';
+import {themeState} from 'state/app';
 
-export default function SwithTheme() {
 
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+export default function SwitchTheme() {
+    const [theme, setTheme] = useRecoilState(themeState);
 
-    const setLight = () => {
-        localStorage['theme'] = 'light';
-        setCheckTheme(false);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const newTheme = event.target.checked ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        setTheme(newTheme);
         window.location.reload();
-    };
-    const setDark = () => {
-        localStorage['theme'] = 'dark';
-        setCheckTheme(true);
-        window.location.reload();
-    };
-    /* const setSystem = () => {
-        localStorage.removeItem('theme');
-        window.location.reload();
-    };*/
-
-    const setTheme = () => {
-        switch (localStorage['theme']) {
-            case 'light':
-                return false;
-            case 'dark':
-                return true;
-            default:
-                if (prefersDark) {
-                    return true;
-                } else {
-                    return false;
-                }
-        }
-    };
-
-    const [checkTheme, setCheckTheme] = React.useState(setTheme);
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(checkTheme);
-        setCheckTheme(event.target.checked);
-        console.log(checkTheme);
-        if (!checkTheme) {
-            setDark();
-            console.log('dark');
-        } else {
-            setLight();
-            console.log('light');
-        }
     };
 
     return (
         <Switch
-            className='stroke-quicBlueL-300'
-            checked={checkTheme}
+            checked={theme === 'light'}
             onChange={handleChange}
             inputProps={{'aria-label': 'controlled'}}
+            className="stroke-quicBlueL-300"
         />
     );
 }

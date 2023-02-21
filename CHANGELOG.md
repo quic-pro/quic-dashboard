@@ -1,5 +1,57 @@
 # Changelog
 
+## [2.0.0](https://github.com/quic-pro/quic-dashboard/releases/tag/2.0.0) (2023-02-21)
+
+### Changed
+
+- feat: add widget and swap page
+- feat(mvts-layout): show a message during section preparation
+- feat(popup-notifications): add button to close all notifications
+- feat: move settings to a separate component
+- feat: add number input component
+- perf(mvts-methods): simplify the logic
+- feat(connect-wallet): add information and link to documentation
+- feat(mvts-account-codes): highlight selected code
+- feat(settings): add notification close timeout setting
+- feat(mvts): add blank pages
+
+### Fixed
+
+- fix(dashboard-header): hide balance if the chain is not supported
+- fix(main-page): highlight the company name on a white background
+- fix(connect-wallet): open documentation in a new tab
+- fix(dashboard-layout): don't redirect to homepage during network change
+- fix(popup-notifications): change the logic for closing notifications
+- revert: fix(dashboard-layout): don't redirect to homepage during network change
+- fix(main-page): hide company name on small screens
+- fix(dashboard-header): show loader while requesting balance
+- fix(mvts): remove unnecessary requests to the smart contract
+- fix(drop-down): add modes dropdown menu
+
+### Refactors
+
+- refactor: simplify theme switching logic
+- refactor!: change project structure
+- refactor: shorten import paths
+- refactor!: change feature exports and rename utilities and hooks
+- refactor(notification-hooks): remove repeated code
+- refactor(mvts)!: move logic to features folder
+- refactor(mvts-settings)!: move each command to a separate component
+- refactor(mvts-methods): move inputs to base component
+- refactor: shorten import paths
+- refactor(mvts): improve styles
+- refactor(mvts-pool-codes): simplify the logic
+- refactor(mvts): remove unnecessary getCodeStatus utility
+
+### Chores
+
+- chore: update dependencies
+- chore: bump version to 2.0.0
+
+### Styles
+
+- style: rename mvts utils
+
 ## [1.0.0](https://github.com/quic-pro/quic-dashboard/releases/tag/1.0.0) (2023-02-08)
 
 ### Changed

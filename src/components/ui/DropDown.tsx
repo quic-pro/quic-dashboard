@@ -3,39 +3,47 @@ import {RxCaretDown, RxCaretUp} from 'react-icons/rx';
 
 
 type Props = {
+    mode: 'list' | 'details';
     children: [ReactElement, ReactElement];
 };
 
 
-export default function DropDown({children: [button, content]}: Props) {
+export default function DropDown({mode, children: [button, content]}: Props) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [buttonHasBeenPressed, setButtonHasBeenPressed] = useState(false);
+    const [hasBeenPressed, setHasBeenPressed] = useState(false);
 
     useEffect(() => {
         const onClick = () => {
-            if (isExpanded && !buttonHasBeenPressed) {
+            if (isExpanded && !hasBeenPressed) {
                 setIsExpanded(!isExpanded);
             } else {
-                setButtonHasBeenPressed(false);
+                setHasBeenPressed(false);
             }
         };
 
         window.addEventListener('click', onClick);
         return () => window.removeEventListener('click', onClick);
-    }, [isExpanded, buttonHasBeenPressed]);
+    }, [isExpanded, hasBeenPressed]);
 
-    const handleClick = () => {
+    const handleButtonClick = () => {
         setIsExpanded(!isExpanded);
-        setButtonHasBeenPressed(true);
+        setHasBeenPressed(true);
+    };
+
+    const handleContextClick = () => {
+        if (mode !== 'list') {
+            setHasBeenPressed(true);
+        }
     };
 
     return (
         <div className="flex flex-col">
-            <button onClick={handleClick} className="flex">
+            <button onClick={handleButtonClick} className="flex">
                 {button} {isExpanded ? <RxCaretUp className="text-2xl"/> : <RxCaretDown className="text-2xl"/>}
             </button>
             <div className="relative">
-                <div className="absolute top-2 right-0">
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                <div onClick={handleContextClick} className="absolute top-2 right-0">
                     {isExpanded && content}
                 </div>
             </div>

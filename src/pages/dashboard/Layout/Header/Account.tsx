@@ -25,7 +25,7 @@ export default function Account() {
 
     return (
         <div className="flex flex-row items-center">
-            <DropDown>
+            <DropDown mode="details">
                 <span>{collapseAddress(address)}</span>
                 <AccountInfo/>
             </DropDown>
@@ -34,7 +34,7 @@ export default function Account() {
                 chains.find((chain) => chain.id === currentChain?.id)
                     ? (
                         <>
-                            <DropDown>
+                            <DropDown mode="list">
                                 <span>{currentChain?.name}</span>
                                 <NetworkList/>
                             </DropDown>
@@ -49,7 +49,7 @@ export default function Account() {
                         </>
                     )
                     : (
-                        <DropDown>
+                        <DropDown mode="list">
                             <span className="flex flex-row">
                                 <AiFillWarning className="text-2xl text-yellow-500"/>
                                 Unsupported chain
@@ -59,7 +59,7 @@ export default function Account() {
                     )
             }
             <hr className="w-px h-full bg-black mx-3"/>
-            <DropDown>
+            <DropDown mode="details">
                 <IoMdSettings className="text-2xl"/>
                 <Settings/>
             </DropDown>

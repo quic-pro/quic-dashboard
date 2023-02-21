@@ -23,7 +23,7 @@ export default function CodeSettings({code}: Props) {
     };
 
     return (
-        <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2 mt-2">
+        <div className="flex-1 flex flex-col bg-quicBlueL dark:bg-quicBlueD rounded-lg p-2">
             <div className="mb-2">
                 <button
                     onClick={handleRefresh}

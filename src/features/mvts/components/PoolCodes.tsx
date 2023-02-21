@@ -1,5 +1,6 @@
 import {CodeStatus} from '@mvts/contract-interfaces-js';
 import {ROOT_ROUTER_POOL_SIZE as POOL_SIZE} from '@mvts/contract-interfaces-js/dist/constants';
+import {InputNumber} from 'components/ui/inputs';
 import Loader from 'components/ui/Loader';
 import {ChangeEvent, useState} from 'react';
 import {HiOutlineRefresh} from 'react-icons/hi';
@@ -16,13 +17,13 @@ type ContentProps = {
 };
 
 
+const FILTERS = [CodeStatus.AvailableForMinting, CodeStatus.Active, CodeStatus.Held, CodeStatus.Blocked];
+
+
 export default function PoolCodes({details: Details}: Props) {
     const [selectedCode, setSelectedCode] = useState<number | null>(null);
     const [enteredCode, setEnteredCode] = useState<number | null>(null);
-    const [filterBlocked, setFilterBlocked] = useState(true);
-    const [filterHeld, setFilterHeld] = useState(true);
-    const [filterAvailable, setFilterAvailable] = useState(true);
-    const [filterMinted, setFilterMinted] = useState(true);
+    const [filters, setFilters] = useState<boolean[]>(Array(FILTERS.length).fill(true));
 
     const codeStatuses = useCodeStatuses();
     if (codeStatuses.data == null) {
@@ -35,14 +36,7 @@ export default function PoolCodes({details: Details}: Props) {
     };
 
     const handleCodeSelection = (code: number) => {
-        setSelectedCode(code);
-    };
-
-    const handleResetFilters = () => {
-        setFilterBlocked(true);
-        setFilterHeld(true);
-        setFilterAvailable(true);
-        setFilterMinted(true);
+        setSelectedCode(selectedCode !== code ? code : null);
     };
 
     const handleInputCode = (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,39 +47,30 @@ export default function PoolCodes({details: Details}: Props) {
         const codeInput = event.target.value.replace(/\D/g, '');
         const code = Number(codeInput);
 
-        if ((codeInput.length !== 3) || (code < 0) || (code >= POOL_SIZE) || (codeStatuses.data[code] !== CodeStatus.AvailableForMinting)) {
+        if ((codeInput.length !== 3) || (code < 0) || (code >= POOL_SIZE)) {
             setEnteredCode(null);
         } else {
             setEnteredCode(code);
         }
     };
 
-    const filterCodes = () => {
+    const handleChangeFilter = (filter: CodeStatus) => {
+        filters[filter] = !filters[filter];
+        setFilters([...filters]);
+    };
+
+    const splitCodes = () => {
         if (codeStatuses.data === null) {
             return [];
         }
 
-        const filteredCodes: number[] = [];
-        for (let code = 100; code < POOL_SIZE; ++code) {
-            if (
-                ((codeStatuses.data[code] === CodeStatus.Blocked) && filterBlocked) ||
-                ((codeStatuses.data[code] === CodeStatus.Held) && filterHeld) ||
-                ((codeStatuses.data[code] === CodeStatus.AvailableForMinting) && filterAvailable) ||
-                ((codeStatuses.data[code] === CodeStatus.Active) && filterMinted)
-            ) {
-                filteredCodes.push(code);
-            }
-        }
-
-        return filteredCodes;
-    };
-
-    const splitCodes = () => {
-        const filteredCodes = filterCodes();
-
         const tree: number[][][] = [];
 
-        filteredCodes.forEach((code) => {
+        codeStatuses.data.forEach((codeStatus, code) => {
+            if ((code < 100) || !filters[codeStatus]) {
+                return;
+            }
+
             const a = +code.toString()[0];
             const b = +code.toString()[1];
 
@@ -115,10 +100,9 @@ export default function PoolCodes({details: Details}: Props) {
             </button>
             <div className="flex flex-col">
                 <div>
-                    <span>Input number:</span>
-                    <input
+                    <span>Input code:</span>
+                    <InputNumber
                         className="ml-2 p-1 pl-2"
-                        type="text"
                         placeholder="Number"
                         onChange={handleInputCode}
                     />
@@ -127,58 +111,21 @@ export default function PoolCodes({details: Details}: Props) {
                 {Details && (enteredCode !== null) && <Details code={enteredCode}/>}
             </div>
             <div>
-                <div className="flex flex-row items-start my-3 gap-3">
+                <div className="flex flex-col items-start my-3">
                     Filters:
-                    <div className="flex flex-row gap-3 items-center flex-wrap">
-                        <button
-                            onClick={handleResetFilters}
-                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                                (filterBlocked && filterHeld && filterAvailable && filterMinted
-                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
-                        >
-                            All
-                        </button>
-                        <button
-                            onClick={() => setFilterBlocked(!filterBlocked)}
-                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                                (!filterBlocked
-                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
-                        >
-                            Blocked
-                        </button>
-                        <button
-                            onClick={() => setFilterHeld(!filterHeld)}
-                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                                (!filterHeld
-                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
-                        >
-                            Held
-                        </button>
-                        <button
-                            onClick={() => setFilterAvailable(!filterAvailable)}
-                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                                (!filterAvailable
-                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
-                        >
-                            Available
-                        </button>
-                        <button
-                            onClick={() => setFilterMinted(!filterMinted)}
-                            className={'border rounded-md px-1 h-[30px] w-[75px] text-xs text-quicBlueL-400 dark:text-quicBlueD-400' +
-                                (!filterMinted
-                                    ? 'bg-quicBlueL-200 dark:bg-quicBlueD-200'
-                                    : 'bg-quicBlueL hover:bg-quicBlueL-200 dark:bg-quicBlueD dark:hover:bg-quicBlueD-200')}
-                        >
-                            Minted
-                        </button>
-                    </div>
+                    {FILTERS.map((filter) => (
+                        <div key={filter}>
+                            <input
+                                type="checkbox"
+                                checked={filters[filter]}
+                                onChange={() => handleChangeFilter(filter)}
+                                className="text-quicBlueL-400 dark:text-quicBlueD-400"
+                            />
+                            <span>{CodeStatus[filter]}</span>
+                        </div>
+                    ))}
                 </div>
-                <div
-                    className="flex flex-col gap-3 mt-5">
+                <div className="flex flex-col gap-3 mt-5">
                     {splitCodes().map((codesA, indexA) => {
                         if (codesA.length === 0) {
                             return null;
@@ -208,14 +155,17 @@ export default function PoolCodes({details: Details}: Props) {
                                                 }
 
 
-                                                return <button
-                                                    key={code}
-                                                    disabled={!Details}
-                                                    onClick={() => handleCodeSelection(code)}
-                                                    className={`w-[200px] border rounded-lg h-10 my-2 ml-8 text-quicBlackL-200 dark:quicBlackD-200 ${bgColor}`}
-                                                >{code.toString().padStart(3, '0')}</button>;
+                                                return (
+                                                    <div key={code} className="mt-2 ml-8">
+                                                        <button
+                                                            disabled={!Details}
+                                                            onClick={() => handleCodeSelection(code)}
+                                                            className={`w-48 border rounded-lg h-10 text-quicBlackL-200 dark:quicBlackD-200 ${bgColor}`}
+                                                        >{code.toString().padStart(3, '0')}</button>
+                                                        {Details && (selectedCode === code) && codesB.includes(selectedCode) && <Details code={selectedCode}/>}
+                                                    </div>
+                                                );
                                             })}
-                                            {Details && (selectedCode !== null) && codesB.includes(selectedCode) && <Details code={selectedCode}/>}
                                         </details>
                                     );
                                 })}

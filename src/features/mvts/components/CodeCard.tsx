@@ -2,7 +2,7 @@ import {CodeStatus} from '@mvts/contract-interfaces-js';
 import Loader from 'components/ui/Loader';
 import {HiOutlineRefresh} from 'react-icons/hi';
 
-import {useCodeData, useMintPrice} from '../hooks/useRootRouterData';
+import {useCodeData} from '../hooks/useRootRouterData';
 import {getCodeStatus} from '../utils/сodeStatus';
 import {Mint} from './methods';
 
@@ -14,8 +14,7 @@ type Props = {
 
 export default function CodeCard({code}: Props) {
     const codeData = useCodeData(code);
-    const mintPrice = useMintPrice();
-    if ((codeData.data == null) || (mintPrice.data == null)) {
+    if (codeData.data == null) {
         return <Loader/>;
     }
 

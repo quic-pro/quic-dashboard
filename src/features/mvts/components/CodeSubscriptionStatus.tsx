@@ -2,7 +2,7 @@ import {CodeStatus} from '@mvts/contract-interfaces-js';
 import Loader from 'components/ui/Loader';
 import {HiOutlineRefresh} from 'react-icons/hi';
 
-import {useCodeData, useSubscriptionPrice} from '../hooks/useRootRouterData';
+import {useCodeData} from '../hooks/useRootRouterData';
 import {getCodeStatus} from '../utils/сodeStatus';
 import {RenewSubscription} from './methods';
 
@@ -17,8 +17,7 @@ const METHODS = [RenewSubscription];
 
 export default function CodeSubscriptionStatus({code}: Props) {
     const codeData = useCodeData(code);
-    const subscriptionPrice = useSubscriptionPrice();
-    if ((codeData.data == null) || (subscriptionPrice.data == null)) {
+    if (codeData.data == null) {
         return <Loader/>;
     }
 

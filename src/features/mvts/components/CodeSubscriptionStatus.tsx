@@ -3,7 +3,6 @@ import Loader from 'components/ui/Loader';
 import {HiOutlineRefresh} from 'react-icons/hi';
 
 import {useCodeData} from '../hooks/useRootRouterData';
-import {getCodeStatus} from '../utils/сodeStatus';
 import {RenewSubscription} from './methods';
 
 
@@ -39,7 +38,7 @@ export default function CodeSubscriptionStatus({code}: Props) {
                 </button>
             </div>
             <div>
-                <span>Status: {getCodeStatus(codeData.data.status)}</span>
+                <span>Status: {CodeStatus[codeData.data.status]}</span>
                 {codeData.data.status === CodeStatus.Held && <span>Renew your subscription</span>}
             </div>
             <div>

@@ -3,7 +3,6 @@ import Loader from 'components/ui/Loader';
 import {HiOutlineRefresh} from 'react-icons/hi';
 
 import {useCodeData} from '../hooks/useRootRouterData';
-import {getCodeStatus} from '../utils/сodeStatus';
 import {Mint} from './methods';
 
 
@@ -36,7 +35,7 @@ export default function CodeCard({code}: Props) {
                 </button>
             </div>
             <span>Code: {code}</span>
-            <span>Status: {getCodeStatus(codeData.data.status)}</span>
+            <span>Status: {CodeStatus[codeData.data.status]}</span>
             {
                 codeData.data.status === CodeStatus.AvailableForMinting
                     ? <Mint code={code}/>

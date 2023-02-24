@@ -1,4 +1,5 @@
 import {getActualRootRouter} from '@mvts/resolver-js';
+import {NODE_ENV} from 'constants/environment';
 import {useCallback} from 'react';
 import {useSetRecoilState} from 'recoil';
 import {useNetwork, useSigner, useSwitchNetwork} from 'wagmi';
@@ -29,7 +30,7 @@ export function useUpdateRootRouter(args?: Args) {
                 }
 
                 return signer;
-            })
+            }, NODE_ENV === 'production')
                 .then(setRootRouter)
                 .catch(args?.onError);
         }

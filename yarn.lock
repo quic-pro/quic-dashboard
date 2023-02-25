@@ -2424,10 +2424,10 @@
     "@ethersproject/providers" "^5.7.2"
     ethers "^5.7.2"
 
-"@mvts/resolver-js@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@mvts/resolver-js/-/resolver-js-0.4.0.tgz#b8ba979839912620192397e3a2e1f950e5d0e8d5"
-  integrity sha512-nU7rq2iPwfv5NmRw48FYBrZsk4R/8qURK/+5+ZjwHFjdxhdASplsW27hEhp+x5DoBtWZO+pPqa3An6eedMvIeQ==
+"@mvts/resolver-js@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@mvts/resolver-js/-/resolver-js-0.4.1.tgz#5b3d27b8380d3bff4675d56fb839467a81ab310a"
+  integrity sha512-D6wbAOMc1QrzXql6acrVxORVSQj+BKmGNglXuAnhzqW1t+ETpuZ60upVQyzQtORj6qi/hPh+E8mzrgAZz1Rjbg==
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"

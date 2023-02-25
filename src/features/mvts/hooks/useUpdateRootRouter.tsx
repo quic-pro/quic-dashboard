@@ -30,7 +30,7 @@ export function useUpdateRootRouter(args?: Args) {
                 }
 
                 return signer;
-            }, NODE_ENV === 'production')
+            }, NODE_ENV !== 'production')
                 .then(setRootRouter)
                 .catch(args?.onError);
         }

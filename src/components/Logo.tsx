@@ -12,7 +12,7 @@ export default function Logo({className = '', size = '48px'}: Props) {
     return (
         <Link to="/" className={'flex flex-row items-center ' + className}>
             <img src={logo} alt="Company`s logo" width={size} height={size}/>
-            <span className="ml-2 text-quicBlueL-300 font-bold drop-shadow-lg hidden md:block">QUIC-PRO</span>
+            <span className="ml-2 text-quicBlueL-300 font-bold drop-shadow-lg">QUIC-PRO</span>
         </Link>
     );
 }

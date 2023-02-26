@@ -69,7 +69,7 @@ export default function ConnectorButton({connector, className = '', ...attribute
         <button
             {...attributes}
             onClick={handleClick}
-            className={'flex flex-row flex-1 p-1 border-2 rounded-lg items-center justify-between ' + className}
+            className={'flex flex-row flex-1 p-1 border-2 hover:shadow-lg hover:shadow-gray-400/30 rounded-lg items-center justify-between ' + className}
         >
             <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="40px" width="40px"/>
             <span>{connector.name}</span>

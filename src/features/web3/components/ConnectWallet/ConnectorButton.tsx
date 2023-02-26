@@ -2,7 +2,7 @@ import Loader from 'components/ui/Loader';
 import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useAddNotification';
 import {ButtonHTMLAttributes, useEffect} from 'react';
 import {AiOutlineRight} from 'react-icons/ai';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useAccount, useConnect} from 'wagmi';
 
 import coinbaseWalletIcon from '../../assets/wallet/icons/Coinbase.png';
@@ -39,7 +39,6 @@ function getWalletIconSource(id: string): string | undefined {
 
 export default function ConnectorButton({connector, className = '', ...attributes}: Props) {
     const navigate = useNavigate();
-    const location = useLocation();
     const {connector: currentConnector} = useAccount();
     const {connect, pendingConnector, isLoading, isError, error, isSuccess} = useConnect();
 
@@ -50,11 +49,7 @@ export default function ConnectorButton({connector, className = '', ...attribute
         if (connector !== currentConnector) {
             connect({connector});
         } else {
-            if (location.state?.isRedirected) {
-                navigate(-2);
-            } else {
-                navigate('/dashboard');
-            }
+            navigate('/dashboard/mvts/shop');
         }
     };
 

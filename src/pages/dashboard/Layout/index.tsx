@@ -13,11 +13,7 @@ export default function Layout() {
 
     useEffect(() => {
         if (!isConnected) {
-            navigate('/', {
-                state: {
-                    isRedirected: true,
-                },
-            });
+            navigate('/');
         }
     }, [isConnected, navigate]);
 

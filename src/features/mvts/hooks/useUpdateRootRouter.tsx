@@ -1,3 +1,4 @@
+import {Signer} from '@ethersproject/abstract-signer';
 import {getActualRootRouter} from '@mvts/resolver-js';
 import {NODE_ENV} from 'constants/environment';
 import {useCallback} from 'react';
@@ -21,8 +22,9 @@ export function useUpdateRootRouter(args?: Args) {
     const {switchNetwork} = useSwitchNetwork(args);
 
     return useCallback((switchSignerChain = false) => {
-        if (currentChain && signer && switchNetwork) {
-            getActualRootRouter((chainId) => {
+        const getSignerOrProvider = !(currentChain && signer && switchNetwork)
+            ? undefined
+            : (chainId: number): Signer => {
                 if (switchSignerChain && (currentChain.id !== chainId)) {
                     switchNetwork(chainId);
                 } else {
@@ -30,9 +32,15 @@ export function useUpdateRootRouter(args?: Args) {
                 }
 
                 return signer;
-            }, NODE_ENV !== 'production')
-                .then(setRootRouter)
-                .catch(args?.onError);
-        }
+            };
+
+        getActualRootRouter(getSignerOrProvider, NODE_ENV !== 'production')
+            .then((router) => {
+                setRootRouter(router);
+                if (!getSignerOrProvider) {
+                    args?.onSuccess?.();
+                }
+            })
+            .catch(args?.onError);
     }, [signer, currentChain]);
 }

@@ -13,7 +13,7 @@ export default function Layout() {
 
     useEffect(() => {
         if (!isConnected) {
-            navigate('/');
+            navigate('/authorization');
         }
     }, [isConnected, navigate]);
 

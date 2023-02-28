@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useAccount} from 'wagmi';
 
 import Header from './Header';
@@ -8,12 +8,17 @@ import Sidebar from './Sidebar';
 
 
 export default function Layout() {
+    const location = useLocation();
     const navigate = useNavigate();
     const {isConnected} = useAccount();
 
     useEffect(() => {
         if (!isConnected) {
-            navigate('/authorization');
+            navigate('/authorization', {
+                state: {
+                    redirectTo: location.pathname,
+                },
+            });
         }
     }, [isConnected, navigate]);
 

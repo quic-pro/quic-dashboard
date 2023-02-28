@@ -1,10 +1,11 @@
 import {ConnectWallet} from 'features/web3';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {useAccount} from 'wagmi';
 
 
 export default function AuthorizationPage() {
     const {isConnected} = useAccount();
+    const location = useLocation();
 
     return (
         <div className="container flex-1 flex flex-col justify-center items-center">
@@ -14,7 +15,7 @@ export default function AuthorizationPage() {
                     isConnected
                         ? (
                             <Link
-                                to="/dashboard"
+                                to={location.state?.redirectTo ?? '/dashboard'}
                                 className="mt-4 border rounded-xl p-2 bg-quicBlueL-300 hover:shadow-lg hover:shadow-gray-400/30 text-center"
                             >
                                 Go dashboard

@@ -1,9 +1,8 @@
 import Loader from 'components/ui/Loader';
 import {useAddErrorNotification, useAddSuccessNotification} from 'hooks/useAddNotification';
-import {ButtonHTMLAttributes, useEffect} from 'react';
-import {AiOutlineRight} from 'react-icons/ai';
-import {useNavigate} from 'react-router-dom';
-import {useAccount, useConnect} from 'wagmi';
+import {ButtonHTMLAttributes} from 'react';
+import {GrStatusCriticalSmall} from 'react-icons/gr';
+import {useAccount, useConnect, useDisconnect} from 'wagmi';
 
 import coinbaseWalletIcon from '../../assets/wallet/icons/Coinbase.png';
 import injectedIcon from '../../assets/wallet/icons/Injected.png';
@@ -38,9 +37,14 @@ function getWalletIconSource(id: string): string | undefined {
 
 
 export default function ConnectorButton({connector, className = '', ...attributes}: Props) {
-    const navigate = useNavigate();
     const {connector: currentConnector} = useAccount();
-    const {connect, pendingConnector, isLoading, isError, error, isSuccess} = useConnect();
+    const {connect, pendingConnector, isLoading, error} = useConnect({
+        onError: () => addErrorNotification(`Wallet not connected: ${error?.message ?? 'Unknown error'}.`),
+        onSuccess: () => addSuccessNotification('The wallet is connected. Now you can go to the dashboard.'),
+    });
+    const {disconnect} = useDisconnect({
+        onSuccess: () => connect({connector}),
+    });
 
     const addErrorNotification = useAddErrorNotification();
     const addSuccessNotification = useAddSuccessNotification();
@@ -49,21 +53,9 @@ export default function ConnectorButton({connector, className = '', ...attribute
         if (connector !== currentConnector) {
             connect({connector});
         } else {
-            navigate('/dashboard/mvts/shop');
+            disconnect();
         }
     };
-
-    useEffect(() => {
-        if (isError) {
-            addErrorNotification(`Wallet not connected: ${error?.message ?? 'Unknown error'}.`);
-        }
-    }, [isError]);
-
-    useEffect(() => {
-        if (isSuccess) {
-            addSuccessNotification('The wallet is connected. Now you can go to the dashboard.');
-        }
-    }, [isSuccess]);
 
     return (
         <button
@@ -74,7 +66,7 @@ export default function ConnectorButton({connector, className = '', ...attribute
             <img src={getWalletIconSource(connector.id)} alt={`${connector.name} icon`} height="40px" width="40px"/>
             <span>{connector.name}</span>
             <div className="flex flex-row w-[40px] h-[40px] justify-center items-center">
-                {connector === currentConnector && <AiOutlineRight className="text-2xl"/>}
+                {connector === currentConnector && <GrStatusCriticalSmall className="text-xl text-quicBlueL-300"/>}
                 {isLoading && (connector === pendingConnector) && <Loader/>}
             </div>
         </button>

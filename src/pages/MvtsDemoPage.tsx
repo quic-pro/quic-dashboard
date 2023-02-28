@@ -50,7 +50,7 @@ function CodeTable() {
                     }
 
                     return (
-                        <Link key={code} to="/" className="border rounded-md py-1 m-1 w-16 bg-green-300">
+                        <Link key={code} to="/dashboard/mvts/shop" className="border rounded-md py-1 m-1 w-16 bg-green-300">
                             {code}
                         </Link>
                     );

@@ -27,7 +27,7 @@ export const metaMaskConnector = new MetaMaskConnector({
 export const coinbaseWalletConnector = new CoinbaseWalletConnector({
     chains: [...SUPPORTED_CHAINS],
     options: {
-        appName: 'MVTS',
+        appName: 'QUIC-PRO Dashboard',
     },
 });
 

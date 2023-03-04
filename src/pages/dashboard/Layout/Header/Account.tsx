@@ -29,7 +29,7 @@ export default function Account() {
                 <span>{collapseAddress(address)}</span>
                 <AccountInfo/>
             </DropDown>
-            <hr className="w-px h-full bg-black mx-3"/>
+            <hr className="w-px h-full bg-black mx-2 sm:mx-3"/>
             {
                 chains.find((chain) => chain.id === currentChain?.id)
                     ? (
@@ -58,7 +58,7 @@ export default function Account() {
                         </DropDown>
                     )
             }
-            <hr className="w-px h-full bg-black mx-3"/>
+            <hr className="w-px h-full bg-black mx-2 sm:mx-3"/>
             <DropDown mode="details">
                 <IoMdSettings className="text-2xl"/>
                 <Settings/>

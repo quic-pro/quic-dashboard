@@ -61,7 +61,7 @@ export default function PopupNotification({data}: Props) {
     };
 
     return (
-        <div className="drop-shadow-2xl m-2 border-2 rounded-md bg-slate-50 w-[300px]">
+        <div className="drop-shadow-2xl border-2 rounded-md bg-slate-50 w-[300px]">
             <div className="flex p-2 border-b justify-between">
                 {title}
                 <button onClick={handleClosing}><MdClose/></button>

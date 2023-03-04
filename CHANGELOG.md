@@ -1,5 +1,37 @@
 # Changelog
 
+## [2.1.0](https://github.com/quic-pro/quic-dashboard/releases/tag/2.1.0) (2023-03-04)
+
+### Changed
+
+- feat: add styles to the button to close all notifications
+- feat(mvts): switch resolver mode depending on project build type
+- feat: add main site layout
+- feat(layout-header): add menu
+- feat(layout-header): adapt to small screens
+- feat: add hover effect for buttons
+- feat(mvts-demo): add content
+- feat(layout-header): change the text of the wallet connection button if already connected
+- feat: add authorization page
+- feat: adapt the authorization logic to the new routing
+- feat(authorization-page): redirect to a page that required authorization
+
+### Fixed
+
+- feat(mvts): switch resolver mode depending on project build type
+- fix(mvts-hooks): pass the correct mode to update the root router
+- fix: redirect to mvts shop page
+- fix(web3-connectors): change app name
+- fix(mvts-demo): change the redirect when choosing a code
+- fix(dashboard-layout): reduce header padding on small screens
+
+### Chores
+
+- chore: change REACT_APP_DOMAIN
+- chore: update @mvts/resolver-js version
+- chore: update dependencies
+- chore: bump version to 2.1.0
+
 ## [2.0.0](https://github.com/quic-pro/quic-dashboard/releases/tag/2.0.0) (2023-02-21)
 
 ### Changed

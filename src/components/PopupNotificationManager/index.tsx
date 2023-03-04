@@ -31,8 +31,12 @@ export default function PopupNotificationManager() {
     };
 
     return (
-        <div className="fixed flex-col bottom-0 right-0">
-            {notifications.length > 1 && <button onClick={handleClosingAll}>Close all</button>}
+        <div className="fixed flex-col bottom-0 right-0 p-2">
+            {notifications.length > 1 && (
+                <div className="flex my-1 justify-end">
+                    <button onClick={handleClosingAll} className="border rounded-md px-2 py-1">Close all</button>
+                </div>
+            )}
             {notifications.map((notificationData) => <PopupNotification key={notificationData.id} data={notificationData}/>)}
         </div>
     );
